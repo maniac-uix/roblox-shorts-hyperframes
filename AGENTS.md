@@ -216,6 +216,14 @@ replaces the rule it contradicts, and the replacement must be written here.
   moves such a word's start to the end of the silence before deriving the
   captions (`reanchor_smears` in `build_video.py`, corrections recorded
   in `metadata.json` as `captionReanchoring`). No manual caption fix.
+  The same rule applies to the SYNC CHECK's own tiny timings on the
+  final MP4 (`check-sync.py`, silences from the clean narration — the
+  mix's bed fills the pauses): tiny smeared "Chat" to 25.86 inside the
+  25.47–26.28 pause, failing the sync gate at 0.46 s on a correct
+  caption; after correction the gap is 0.04 s. The rule only moves a
+  word's start to a silence end, so it can only fix smear gaps — it
+  cannot hide a genuinely late caption. Corrections are recorded in the
+  sync report (`timing_corrections`).
 - **Normalize trims and self-verifies (22 Nov 2026):** `normalize-loudness.py`
   appends `atrim` to the video duration after loudnorm+aresample and
   verifies |audio − video| ≤ 0.02 s on the output, raising if exceeded.
