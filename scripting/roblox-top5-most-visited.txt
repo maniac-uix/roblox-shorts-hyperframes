@@ -1,0 +1,26 @@
+# Script — roblox-top5-most-visited (ROBLOX TOP 5)
+
+99 words, 8 sentences, estimated narration ~40 s (target 30–45 s).
+`*word*` marks emphasis for on-screen highlight; stripped before TTS.
+Sources: research/roblox-top5-most-visited.md
+Correction v3 (22 Nov 2026, Amine's review): voice rounding harmonised
+with the on-screen badges — the voice used to say "45 / 65 / 74 billion"
+for 45.5 / 65.6 / 74.5, so a viewer adding the spoken numbers got 310,
+not 311. Now the voice says "about 45 and a half / about 65 and a half /
+about 74 and a half billion": spoken sum 36 + 45.5 + 65.5 + 74.5 + 90 =
+311.5, consistent with "over 311 billion visits" and with the badges
+(36.0B / 45.5B / 65.6B / 74.5B / 89.7B, sum 311.3B).
+
+The five most visited Roblox games ever, counted in November 2026.
+Number five, Grow a Garden, *36 billion* visits, a chill farming game.
+Number four, Adopt Me, about *45 and a half billion* visits, raise pets
+and trade them. Number three, Blox Fruits, about *65 and a half billion*
+visits, eat a fruit, gain a superpower. Number two, Steal a Brainrot,
+about *74 and a half billion* visits, the meme hit of 2025. And number
+one, Brookhaven RP, almost *90 billion* visits, a town with no goals,
+just freedom. Five games, over *311 billion* visits. Which one is yours?
+
+Scenes (7): hook [1] / #5 [2] / #4 [3] / #3 [4] / #2 [5] / #1 [6] /
+conclusion [7-8]
+--scene-breaks 1,2,3,4,5,6
+Images: 0=podium, 1=garden, 2=pets, 3=sea, 4=brainrot, 5=town, 6=town

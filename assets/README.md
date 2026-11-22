@@ -1,0 +1,71 @@
+# assets/
+
+Images, fonts and music. **Rights-cleared only.**
+
+## Rules
+
+- Never assume a resource is freely reusable because it is publicly
+  accessible. Record the licence/credit of every asset here and in the
+  video's `metadata.json`.
+- Preferred sources: official Roblox art (e.g. Roblox Newsroom, with credit
+  "Source: Roblox Newsroom"), images generated in this environment, and
+  royalty-free music with attribution.
+- Never commit gameplay footage you do not have the right to use.
+
+## Contents
+
+- `fonts/Montserrat-Variable.woff2` — Montserrat, SIL Open Font License 1.1,
+  via Google Fonts. The factory display face.
+- `images/` — generated or official art, one folder per video.
+- `music/` — royalty-free tracks only, with a `CREDITS.md` per track
+  (title, author, licence, attribution text for the description).
+
+## Phase 2 asset registry (21 Nov 2026)
+
+All images below are **original illustrations generated in this
+environment** (Muse native image generation, 21 Nov 2026, 1920×1280
+WebP except `reveal.webp` at 1280×1920). No Roblox logos, no copyrighted
+characters, no game footage. Free to use in this project.
+
+### Music
+
+- `music/basic-implosion.mp3` — "Basic Implosion" by Kevin MacLeod,
+  CC BY 3.0, downloaded 21 Nov 2026 from
+  https://incompetech.com/music/royalty-free/mp3-royaltyfree/Basic%20Implosion.mp3
+  (189.5 s, 5.8 MB). Attribution required in every video description:
+  "Music: Basic Implosion by Kevin MacLeod (incompetech.com), CC BY 3.0".
+  Used as the bed for all three Phase 2 videos (volume 0.08, ends at
+  last_speech + 0.3 s).
+
+### roblox-facts-older-than-you-think (teal)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/facts/hero.webp` | 0 hook | Blocky voxel city at sunrise |
+| `images/facts/origin.webp` | 1 fact 01 | Blocky robot stacking toy blocks |
+| `images/facts/scale.webp` | 2 fact 02 | Huge crowd of blocky characters |
+| `images/facts/kids.webp` | 3 fact 03 (v3) | Four diverse voxel kids on a couch with tablets/phones, cozy living room (v3: new scene for the dated 2020 kids claim) |
+| `images/facts/creator.webp` | 4 fact 04 (v3: was scene 3) | Blocky creator at a glowing computer |
+| `images/facts/platform.webp` | 5 payoff (v2, v3: was scene 4) | Three diverse voxel builders on a glowing platform (v2: replaces hero reuse in the payoff) |
+
+### roblox-top5-most-visited (amber)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/top5/podium.webp` | 0 hook (v2) | Golden voxel trophy on a winners podium (v2: replaces town reuse in the hook) |
+| `images/top5/garden.webp` | 1 #5 | Blocky garden, giant vegetables |
+| `images/top5/pets.webp` | 2 #4 | Cute blocky voxel pets |
+| `images/top5/sea.webp` | 3 #3 | Blocky pirate ship, glowing fruit |
+| `images/top5/brainrot.webp` | 4 #2 | Chaotic blocky treasure chase |
+| `images/top5/town.webp` | 5 #1, 6 payoff | Lively blocky town street (bookend: #1 + payoff) |
+
+### roblox-mystery-1x1x1x1 (purple)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/mysteries/shadow.webp` | 0 hook | Dark blocky silhouette in fog |
+| `images/mysteries/book.webp` | 1 setup | Spooky spellbook, green skull emblem |
+| `images/mysteries/glitch.webp` | 2 evidence | Blocky world glitching apart |
+| `images/mysteries/admin.webp` | 3 truth (v3) | Plain grey blank voxel avatar from behind at a dark admin console, glowing code screens, server room (v3: replaces the cute reveal plush, which did not fit the subject) |
+| `images/mysteries/reveal.webp` | — retired in v3 | Blocky character lifting a mask (v1–v2 truth scene; unused from v3) |
+| `images/mysteries/legend.webp` | 4 conclusion (v2) | Foggy ruined arena, lone killer silhouette with green eyes (v2: replaces reveal reuse in the conclusion) |

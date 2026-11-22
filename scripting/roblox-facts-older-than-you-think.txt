@@ -1,0 +1,28 @@
+# Script — roblox-facts-older-than-you-think (ROBLOX FACTS)
+
+94 words, 7 sentences, estimated narration ~37 s (target 30–45 s).
+`*word*` marks emphasis for on-screen highlight; stripped before TTS.
+Sources: research/roblox-facts-older-than-you-think.md
+Correction v2 (22 Nov 2026, Amine's review): the 85M figure is now dated
+in the narration ("As of February 2025") and sourced on screen in its own
+scene ("Source: Roblox Corp. via Wikipedia — Feb 2025").
+Correction v3 (22 Nov 2026, Amine's review): the "half of American kids"
+claim is now dated in the narration ("back in 2020") and sourced on screen
+in its OWN scene ("Source: Roblox Corp. via The Verge — Apr 2020") — the
+v2 source note covered both sentences of scene 02 and wrongly implied it
+covered the kids claim too. Each figure now has its own scene and its own
+source note. Source note restyled brighter (30px, #dbe2f5) — v2's was
+nearly unreadable on phone.
+
+Roblox is older than you think. It started in 2004, under the name
+DynaBlocks, and Roblox itself means robots plus blocks. As of February
+2025, more than *85 million* players log in every single day. And back in
+2020, Roblox said *over half* of American kids under sixteen played it.
+And since 2013, creators can turn their Robux into *real money*, so the
+players build the games, and they get paid for it. So Roblox is not just a
+game. It is a platform built by its own players, one block at a time.
+
+Scenes (6): hook [1] / fact 1 [2] / fact 2 [3] / fact 3 [4] / fact 4 [5] /
+payoff [6-7]
+--scene-breaks 1,2,3,4,5
+Images: 0=hero, 1=origin, 2=scale, 3=kids, 4=creator, 5=platform

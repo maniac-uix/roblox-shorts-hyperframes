@@ -1,0 +1,160 @@
+<!doctype html>
+<!--
+  FORMAT: ROBLOX TOP 5 — Phase 2. Amber accent #F59E0B.
+  Countdown 5 -> 1, one scene per entry with a giant number, the game
+  title, a visits pill overlaid on the image card, and a Ken Burns pan.
+  7 scenes, 10 s base (builder scales + re-times to the narration).
+  Images: data-img-scene="N" — build_video.py --image-map rewrites src.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../../assets/fonts/Montserrat-Variable.woff2") format("woff2"); }
+      :root { --ground: #0b1026; --ground-2: #131a3d; --ink: #ffffff; --muted: #9aa3c7; --accent: #f59e0b; --teal: #2dd4bf; --font-display: "Montserrat", sans-serif; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      #root { width: 100%; height: 100%; position: relative; font-family: var(--font-display); background: linear-gradient(180deg, var(--ground) 0%, var(--ground-2) 62%, #0a0e22 100%); overflow: hidden; }
+      .clip { position: absolute; }
+      .glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; }
+      #glow-a { width: 620px; height: 620px; left: -160px; top: 180px; background: #f59e0b; opacity: 0.32; }
+      #glow-b { width: 560px; height: 560px; right: -180px; top: 980px; background: #7c3aed; }
+      .grid { position: absolute; inset: 0; opacity: 0.14; background-image: linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px); background-size: 108px 108px; }
+      .pill { display: inline-block; padding: 16px 30px; border-radius: 999px; font-weight: 800; font-size: 34px; letter-spacing: 0.12em; color: #231303; background: var(--accent); }
+      h1.title { color: var(--ink); font-weight: 900; font-size: 108px; line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase; text-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 18px 44px rgba(0,0,0,0.55); }
+      h1.title .accent { color: var(--accent); }
+      .rank-num { color: var(--accent); font-weight: 900; font-size: 200px; line-height: 0.9; text-shadow: 0 10px 40px rgba(245,158,11,0.4); }
+      .rank-num.top1 { font-size: 240px; color: #fde047; text-shadow: 0 10px 44px rgba(253,224,71,0.45); }
+      .game-title { color: var(--ink); font-weight: 900; font-size: 84px; line-height: 1.02; letter-spacing: -0.01em; text-transform: uppercase; margin-top: 16px; text-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 16px 40px rgba(0,0,0,0.5); }
+      .subtitle { color: var(--muted); font-weight: 700; font-size: 50px; line-height: 1.25; }
+      .progress-track { width: 840px; height: 10px; border-radius: 99px; background: rgba(255,255,255,0.18); overflow: hidden; }
+      #progress-fill { width: 100%; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), #fde047); transform-origin: left center; }
+      .caption { width: 840px; text-align: center; color: var(--ink); font-weight: 800; font-size: 54px; line-height: 1.3; text-shadow: 0 4px 0 rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.6); }
+      .caption .hl { color: #fde047; }
+      .cta { display: inline-block; padding: 26px 44px; border-radius: 999px; background: var(--accent); color: #231303; font-weight: 900; font-size: 44px; letter-spacing: 0.04em; box-shadow: 0 14px 40px rgba(245,158,11,0.45); }
+      .scene { width: 1080px; height: 1920px; left: 0; top: 0; }
+      .scene-inner { position: absolute; left: 120px; top: 340px; width: 840px; }
+      .img-wrap { position: relative; width: 840px; height: 680px; border-radius: 28px; overflow: hidden; border: 3px solid rgba(255,255,255,0.18); box-shadow: 0 24px 60px rgba(0,0,0,0.5); margin-top: 28px; }
+      .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .visits-pill { position: absolute; left: 24px; bottom: 24px; padding: 14px 26px; border-radius: 999px; background: var(--accent); color: #231303; font-weight: 900; font-size: 38px; letter-spacing: 0.04em; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+      .cta-zone { position: absolute; left: 120px; top: 1760px; width: 840px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="top5" data-start="0" data-duration="10" data-width="1080" data-height="1920">
+      <div class="grid clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div id="glow-a" class="glow clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div id="glow-b" class="glow clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="1" style="left:120px; top:180px;">
+        <span class="pill">ROBLOX TOP 5</span>
+      </div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="1" style="left:120px; top:270px;">
+        <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+      <div class="scene clip" data-start="0" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-0">
+          <h1 id="title-0" class="title">MOST VISITED<br /><span class="accent">GAMES EVER.</span></h1>
+          <p id="sub-0" class="subtitle" style="margin-top:36px;">Counted November 2026.</p>
+          <div class="img-wrap"><img id="img-0" data-img-scene="0" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="1.43" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-1">
+          <div id="num-1" class="rank-num">5</div>
+          <p id="game-1" class="game-title">Grow a Garden</p>
+          <div class="img-wrap"><img id="img-1" data-img-scene="1" src="assets/images/placeholder.webp" alt="" /><span class="visits-pill">36.0B VISITS</span></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="2.86" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-2">
+          <div id="num-2" class="rank-num">4</div>
+          <p id="game-2" class="game-title">Adopt Me!</p>
+          <div class="img-wrap"><img id="img-2" data-img-scene="2" src="assets/images/placeholder.webp" alt="" /><span class="visits-pill">45.5B VISITS</span></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="4.29" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-3">
+          <div id="num-3" class="rank-num">3</div>
+          <p id="game-3" class="game-title">Blox Fruits</p>
+          <div class="img-wrap"><img id="img-3" data-img-scene="3" src="assets/images/placeholder.webp" alt="" /><span class="visits-pill">65.6B VISITS</span></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="5.71" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-4">
+          <div id="num-4" class="rank-num">2</div>
+          <p id="game-4" class="game-title">Steal a Brainrot</p>
+          <div class="img-wrap"><img id="img-4" data-img-scene="4" src="assets/images/placeholder.webp" alt="" /><span class="visits-pill">74.5B VISITS</span></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="7.14" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-5">
+          <div id="num-5" class="rank-num top1">1</div>
+          <p id="game-5" class="game-title">Brookhaven RP</p>
+          <div class="img-wrap"><img id="img-5" data-img-scene="5" src="assets/images/placeholder.webp" alt="" /><span class="visits-pill">89.7B VISITS</span></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="8.57" data-duration="1.43" data-track-index="2">
+        <div class="scene-inner" id="inner-6">
+          <h1 id="title-6" class="title">OVER 311<br />BILLION<br /><span class="accent">VISITS.</span></h1>
+          <p id="sub-6" class="subtitle" style="margin-top:36px;">Which one is yours?</p>
+          <div class="img-wrap"><img id="img-6" data-img-scene="6" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+        <div class="cta-zone"><span id="cta" class="cta">FOLLOW FOR MORE</span></div>
+      </div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="3" style="left:120px; top:1520px;">
+        <p class="caption">Your caption goes here.</p>
+      </div>
+      <audio id="narration" src="../../voiceover/narration.mp3" data-start="0" data-duration="10"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 10, ease: "none" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 10, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 10, ease: "sine.inOut" }, 0);
+      // Hook
+      tl.fromTo("#inner-0", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+      tl.fromTo("#title-0", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.8)" }, 0.1);
+      tl.fromTo("#sub-0", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.3);
+      tl.fromTo("#img-0", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 1.43, ease: "none" }, 0);
+      tl.to("#inner-0", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 1.18);
+      // Entries 5..1 — same pattern per scene (start, dur 1.43)
+      tl.fromTo("#inner-1", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 1.43);
+      tl.fromTo("#num-1", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 1.5);
+      tl.fromTo("#game-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 1.65);
+      tl.fromTo("#img-1", { scale: 1, x: 18 }, { scale: 1.16, x: -18, duration: 1.43, ease: "none" }, 1.43);
+      tl.to("#inner-1", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 2.61);
+      tl.fromTo("#inner-2", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 2.86);
+      tl.fromTo("#num-2", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 2.93);
+      tl.fromTo("#game-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 3.08);
+      tl.fromTo("#img-2", { scale: 1.18, x: 14 }, { scale: 1, x: -14, duration: 1.43, ease: "none" }, 2.86);
+      tl.to("#inner-2", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 4.04);
+      tl.fromTo("#inner-3", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 4.29);
+      tl.fromTo("#num-3", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 4.36);
+      tl.fromTo("#game-3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 4.51);
+      tl.fromTo("#img-3", { scale: 1, x: 18 }, { scale: 1.16, x: -18, duration: 1.43, ease: "none" }, 4.29);
+      tl.to("#inner-3", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 5.47);
+      tl.fromTo("#inner-4", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 5.71);
+      tl.fromTo("#num-4", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 5.78);
+      tl.fromTo("#game-4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 5.93);
+      tl.fromTo("#img-4", { scale: 1.18, x: 14 }, { scale: 1, x: -14, duration: 1.43, ease: "none" }, 5.71);
+      tl.to("#inner-4", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 6.89);
+      tl.fromTo("#inner-5", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 7.14);
+      tl.fromTo("#num-5", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 7.21);
+      tl.fromTo("#game-5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 7.36);
+      tl.fromTo("#img-5", { scale: 1, x: 18 }, { scale: 1.18, x: -18, duration: 1.43, ease: "none" }, 7.14);
+      tl.to("#inner-5", { x: -1080, opacity: 0, duration: 0.25, ease: "power2.in" }, 8.32);
+      // Conclusion (stays on screen to the end: no slide-out)
+      tl.fromTo("#inner-6", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 8.57);
+      tl.fromTo("#title-6", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.8)" }, 8.67);
+      tl.fromTo("#sub-6", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 8.9);
+      tl.fromTo("#img-6", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 1.43, ease: "none" }, 8.57);
+      tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 9.1);
+      tl.to("#cta", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 9.45);
+      window.__timelines["top5"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

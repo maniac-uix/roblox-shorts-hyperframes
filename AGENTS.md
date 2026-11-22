@@ -1,0 +1,237 @@
+# AGENTS.md — ROBLOX VIDEO FACTORY (permanent rules)
+
+These rules outlive any single video. Read them before changing anything in
+this project. The owner (Amine) outranks them; a new instruction from him
+replaces the rule it contradicts, and the replacement must be written here.
+
+## 1. Language
+
+- **Every video is in English** — voice-over, on-screen text, metadata. Never
+  French in a video.
+- Conversation with the owner: French or English, both fine.
+
+## 2. Editorial — Roblox only, facts only
+
+- Content is exclusively about Roblox: Mysteries, Facts, Top 5, Hidden
+  Secrets, Game Discoveries, Updates, Stories.
+- **Never invent information** about games, creators, dates, numbers or
+  features. Every claim comes from a verified public source; the source URL
+  and what it actually says go in `research/` and in the video's
+  `metadata.json`.
+- Two numbers that measure different things (e.g. estimated retail sales vs
+  a bookings forecast) are never compared without labelling both measures.
+- No generic, repetitive content. Every video needs an original hook, a
+  structured narration and a relevant conclusion.
+- Respect usage rights for images, music, brands and gameplay footage. Never
+  assume a resource is freely reusable just because it is publicly
+  accessible. Prefer official art (e.g. Roblox Newsroom) with credit, or
+  images generated in this environment. Record the licence/credit of every
+  asset in `assets/README.md` and in `metadata.json`.
+
+## 3. HyperFrames contract
+
+- Read the installed HyperFrames skills before writing or editing a
+  composition: `/hyperframes` first, then `/hyperframes-cli`. The skill holds
+  the render contract and the work loop; the scaffold `AGENTS.md` in a
+  HyperFrames project says the same.
+- Every timed element: `class="clip"`, `data-start`, `data-duration`.
+- One paused root timeline per composition, registered on
+  `window.__timelines["<data-composition-id>"]`.
+- No `Date.now()`, no unseeded `Math.random()`, no network fetches, no
+  timers, no `repeat: -1`. Everything visible is a function of timeline time.
+- Never tween `display`, `visibility` or `autoAlpha` on a `.clip`; animate a
+  child. No CSS `transform` on an element GSAP transforms.
+- Only the bundled fonts resolve by name; Montserrat is loaded via
+  `@font-face` from `assets/fonts/Montserrat-Variable.woff2` (SIL OFL).
+- Asset paths are `assets/...` (no leading `/`).
+- After every edit: `npx hyperframes check` (fix all errors), then
+  `npx hyperframes snapshot` and **look at the frames yourself** before
+  rendering. A passing check does not show how it looks.
+- Templates live in `templates/`. Never hand-build a named effect,
+  transition or caption style without checking the HyperFrames registry
+  first (`/hyperframes-registry`).
+
+## 4. Visual standards (factory)
+
+- 1080 × 1920, 30 fps, H.264 MP4. Production target 30–45 s (target 35 s)
+  — but the duration of each video is **derived from its narration** (see
+  §5), never forced to hit the target.
+- Base theme: deep navy `#0B1026`, teal `#2DD4BF`, Montserrat. One accent per
+  format (see `config/factory.json` — `style.accentsByFormat`).
+- Key text inside the safe zone: x 120–888, y 288–1248. Captions at the
+  bottom of the band. Only texture/decoration outside it.
+- Titles ≥ 110 px, white with dark outline + shadow, max 2 lines. Subtitles
+  ≥ 70 px, 2–3 words at a time, current word highlighted.
+- Motion in every scene: something draws, pops, travels or parallaxes every
+  1–1.5 s. A zoomed still card is a failure, however clean its typography.
+- A progress bar replaces any "1/5" counter. No black first frame: frame 0
+  is the thumbnail and the hook.
+- Phase 2 layout (all three format templates): pill + progress bar at the
+  top, title, an image card (840 × 680 px, rounded, Ken Burns
+  zoom/pan) that fills the middle band — no empty central area. Captions
+  sit at y1520, below the image zone; CTA zone at y1760. (v3, 22 Nov
+  2026: image enlarged from 440–460 px and captions lowered from y1300
+  after the owner's v2 verdict — images too small with a big dark void
+  below on phone.) The last scene never slides out:
+  the payoff + CTA stay on screen to the end. Scene transitions are
+  slide-in from the right / slide-out to the left on `.scene-inner`.
+- Emphasis: `*word*` in a script marks a word for on-screen highlight
+  (`<span class="hl">` in captions, yellow). The builder strips the
+  asterisks before TTS, so the spoken script is unchanged.
+- Images: original illustrations generated in this environment, or
+  permitted assets with a recorded licence. Every image is registered in
+  `assets/README.md` with source, licence and scene, and in the video's
+  `metadata.json`. `build_video.py --image-map` maps scene index ->
+  image file and rewrites `<img data-img-scene="N">` src to a local copy
+  inside the video folder.
+
+## 5. Audio standards
+
+- Voice-over: built-in Muse TTS only (`/opt/hatch/bin/tts`, voice Helio).
+  No paid TTS, no HeyGen without the owner's explicit approval.
+- Music: royalty-free only, with attribution (e.g. Kevin MacLeod, CC BY).
+  Level −18 dB, ducked under the voice. Phase 2 default bed: "Basic
+  Implosion" by Kevin MacLeod, CC BY 3.0 (see `config/factory.json` —
+  `music`), mixed at volume 0.04 (lowered from 0.08 on 22 Nov 2026: at
+  0.08 the facts draft measured only 3.0 dB voice-above-music, gate
+  requires ≥ 6 dB). The bed ends at last_speech + 0.3 s
+  (0.3 s fade-out) so the end margin stays true silence and the
+  final-silence QC gate still works. With a bed, the mid-silence QC check
+  is blind (the bed fills the gaps) — the voice-above-music gate
+  (`quality-control/check-mix.py`, voice ≥ 6 dB above the bed in every
+  speech window) replaces it. The gate compares, per caption window, the
+  mix (voice+bed) against the bed alone at the same time offset — never
+  speech windows against inter-sentence gaps: gap edges carry voice
+  tails (Whisper timings are ±0.2 s off) and bed transients, so that
+  comparison failed twice on artefacts while the voice was 11+ dB above
+  the bed (fixed 22 Nov 2026).
+- **Duration is derived from the narration, never the reverse** (corrected
+  21 Nov 2026 — Test 001 diagnosis, see `docs/DIAGNOSIS-audio-test1.md`).
+  Build with `rendering/build_video.py`: estimate from word count before
+  generating the voice; if the estimate exceeds the target, **rewrite the
+  script** — never cut audio, never pad a short narration with silence to
+  reach a pre-set video length. After TTS, measure the real duration and
+  the real end of speech, then `video = max(narration + 0.3, last_speech
+  + end_margin)` with end margin 1.0 s (config `durationPolicy`).
+- **Audio container gates (v3.1b, 22 Nov 2026 — blocking, `quality-control/check-av.py`):**
+  audio sample rate **== 48000 Hz exactly** and **|audio duration − video
+  duration| ≤ 0.02 s**, plus the loudness gate (−14 ± 0.5 LUFS, TP ≤ −1).
+  The v3.1 files failed both: loudnorm re-encoded the audio at **96000 Hz**
+  (no explicit sample rate in the chain) and left the audio 0.06–0.10 s
+  longer than the video (AAC padding; the old qc.sh gate was only ±0.1 s).
+  Fix: `aresample=48000` in the normalize chain (now forced there) and
+  trim the audio to the video duration (`atrim`); the video stream is
+  copied untouched and proven byte-identical (raw-stream SHA-256).
+  **−14 LUFS integrated, true peak ≤ −1 dBTP** (two-pass `loudnorm`,
+  `quality-control/normalize-loudness.py`). Normalise with a TP target of
+  −1.5 — loudnorm's dynamic limiter overshoots and the first attempt at
+  TP −1 measured −0.79/−0.83/−0.91. The gate is verified on the DELIVERED
+  file (|integrated +14| ≤ 0.5 LU, TP ≤ −1.0); report LUFS/LRA/TP before
+  and after. A second pass is allowed when the first lands outside the
+  ±0.5 LU tolerance (top5 v3.1 needed one).
+- **Hard gates, learned the hard way:** final audio duration must equal
+  video duration (≤ 0.02 s — v3.1b, see above) — as a *container* check only, never satisfied by
+  padding; the **final silence must sit within [margin − 0.5 s, margin
+  + 0.75 s]** and no mid-narration silence may exceed 1.0 s (`qc.sh`
+  checks both); the voice must sit clearly above the music in every
+  speech window (a global loudness number alone proves nothing — loudness
+  is set by the loudest element, usually the music) — for normalised
+  files the mix gate compares like-for-like with
+  `check-mix.py --bed-gain-db` = the loudness gain, otherwise the
+  normalisation gain inflates the measurement (facts v3.1 read 21.2 dB
+  uncorrected, 10.9 dB corrected); verify the *content* of the
+  narration — transcribe the **final MP4** (audio extracted from the
+  delivered file) with `quality-control/check-narration-fuzzy.py`
+  (Whisper small) and compare with the script. A passing
+  `qc.sh` alone never proves the narration is complete. A rebuild gets a
+  **new filename** — never overwrite the path of a delivered file and
+  re-send it.
+- **Narration comparison is FUZZY, not word-for-word** (v3.1, 22 Nov
+  2026 — strict comparison FAILed on Whisper respellings only:
+  DynaBlocks→"Dynoblocks", Robux→"robots", Brainrot→"brain rot",
+  Shedletsky→"shed letzge", sixteen→"16"). `narration_lexicon.py` +
+  `narration-lexicon.json`: proper-noun lexicon, number forms, difflib
+  ratio ≥ 0.80. **The automatic verdict is authoritative: a FAIL blocks
+  delivery, no manual override.** If a FAIL is a false positive, add the
+  term to the lexicon and re-run. The check also verifies the final
+  sentence is complete and ends before the final silence starts, and
+  lists low-confidence words (< 0.6) with timestamps as a listening aid
+  (transcription ≠ listening — pronunciation still needs human ears).
+- **Caption/voice sync gate ≤ 0.3 s** (v3.1): `quality-control/check-sync.py`
+  compares each caption's appearance timestamps with the Whisper word
+  timestamps of the corresponding words; report max and mean gap. Use
+  **small for word identity, tiny for word timing** — on loudness-normalised
+  mixes, small's word STARTs run 0.3–0.7 s early for sentence-initial words
+  (dynamic gain boosts pre-speech breaths; small stretches the word back
+  over them), tiny's starts match the build transcript within 0.04 s.
+- **Captions are synchronised with the narration by FUZZY alignment**
+  (`quality-control/caption_timing.py`, shared by the builder and
+  `rendering/fix-caption-timing.py`) — NEVER by word count. Count-based
+  slicing drifted whenever Whisper's word count differed from the
+  script's ("Brainrot" heard as "brain rod") and put later captions up to
+  2.08 s before their words (top5/mysteries v3). Caption start = first
+  aligned word's start, end = last aligned word's end. Scenes still start
+  at the previous sentence's end (during the genuine TTS inter-sentence
+  pause); only the caption moves to its first word.
+- **Technical reports per video** (`audit-package/technical-reports/`):
+  ffprobe, sha256, blackframes (pic_th=0.98), silence, volumedetect,
+  loudness before/after, mix per window, narration comparison, caption
+  sync, low-confidence words, frames vs previous version, and a
+  summary.json with PASS/FAIL + measured values per check. **No value may
+  be asserted without a proof file.**
+
+## 6. Cloud limits (non-negotiable)
+
+- **Never use `/tmp` for large temp files** — it is a 512 MB tmpfs and
+  renders fail there. Always render through `rendering/render.sh`, which
+  sets `TMPDIR` and `HYPERFRAMES_EXTRACT_CACHE_DIR` inside the workspace.
+- Check free memory before every render (≥ 500 MB free required); never run
+  two heavy renders at the same time (lock file in `.cache-tmp/`).
+- Always render **draft first**, QC it, then render final. Never deliver a
+  file that did not pass `quality-control/qc.sh`.
+- All project files live in `~/workspace/hyperframes-roblox-shorts/`.
+  Nothing in `/tmp`, nothing on the owner's phone.
+- Do not modify `roblox-url-filter-toggle` — that repository is out of
+  scope for this project.
+
+## 7. Costs
+
+- **Zero paid services.** Nothing that needs payment is connected. Flag any
+  feature that would need payment to the owner *before* integrating it.
+- Google Drive archiving is planned but not connected (checked 21 Nov 2026:
+  `not_connected`). Do not claim a file is archived on Drive until the
+  upload is confirmed.
+
+## 8. Delivery
+
+- Deliver the MP4 + a short summary. No pre-selected choice cards/widgets
+  after a video — just the file and the text.
+- Verify the rendered result yourself (frames at full size and at phone
+  size, centering, charts, font hierarchy, text overlap) before delivering.
+  The owner does not QC each video.
+- No automated production from URLs and no automatic publishing in Phase 1.
+  Both need the owner's explicit go-ahead in a later phase.
+
+## 9. Phase 3 — repository + URL → video pipeline (22 Nov 2026)
+
+- The factory lives in the public repo `maniac-uix/roblox-shorts-hyperframes`
+  (code, configs, templates, scripts, quality-control — text only; MP4s,
+  binaries, caches and audit evidence are git-ignored and fetched or
+  generated locally, see `scripts/fetch-assets.sh`).
+- Pipeline: `pipeline/run.py` — one public Roblox URL + one format in.
+  Research produces `pipeline/<slug>/claims.json` (claim, source URL, date,
+  status: verified / unverified / rephrased) — this IS the research record
+  for Phase 3 videos (`research/` keeps the brief template and the Phase 2
+  briefs). Unverified claims are excluded from the narration. Script:
+  English, 30–45 s estimated. Storyboard: ≥ 4 scenes, ≥ 2 distinct
+  motions, captions exactly the script sentences in order.
+- **Stop point (Step 4): after script + claims.json + storyboard, STOP and
+  wait for the owner's green light before voice and final render.**
+  No voice, no render, no delivery before that green light.
+- The blocking gate is `quality-control/gate.py` (all Phase 3 checks:
+  format, qc.sh, 48 kHz / A/V gap ≤ 0.02 s / loudness, mix ≥ 6 dB, fuzzy
+  narration, sync ≤ 0.3 s, Top 5 sum). A FAIL blocks delivery, no manual
+  override. The music attribution text comes from
+  `pipeline/music-attribution.py` (config `music` entry — never invented).
+- No automatic publishing, ever. The owner listens to the voice before
+  any manual publication.

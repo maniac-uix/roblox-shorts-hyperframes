@@ -1,0 +1,59 @@
+{
+  "slug": "roblox-age-check-explained",
+  "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+  "source_date": "2025-11-18",
+  "format": "facts",
+  "checked_on": "2026-11-22",
+  "claims": [
+    {
+      "claim": "Roblox requires an age check to access chat features; the requirement was announced on 18 November 2025, voluntary from that day, enforced from the first week of December 2025 in Australia, New Zealand and the Netherlands, and extended to the rest of the world in early January 2026.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "The age check is a short video selfie taken in the Roblox app (center your face, turn left and right) or, for users aged 13 and older, government ID verification.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "Facial Age Estimation is processed by Roblox's vendor Persona, and images and video are deleted immediately after processing.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "After the age check, users are placed in one of six age groups: under 9, 9-12, 13-15, 16-17, 18-20, 21+.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "Users can chat with others in their age group and similar age groups; for example, a user with an estimated age of 12 can chat with users aged 15 or younger, and all users aged 16 or older are prevented from initiating or engaging in chat with her.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "Chat in experiences is turned off by default for users under nine years old, unless a parent provides consent after an age check; chat outside of experiences remains restricted for users under 13.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified"
+    },
+    {
+      "claim": "Roblox says it will be the first online gaming or communication platform to require age checks for communication.",
+      "source_url": "https://www.businesswire.com/news/home/20251118402513/en/Roblox-Expands-Facial-Age-Checks-for-Communication-Setting-New-Safety-Standard",
+      "date": "2025-11-18",
+      "status": "verified",
+      "notes": "Roblox's own claim, used only as on-screen text ('A FIRST FOR GAMING'), not as an independent fact."
+    },
+    {
+      "claim": "Some users reported being placed in the wrong age group by the estimation (adults estimated as preteens, teens estimated as under 9).",
+      "source_url": "https://www.notebookcheck.net/Roblox-s-mandatory-facial-recognition-centric-age-verification-rolls-out-as-users-raise-accuracy-concerns.1168739.0.html",
+      "date": "2025-11-18",
+      "status": "unverified",
+      "notes": "Anecdotal user reports cited by Notebookcheck; not confirmed by Roblox. EXCLUDED from narration and on-screen text."
+    }
+  ]
+}

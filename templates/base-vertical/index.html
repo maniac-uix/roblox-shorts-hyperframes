@@ -1,0 +1,121 @@
+<!doctype html>
+<!--
+  BASE-VERTICAL — the factory default template (1080x1920, 30 fps, 10 s).
+  Copy this file per video, then replace the variables below. Do not edit the
+  motion system: only the copy, the accent and the media change per video.
+  Variables: data-var-text on #hook-title / #beat-title / #payoff-title / #cta,
+  and --accent on #root (default teal #2DD4BF; see config/factory.json).
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Montserrat"; font-style: normal; font-weight: 100 900;
+        font-display: swap;
+        src: url("../../assets/fonts/Montserrat-Variable.woff2") format("woff2");
+      }
+      :root {
+        --ground: #0b1026; --ground-2: #131a3d; --ink: #ffffff;
+        --muted: #9aa3c7; --accent: #2dd4bf; --accent-2: #8b5cf6;
+        --amber: #f59e0b; --font-display: "Montserrat", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      #root {
+        width: 100%; height: 100%; position: relative; font-family: var(--font-display);
+        background: linear-gradient(180deg, var(--ground) 0%, var(--ground-2) 62%, #0a0e22 100%);
+        overflow: hidden;
+      }
+      .clip { position: absolute; }
+      .glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55; }
+      #glow-a { width: 620px; height: 620px; left: -160px; top: 180px; background: #14b8a6; }
+      #glow-b { width: 560px; height: 560px; right: -180px; top: 980px; background: #7c3aed; }
+      .grid {
+        position: absolute; inset: 0; opacity: 0.14;
+        background-image: linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px);
+        background-size: 108px 108px;
+      }
+      .pill {
+        display: inline-block; padding: 16px 30px; border-radius: 999px;
+        font-weight: 800; font-size: 34px; letter-spacing: 0.12em;
+        color: #06231f; background: var(--accent);
+      }
+      .pill-outline { color: var(--ink); background: rgba(255,255,255,0.08); border: 3px solid rgba(255,255,255,0.35); }
+      h1.title {
+        color: var(--ink); font-weight: 900; font-size: 118px; line-height: 1.02;
+        letter-spacing: -0.02em; text-transform: uppercase;
+        text-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 18px 44px rgba(0,0,0,0.55);
+      }
+      h1.title .accent { color: var(--accent); }
+      .subtitle { color: var(--muted); font-weight: 700; font-size: 52px; line-height: 1.25; }
+      .progress-track { width: 840px; height: 10px; border-radius: 99px; background: rgba(255,255,255,0.18); overflow: hidden; }
+      #progress-fill { width: 100%; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), #38bdf8); transform-origin: left center; }
+      .caption {
+        width: 840px; text-align: center; color: var(--ink); font-weight: 800;
+        font-size: 54px; line-height: 1.3;
+        text-shadow: 0 4px 0 rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.6);
+      }
+      .caption .hl { color: #fde047; }
+      .cta {
+        display: inline-block; padding: 26px 44px; border-radius: 999px; background: var(--amber);
+        color: #231303; font-weight: 900; font-size: 44px; letter-spacing: 0.04em;
+        box-shadow: 0 14px 40px rgba(245,158,11,0.45);
+      }
+      .scene { width: 1080px; height: 1920px; left: 0; top: 0; }
+      .scene-inner { position: absolute; left: 120px; top: 340px; width: 840px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="base-vertical" data-start="0" data-duration="10" data-width="1080" data-height="1920">
+      <div class="grid clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div id="glow-a" class="glow clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div id="glow-b" class="glow clip" data-start="0" data-duration="10" data-track-index="0"></div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="1" style="left:120px; top:300px;">
+        <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+      <div class="scene clip" data-start="0" data-duration="3.2" data-track-index="2">
+        <div class="scene-inner">
+          <span id="hook-pill" class="pill" data-var-text="format-label">ROBLOX FACTS</span>
+          <h1 id="hook-title" class="title" style="margin-top:44px;" data-var-text="hook-title">YOUR HOOK<br /><span class="accent">HERE</span></h1>
+          <p id="hook-sub" class="subtitle" style="margin-top:36px;" data-var-text="hook-subtitle">One line that makes them stay.</p>
+        </div>
+      </div>
+      <div class="scene clip" data-start="3.2" data-duration="3.4" data-track-index="2">
+        <div class="scene-inner">
+          <h1 id="beat-title" class="title" style="font-size:104px;" data-var-text="beat-title">THE PROOF<br />IN <span class="accent">THREE BEATS.</span></h1>
+          <p id="beat-sub" class="subtitle" style="margin-top:44px;" data-var-text="beat-subtitle">Each beat is one verified fact.</p>
+        </div>
+      </div>
+      <div class="scene clip" data-start="6.6" data-duration="3.4" data-track-index="2">
+        <div class="scene-inner">
+          <h1 id="payoff-title" class="title" style="font-size:104px;" data-var-text="payoff-title">NOW YOU<br /><span class="accent">KNOW.</span></h1>
+          <div style="margin-top:64px;"><span id="cta" class="cta" data-var-text="cta">FOLLOW FOR MORE</span></div>
+        </div>
+      </div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="3" style="left:120px; top:1120px;">
+        <p class="caption" data-var-text="caption">Your caption goes here.</p>
+      </div>
+      <audio id="narration" src="../../voiceover/narration.mp3" data-start="0" data-duration="10"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 10, ease: "none" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 10, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 10, ease: "sine.inOut" }, 0);
+      tl.fromTo("#hook-pill", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.05);
+      tl.fromTo("#hook-title", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 0.25);
+      tl.fromTo("#hook-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.7);
+      tl.fromTo("#beat-title", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 3.25);
+      tl.fromTo("#beat-sub", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.3);
+      tl.fromTo("#payoff-title", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 6.65);
+      tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 7.1);
+      tl.to("#cta", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 7.6);
+      window.__timelines["base-vertical"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

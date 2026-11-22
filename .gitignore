@@ -1,0 +1,30 @@
+# Dependencies / caches / runtime state
+node_modules/
+.cache-tmp/
+.hyperframes/
+__pycache__/
+*.pyc
+
+# Build outputs — never committed (MP4s, compositions, audit evidence)
+*.mp4
+*.mov
+*.webm
+*.mp3
+*.wav
+output/
+videos/
+audit-package/
+phase2-audit-package*.zip
+
+# Binary assets — fetched or generated locally, never stored in git
+# (the GitHub snapshot push accepts UTF-8 text only; see README.md
+# "Installation" and scripts/fetch-assets.sh)
+assets/fonts/*.woff2
+assets/images/
+assets/music/
+
+# Local / secrets
+.env
+*.muse-github-snapshot-sync.json
+*.muse-github-snapshot-sync.json.tmp-*
+.DS_Store

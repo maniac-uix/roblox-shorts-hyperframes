@@ -1,0 +1,20 @@
+# Script — roblox-mystery-1x1x1x1 (ROBLOX MYSTERIES)
+
+105 words, 9 sentences, estimated narration ~43 s (target 30–45 s).
+`*word*` marks emphasis for on-screen highlight; stripped before TTS.
+Sources: research/roblox-mystery-1x1x1x1.md
+
+For years, players believed one username could hack your account,
+destroy your game, and ban you. His name was *1x1x1x1*. The name first
+appeared in 2007, in the description of a spooky Roblox hat called the
+Necrobloxicon. Then exploiters wrecked games and signed their chaos
+with his name, so every crash looked like proof. But in 2011, a Roblox
+admin revealed the truth. 1x1x1x1 was a test account, created by an
+admin named Shedletsky, for a story. He was *never* a hacker. The hacker
+never existed. But the legend did, and today he is back, as a killer in
+the game Forsaken.
+
+Scenes (5): hook [1-2] / setup [3] / evidence [4] / truth [5-7] /
+conclusion [8-9]
+--scene-breaks 2,3,4,7
+Images: 0=shadow, 1=book, 2=glitch, 3=reveal
