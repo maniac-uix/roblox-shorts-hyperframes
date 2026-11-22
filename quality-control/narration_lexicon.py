@@ -12,6 +12,12 @@ Matching order for a script token vs a transcript token:
 Exact first matters: "robots" is both a real script word ("means robots
 plus blocks") and Whisper's rendering of "Robux" — the lexicon maps it to
 "robux", but the exact check still lets the real "robots" match.
+
+Contractions (22 Nov 2026): Whisper merges spoken two-word forms into one
+token ("you are" -> "you're"), which the one-to-one matcher can never
+match. words() therefore expands known contractions to their two words
+before matching, on both sides — the script's "you are" and the
+transcript's "you're" both become ["you", "are"].
 """
 import difflib
 import json
@@ -20,15 +26,45 @@ from pathlib import Path
 
 FUZZY_RATIO = 0.80
 
+CONTRACTIONS = {
+    "aren't": ["are", "not"], "can't": ["can", "not"],
+    "couldn't": ["could", "not"], "didn't": ["did", "not"],
+    "doesn't": ["does", "not"], "don't": ["do", "not"],
+    "hadn't": ["had", "not"], "hasn't": ["has", "not"],
+    "haven't": ["have", "not"], "he's": ["he", "is"],
+    "here's": ["here", "is"], "i'll": ["i", "will"],
+    "i'm": ["i", "am"], "i've": ["i", "have"],
+    "isn't": ["is", "not"], "it's": ["it", "is"],
+    "let's": ["let", "us"], "she's": ["she", "is"],
+    "that's": ["that", "is"], "there's": ["there", "is"],
+    "they're": ["they", "are"], "they've": ["they", "have"],
+    "wasn't": ["was", "not"], "we're": ["we", "are"],
+    "we've": ["we", "have"], "weren't": ["were", "not"],
+    "what's": ["what", "is"], "won't": ["will", "not"],
+    "wouldn't": ["would", "not"], "you'll": ["you", "will"],
+    "you're": ["you", "are"], "you've": ["you", "have"],
+}
+
 _LEX = json.loads((Path(__file__).parent / "narration-lexicon.json").read_text())
 VARIANTS = _LEX["variants"]
 PHRASES = _LEX["phrases"]
 NUMBERS = _LEX["numbers"]
+# Words whose pronunciation the voice may blur. They are NEVER legitimised
+# through a variant: if Whisper does not hear one EXACTLY, the word is not
+# counted as validated — check-narration-fuzzy.py puts it on the listen
+# list (heard form + timestamp) and the narration check FAILs on it.
+PRONUNCIATION_SENSITIVE = _LEX.get("pronunciation_sensitive", [])
 
 
 def words(text: str) -> list:
-    """Lower-cased word tokens; asterisks (emphasis marks) stripped."""
-    return re.findall(r"[a-z0-9']+", text.lower().replace("*", " "))
+    """Lower-cased word tokens; asterisks (emphasis marks) stripped.
+    Known contractions are expanded to their two words ("you're" ->
+    ["you", "are"]) so a Whisper contraction matches the script's
+    two-word form."""
+    out = []
+    for tok in re.findall(r"[a-z0-9']+", text.lower().replace("*", " ")):
+        out.extend(CONTRACTIONS.get(tok, [tok]))
+    return out
 
 
 def _merge_phrases(tokens: list) -> list:

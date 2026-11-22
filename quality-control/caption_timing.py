@@ -12,11 +12,55 @@ v3: captions appeared up to 2.08 s before the words they show). See
 quality-control/check-sync.py (gate: max |start gap| <= 0.3 s).
 """
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from narration_lexicon import align, canonical_spans, canonical_spans_from_words
+
+
+def silence_intervals(audio_path, min_duration: float = 0.3) -> list:
+    """[(start, end)] of silences >= min_duration s in the audio file
+    (silencedetect -40 dB, same threshold as the narration checks)."""
+    r = subprocess.run(["ffmpeg", "-v", "info", "-i", str(audio_path),
+                        "-af", f"silencedetect=noise=-40dB:d={min_duration}",
+                        "-f", "null", "-"], text=True, capture_output=True)
+    starts = [float(x) for x in re.findall(r"silence_start: ([0-9.]+)", r.stderr)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", r.stderr)]
+    return [(s, e) for s, e in zip(starts, ends) if e - s >= min_duration]
+
+
+def reanchor_smears(wlist: list, audio_path) -> tuple:
+    """Move the start of any Whisper word whose timestamp was smeared back
+    across a pause to the end of that silence. Returns (corrected wlist,
+    corrections). Two smear shapes, same cause — Whisper stretches a
+    sentence-initial word back over the preceding pause (22 Nov 2026:
+    tiny timed "So" at 28.76 while the real pause ran 28.82-29.40, and
+    "Chat" at 25.86 inside the 25.47-26.28 pause):
+      (a) the silence lies fully inside the word's span;
+      (b) the word's start lies inside the silence.
+    In both cases no speech happens inside the silence, so the word
+    cannot start there. A word that merely ends at a silence boundary
+    ("them." ends 25.48, silence starts 25.47) is untouched: its start
+    is outside the silence and the silence is not inside its span.
+    Shared by the builder (captions) and the sync check (verification)."""
+    silences = silence_intervals(audio_path)
+    corrections = []
+    for w in wlist:
+        for s0, s1 in silences:
+            inside = w["start"] <= s0 and s1 <= w["end"]
+            starts_in = s0 <= w["start"] < s1 <= w["end"]
+            if inside or starts_in:
+                old = w["start"]
+                w["start"] = round(s1, 2)
+                if w["start"] >= w["end"]:
+                    w["end"] = round(w["start"] + 0.1, 2)
+                corrections.append({"word": w["word"], "old_start": old,
+                                    "new_start": w["start"],
+                                    "silence": [s0, s1]})
+                break
+    return wlist, corrections
 
 
 def script_sentences(clean_script: str) -> list:

@@ -69,3 +69,16 @@ characters, no game footage. Free to use in this project.
 | `images/mysteries/admin.webp` | 3 truth (v3) | Plain grey blank voxel avatar from behind at a dark admin console, glowing code screens, server room (v3: replaces the cute reveal plush, which did not fit the subject) |
 | `images/mysteries/reveal.webp` | — retired in v3 | Blocky character lifting a mask (v1–v2 truth scene; unused from v3) |
 | `images/mysteries/legend.webp` | 4 conclusion (v2) | Foggy ruined arena, lone killer silhouette with green eyes (v2: replaces reveal reuse in the conclusion) |
+
+### roblox-age-check-explained (teal, Phase 3 test video)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/roblox-age-check-explained/gate.webp` | 0 hook | Voxel avatar before a glowing teal ID-check gate, phone with face-scan frame |
+| `images/roblox-age-check-explained/calendar.webp` | 1 date | Voxel calendar "NOV 2025" (bold, correct), red-white tilt block mark; grid digits are decorative noise, one day highlighted arbitrarily |
+| `images/roblox-age-check-explained/phone-scan.webp` | 2 check | Phone with voxel face in a glowing scan frame, scan line, ID card beside it |
+| `images/roblox-age-check-explained/shield.webp` | 3 privacy | Teal shield with checkmark, video frame dissolving into particles |
+| `images/roblox-age-check-explained/bands.webp` | 4 groups | Six age bands U9 / 9-12 / 13-15 / 16-17 / 18-20 / 21+, 9-12 highlighted teal, chat bubble toward 13-15 — content shifted +150 px right (flat navy fill, invisible) because the generator placed the "18-20" label ~45 px further left than the others and the card crop cut its "1" ("8-20" on draft v2); original kept as `bands-original.webp` |
+| `images/roblox-age-check-explained/bands-original.webp` | — unshifted copy | Original bands image before the +150 px shift (kept for reference) |
+| `images/roblox-age-check-explained/bands-closeup.webp` | 4 groups, 2nd shot at 21.34 s | Voxel kid with a chat bubble reaching the teal "15" badge, red barrier with "16" behind it (scene 4 lasts 10.90 s > 8 s, so the image changes at sentence 6) |
+| `images/roblox-age-check-explained/lock.webp` | 5 under-9 | Locked chat bubble with padlock, parent shield with checkmark, tilt block mark behind |

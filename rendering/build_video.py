@@ -5,13 +5,21 @@ THE FIX for Test 001 (21 Nov 2026): the video duration is DERIVED from the
 narration, never the reverse. Steps:
 
 1. Estimate the narration duration from the word count (words / 2.43 w/s).
-   If the estimate exceeds --target-max, REFUSE and exit 3: rewrite the
-   script before generating the voice. Never cut audio to fit a template.
+   The estimate is a WARNING only (22 Nov 2026, owner's correction):
+   measured speech rate varies 2.07-3.32 wps across videos, so a word
+   count can never validate the duration. The hard validation is on the
+   MEASURED narration, after the voice (step 2b).
 2. Generate the voice (voiceover/generate-voice.sh) and measure the real
    duration + real end of speech (silencedetect, in <output>.meta.json).
+2b. REFUSE if the measured video duration is outside --target-min/max:
+   rewrite the script, never cut audio.
 3. video_duration = max(narration + 0.3, last_speech_end + end_margin).
 4. Transcribe the narration (local Whisper tiny) for real sentence timings;
    fall back to proportional word-count timing, labelled as estimated.
+4b. AUTOMATED RE-ANCHORING: a Whisper word whose span contains a silence
+   >= 0.3 s was stretched across a pause — its start moves to the end of
+   that silence before the captions are derived (replaces the manual
+   28.76 -> 29.38 s fix of the "So" caption, 22 Nov 2026).
 5. Scale a 10 s template composition to video_duration (all data-start /
    data-duration clips and all GSAP times scale by the same factor), align
    each scene's window AND its GSAP tweens to the sentences it actually
@@ -35,6 +43,13 @@ Images: --image-map '{"0": "assets/images/facts/hero.webp", ...}' maps
 scene index -> project-relative image file. Images are copied into
 videos/<slug>/assets/images/ and every <img data-img-scene="N"> src is
 rewritten to the local copy.
+
+Source notes: --source-notes '{"1": "Source: Roblox announcement — Nov 18, 2025"}'
+maps scene index -> the on-screen source note. Notes come ONLY from
+claims.json (validated by pipeline/run.py); the build FAILS if the
+template already contains a hardcoded source note (Phase 2 facts had
+two — "Feb 2025" and "Apr 2020" — which leaked into the age-check video
+as false attributions on the wrong scenes).
 
 Music: --music (default: config music.track when enabled) mixes a
 royalty-free bed under the narration at low volume. The bed ends shortly
@@ -81,6 +96,10 @@ def caption_html(marked_text: str) -> str:
     return f"<b>{first}</b> {rest}" if rest else f"<b>{first}</b>"
 
 
+# silence_intervals / reanchor_smears live in quality-control/caption_timing.py
+# (shared by the builder and the sync check); imported in main() below.
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
@@ -96,6 +115,20 @@ def main() -> int:
     ap.add_argument("--image-map", default=None,
                     help='JSON mapping scene index to project-relative image '
                          'path, e.g. \'{"0": "assets/images/facts/hero.webp"}\'')
+    ap.add_argument("--heads", default=None,
+                    help='JSON mapping element id to inner HTML for the '
+                         'scene heads, e.g. \'{"title-0": "PROVE YOUR AGE'
+                         '<br /><span class=\\"accent\\">TO CHAT.</span>", '
+                         '"head-1": "NOV 2025", "sub-5": ""}\'. Without it '
+                         'the template\'s hardcoded heads stay (stale '
+                         'content from the previous video on that template).')
+    ap.add_argument("--source-notes", default=None,
+                    help='JSON mapping scene index to the on-screen source '
+                         'note, e.g. \'{"1": "Source: Roblox announcement '
+                         '— Nov 18, 2025"}\'. Notes come ONLY from '
+                         'claims.json (validated by pipeline/run.py); the '
+                         'build FAILS if the template already contains a '
+                         'hardcoded source note.')
     ap.add_argument("--music", default=None,
                     help='Royalty-free music bed (project-relative path). '
                          'Default: config music.track when enabled. '
@@ -124,6 +157,22 @@ def main() -> int:
         print(f"WARNING: music bed not found: {music_path} — building voice-only")
         music_path = None
 
+    # 0. Source-note guard — fail FAST, before generating the voice.
+    # Source notes come ONLY from claims.json (--source-notes). A template
+    # that still carries a hardcoded note (Phase 2 facts had two: "Feb
+    # 2025" and "Apr 2020", which leaked into the age-check video as false
+    # attributions on the wrong scenes) FAILS the build instead of
+    # rendering a wrong attribution.
+    template_path = PROJECT_DIR / args.template
+    hardcoded = [h.strip() for h in re.findall(
+        r'<p[^>]*class="[^"]*source-note[^"]*"[^>]*>(.*?)</p>',
+        template_path.read_text(), re.DOTALL) if h.strip()]
+    if hardcoded:
+        print(f"REFUSED: the template contains hardcoded source note(s): "
+              f"{hardcoded} — source notes come only from claims.json "
+              f"(--source-notes); remove them from the template.")
+        return 1
+
     # Emphasis markers (*word*) are for captions only — strip before TTS.
     clean_script = args.script.replace("*", "")
     marked_sentences = [s.strip() for s in
@@ -134,15 +183,14 @@ def main() -> int:
     estimate = n_words / wps_est
     print(f"script: {n_words} words | estimated narration: {estimate:.1f} s "
           f"(target {args.target_min:.0f}-{args.target_max:.0f} s)")
-    if estimate > args.target_max:
-        print(f"REFUSED: estimated narration {estimate:.1f} s exceeds target max "
-              f"{args.target_max:.0f} s. Rewrite the script shorter BEFORE "
-              f"generating the voice — audio is never cut to fit a template.")
-        return 3
-    if estimate < args.target_min:
-        print(f"NOTE: estimated narration {estimate:.1f} s is below target min "
-              f"{args.target_min:.0f} s — the video will be shorter than the "
-              f"target. Duration is derived from the narration, not forced.")
+    # The word-count estimate is a WARNING only (22 Nov 2026, owner's
+    # correction): measured speech rate varies 2.07-3.32 wps across videos,
+    # so an estimate can never validate the duration. The hard validation
+    # is on the MEASURED narration, after the voice (step 2b below).
+    if estimate > args.target_max or estimate < args.target_min:
+        print(f"WARNING: estimated narration {estimate:.1f} s is outside the "
+              f"target {args.target_min:.0f}-{args.target_max:.0f} s — "
+              f"estimate only, the measured duration decides (step 2b).")
 
     out_dir = PROJECT_DIR / "videos" / args.slug
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -165,9 +213,19 @@ def main() -> int:
     print(f"video duration = max({dur:.2f}+{floor_extra}, {last_speech:.2f}+{end_margin}) "
           f"= {video_duration:.2f} s (end margin {end_margin} s)")
 
+    # 3b. Hard duration validation on the MEASURED narration (22 Nov 2026,
+    # owner's correction): a script that speaks too short or too long is
+    # rewritten and rebuilt — audio is never cut to fit a target.
+    if not (args.target_min <= video_duration <= args.target_max):
+        print(f"REFUSED: measured video duration {video_duration:.2f} s is "
+              f"outside the target {args.target_min:.0f}-{args.target_max:.0f} s. "
+              f"Rewrite the script and rebuild — audio is never cut.")
+        return 3
+
     # 4. Real sentence timings from Whisper; fallback = proportional.
     transcript_path = out_dir / "transcript.json"
     captions, captions_source = [], "estimated"
+    timing_corrections = []
     if VENV_PY.exists():
         r = subprocess.run(
             [str(VENV_PY), str(PROJECT_DIR / "quality-control" / "transcribe.py"),
@@ -193,9 +251,22 @@ def main() -> int:
             # mysteries v3: captions appeared up to 2.08 s before the words
             # they show). See quality-control/check-sync.py.
             sys.path.insert(0, str(PROJECT_DIR / "quality-control"))
-            from caption_timing import corrected_captions, script_sentences as split_sentences
+            from caption_timing import (corrected_captions, reanchor_smears,
+                                        script_sentences as split_sentences)
             sentences = split_sentences(clean_script)
             wlist = t["words"]
+            # 4b. Automated re-anchoring: a Whisper word stretched across a
+            # pause gets its start moved to the end of the silence, before
+            # the captions are derived from the word list.
+            wlist, timing_corrections = reanchor_smears(wlist, narration)
+            if timing_corrections:
+                t["words"] = wlist
+                t["_timing_corrections"] = timing_corrections
+                transcript_path.write_text(json.dumps(t, indent=1))
+                for c in timing_corrections:
+                    print(f"  re-anchored {c['word']!r}: {c['old_start']:.2f} -> "
+                          f"{c['new_start']:.2f} s (silence "
+                          f"{c['silence'][0]:.2f}-{c['silence'][1]:.2f} s)")
             timings = corrected_captions(clean_script, wlist)
             for k, s in enumerate(sentences):
                 marked = marked_sentences[k] if k < len(marked_sentences) else s
@@ -231,7 +302,6 @@ def main() -> int:
         print("captions: proportional timing (ESTIMATED, no Whisper)")
 
     # 5. Scale the template composition.
-    template_path = PROJECT_DIR / args.template
     html = template_path.read_text()
     m_root = re.search(r'data-duration="([0-9.]+)"', html)
     template_duration = float(m_root.group(1)) if m_root else 10.0
@@ -303,6 +373,25 @@ def main() -> int:
                     if m.group(1) not in copied_images]
         if unmapped:
             print(f"WARNING: scenes without an image (placeholder kept): {unmapped}")
+    # 5c4. Heads: --heads maps element id -> inner HTML (scene titles,
+    # fact heads, conclusion subtitle). The template's hardcoded heads
+    # belong to the previous video built on that template; without this
+    # the on-screen text contradicts the narration.
+    heads = {}
+    if args.heads:
+        heads = json.loads(args.heads)
+        for el_id, inner in heads.items():
+            pat = re.compile(
+                r'(<(?:h1|p)[^>]*\bid="' + re.escape(el_id) + r'"[^>]*>)'
+                r'(.*?)'
+                r'(</(?:h1|p)>)', re.DOTALL)
+            html, n_sub = pat.subn(
+                lambda m, inner=inner: m.group(1) + inner + m.group(3),
+                html, count=1)
+            if n_sub:
+                print(f"head {el_id}: set")
+            else:
+                print(f"WARNING: head element not found in template: {el_id}")
     # 5d. Audio source (relative to the composition folder).
     html = re.sub(r'(<audio[^>]*src=")[^"]*(")',
                   r'\1narration-mix.mp3\2', html)
@@ -432,6 +521,33 @@ def main() -> int:
             print(f"  scene {k + 1}: {s:.2f}-{e:.2f} s "
                   f"(sentences: {' | '.join(c['text'][:28] for c in groups[k])})")
 
+        # 5e2. Source notes (--source-notes): injected ONLY from claims.json.
+        # Inserted into the scene's inner div (after the image card) so the
+        # note slides with its scene; the fade-in tween is appended in
+        # final (post-alignment) time, 0.6 s after the scene starts.
+        if args.source_notes:
+            notes = json.loads(args.source_notes)
+            for k_str, text in notes.items():
+                k = int(k_str)
+                pat = re.compile(
+                    r'(<div class="scene-inner" id="inner-' + str(k) + r'">'
+                    r'.*?<div class="img-wrap">.*?</div>)', re.DOTALL)
+                note_html = (f'\n          <p id="source-{k}" class="source-note" '
+                             f'style="opacity:0;">{text}</p>')
+                html, n_sub = pat.subn(lambda m: m.group(1) + note_html,
+                                       html, count=1)
+                if not n_sub:
+                    print(f"WARNING: scene {k} has no image card — source "
+                          f"note not injected: {text!r}")
+                    continue
+                pos = new_bounds[k][0] + 0.6
+                tween = (f'      tl.fromTo("#source-{k}", {{ opacity: 0 }}, '
+                         f'{{ opacity: 1, duration: 0.4, ease: "none" }}, '
+                         f'{fmt(pos)});\n')
+                html = html.replace("      window.__timelines[",
+                                    tween + "      window.__timelines[", 1)
+                print(f"source note scene {k}: {text!r} (fades in at {pos:.2f} s)")
+
     comp_path = out_dir / "index.html"
     comp_path.write_text(html)
 
@@ -478,7 +594,11 @@ def main() -> int:
         "addedSilenceSeconds": added_silence,
         "captions": captions,
         "captionsSource": captions_source,
+        "captionReanchoring": timing_corrections,
         "images": copied_images,
+        "heads": heads,
+        "sourceNotes": (json.loads(args.source_notes)
+                        if args.source_notes else {}),
         "music": ({
             "track": str(music_path.relative_to(PROJECT_DIR)),
             "volume": music_volume,

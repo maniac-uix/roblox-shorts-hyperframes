@@ -179,6 +179,47 @@ replaces the rule it contradicts, and the replacement must be written here.
   sync, low-confidence words, frames vs previous version, and a
   summary.json with PASS/FAIL + measured values per check. **No value may
   be asserted without a proof file.**
+- **Reports are technical only (22 Nov 2026, owner's correction):** a
+  report states measured facts, results and limits — never the history of
+  the conversation (no back-and-forth, no blockage saga, no who-asked-what).
+  One phase = one report file; the report is written once, complete, and
+  amended only when the measured state actually changes.
+- **Source notes come only from claims.json (22 Nov 2026, owner's
+  correction — the age-check test video shipped with false attributions):**
+  Phase 2 `facts.html` carried two hardcoded notes ("Roblox Corp. via
+  Wikipedia — Feb 2025" and "via The Verge — Apr 2020") that the builder
+  rendered on the wrong scenes of a video whose only source was the Roblox
+  Nov 18, 2025 announcement. `pipeline/run.py` validates
+  `pipeline/<slug>/source-notes.json`: every note must cite a verified
+  claim (its date rendered "Mon D, YYYY" or its source domain) and passes
+  it to the builder as `--source-notes`; `build_video.py` injects the note
+  into its scene and **FAILS the build if the template contains any
+  hardcoded source note** (checked before the voice is generated).
+- **Pronunciation-sensitive words are never legitimised by variants
+  (22 Nov 2026, owner's correction):** adding "sucky"/"study" as valid
+  variants of "selfie" made the narration gate pass while small heard
+  "sucky" (prob 0.86), base "study" (0.20) and tiny "set" (0.07) — the
+  TTS voice itself is unclear on that word. The lexicon's
+  `pronunciation_sensitive` list marks such words; a sensitive word not
+  heard EXACTLY is missing → the narration check FAILs, no override, and
+  the word is recorded in the gate report's `listen_words` (heard form +
+  timestamp + prob) for the owner to judge by ear.
+- **Duration is validated on the MEASURED narration (22 Nov 2026,
+  owner's correction):** measured speech rate varies 2.07–3.32 wps across
+  videos, so the word-count estimate (44.0 s estimated vs 31.6 s measured
+  on the age-check video) is a WARNING only. The builder REFUSEs when the
+  measured video duration is outside 30–45 s — rewrite the script, never
+  cut audio.
+- **Caption re-anchoring is automated (22 Nov 2026):** a Whisper word
+  whose span contains a silence ≥ 0.3 s was stretched back across a pause
+  ("So" timed 28.76 while the real pause ran 28.82–29.40) — the builder
+  moves such a word's start to the end of the silence before deriving the
+  captions (`reanchor_smears` in `build_video.py`, corrections recorded
+  in `metadata.json` as `captionReanchoring`). No manual caption fix.
+- **Normalize trims and self-verifies (22 Nov 2026):** `normalize-loudness.py`
+  appends `atrim` to the video duration after loudnorm+aresample and
+  verifies |audio − video| ≤ 0.02 s on the output, raising if exceeded.
+  No manual trim step exists anywhere in the pipeline.
 
 ## 6. Cloud limits (non-negotiable)
 

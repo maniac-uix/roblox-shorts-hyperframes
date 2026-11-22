@@ -20,6 +20,13 @@ Usage:
 
 loudnorm prints its JSON to stderr with a log prefix on every line, so the
 parser extracts the first {...} block instead of parsing raw stderr.
+
+Audio trim (22 Nov 2026, owner's correction): the AAC encoder pads the
+audio by ~0.1 s, so a normalized file used to come out with audio longer
+than video (32.30 s vs 32.20 s) and needed a manual `atrim` afterwards.
+normalize() now trims the audio to the video duration itself
+(`atrim=0:<video_duration>` after loudnorm + aresample) and verifies the
+container durations match within 0.02 s — no manual step.
 """
 import argparse
 import json
@@ -70,21 +77,42 @@ def measure(mp4: Path) -> dict:
     }
 
 
+def stream_durations(mp4: Path) -> tuple:
+    """(video duration, audio duration) in seconds, from the container."""
+    out = {}
+    for kind in ("v", "a"):
+        r = run(["ffprobe", "-v", "error", "-select_streams", f"{kind}:0",
+                 "-show_entries", "stream=duration", "-of", "csv=p=0", str(mp4)])
+        out[kind] = float(r.stdout.strip())
+    return out["v"], out["a"]
+
+
 def normalize(in_mp4: Path, out_mp4: Path) -> dict:
     before = measure(in_mp4)
+    vdur, _adur = stream_durations(in_mp4)
     print(f"  before: {before['input_i']} LUFS | TP {before['input_tp']} dBTP | "
-          f"LRA {before['input_lra']} LU | linear={before['linear']}", flush=True)
+          f"LRA {before['input_lra']} LU | linear={before['linear']} | "
+          f"video {vdur:.3f} s", flush=True)
     measured = (f"measured_I={before['input_i']}:measured_TP={before['input_tp']}:"
                 f"measured_LRA={before['input_lra']}:measured_thresh={before['input_thresh']}:"
                 f"offset={before['target_offset']}:linear={str(before['linear']).lower()}")
     r = run(["ffmpeg", "-y", "-v", "error", "-i", str(in_mp4),
              "-map", "0:v", "-map", "0:a",
              "-c:v", "copy",
-             "-af", f"loudnorm=I={TARGET_I}:TP={NORMALIZE_TP}:LRA={TARGET_LRA}:{measured},aresample=48000",
+             "-af", f"loudnorm=I={TARGET_I}:TP={NORMALIZE_TP}:LRA={TARGET_LRA}:{measured},aresample=48000,atrim=0:{vdur:.3f}",
              "-c:a", "aac", "-b:a", "192k", "-ac", "2",
              "-movflags", "+faststart", str(out_mp4)])
     if r.returncode != 0:
         raise RuntimeError(f"loudnorm normalize failed on {in_mp4}:\n{r.stderr[-1500:]}")
+    # Verify the trim worked: the AAC encoder pads ~0.1 s, the atrim must
+    # have cut it back to the video duration (gate: |audio - video| <= 0.02 s).
+    v_out, a_out = stream_durations(out_mp4)
+    gap = abs(a_out - v_out)
+    print(f"  durations after trim: video {v_out:.3f} s, audio {a_out:.3f} s "
+          f"(gap {gap:.3f} s, gate <= 0.02 s)", flush=True)
+    if gap > 0.02:
+        raise RuntimeError(f"audio/video gap {gap:.3f} s after normalize+trim "
+                           f"exceeds the 0.02 s gate on {out_mp4}")
     after = measure(out_mp4)
     print(f"  after:  {after['input_i']} LUFS | TP {after['input_tp']} dBTP | "
           f"LRA {after['input_lra']} LU | linear={after['linear']}", flush=True)

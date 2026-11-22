@@ -21,6 +21,13 @@ Also verifies the last sentence is complete and ends before the final
 silence starts, and lists low-confidence words (prob < 0.6) with
 timestamps as a listening aid.
 
+Pronunciation-sensitive words (narration-lexicon.json
+"pronunciation_sensitive"): only an EXACT hearing counts as validated.
+Anything else goes on the report's "listen_words" list (heard form +
+timestamp) and the word counts as missing — the check FAILs on it.
+The gate never passes a word it cannot confirm; the owner listens and
+decides.
+
 Usage:
   check-narration-fuzzy.py --mp4 <final.mp4> --script "<text>"
       [--model small] [--output report.json] [--low-confidence 0.6]
@@ -34,7 +41,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from narration_lexicon import (NUMBERS, PHRASES, VARIANTS, align,  # noqa: E402
-                               canonical_tokens, words)
+                               canonical_spans, canonical_tokens, words,
+                               PRONUNCIATION_SENSITIVE)
 from transcribe import decode_to_pcm  # noqa: E402
 
 DEFAULT_MODEL = "small"
@@ -110,6 +118,44 @@ def main():
     fuzzy = [r for r in results if r["status"] == "match" and r["method"] == "fuzzy"]
     lexicon = [r for r in results if r["status"] == "match" and r["method"] == "lexicon"]
 
+    # Pronunciation-sensitive words: only an EXACT hearing validates.
+    # Anything else (missing, or matched via lexicon/fuzzy) is NOT counted
+    # as validated — it goes on the listen list with the heard form and
+    # its timestamp, and stays in `missing`, so the verdict FAILs.
+    # Timestamp mapping: result t_idx indexes the transcript's canonical
+    # tokens; canonical_spans(text) maps each back to its raw-word span,
+    # and wlist runs in the same order as words(text) except where a
+    # contraction expanded to two tokens (searched within ±3).
+    transcript_spans = canonical_spans(text)
+    listen_words = []
+    for r in results:
+        if r["script"] not in PRONUNCIATION_SENSITIVE:
+            continue
+        if r["status"] == "match" and r["method"] == "exact":
+            continue
+        heard, start, end, prob = None, None, None, None
+        t_idx = r.get("t_idx")
+        if t_idx is not None and t_idx < len(transcript_spans):
+            _tok, rs, _re = transcript_spans[t_idx]
+            for j in range(max(0, rs - 3), min(len(wlist), rs + 4)):
+                jt = words(wlist[j]["word"])
+                if jt and jt[0] == r["transcript"]:
+                    heard, start, end, prob = (wlist[j]["word"].strip(),
+                                               wlist[j]["start"], wlist[j]["end"],
+                                               wlist[j]["prob"])
+                    break
+            if heard is None and 0 <= rs < len(wlist):
+                heard, start, end, prob = (wlist[rs]["word"].strip(),
+                                           wlist[rs]["start"], wlist[rs]["end"],
+                                           wlist[rs]["prob"])
+        listen_words.append({
+            "word": r["script"],
+            "heard_as": (heard.strip().strip(",.!?") if heard is not None
+                         else r["transcript"]),
+            "start": start, "end": end, "prob": prob,
+            "reason": "pronunciation-sensitive: not heard exactly",
+        })
+
     # final sentence: complete in the transcript tail, and its last word
     # ends before the final silence starts (+0.3 s Whisper timing tolerance).
     sents = [s.strip() for s in args.script.replace("*", "").split(".") if s.strip()]
@@ -149,6 +195,7 @@ def main():
                            "ends_before_silence": final_before_silence},
         "low_confidence_words": low_conf,
         "low_confidence_threshold": args.low_confidence,
+        "listen_words": listen_words,
     }
     print(f"NARRATION CHECK (fuzzy, Whisper {model_used}): {verdict}")
     print(f"  script {len(script_tokens)} words | transcript {len(transcript_tokens)} words | "
@@ -171,6 +218,11 @@ def main():
     print(f"  low-confidence words (< {args.low_confidence}): {len(low_conf)}")
     for w in low_conf:
         print(f"    {w['start']:6.2f}-{w['end']:6.2f}s  {w['word']!r} (prob {w['prob']})")
+    print(f"  words to listen (pronunciation-sensitive, not validated): "
+          f"{len(listen_words)}")
+    for w in listen_words:
+        print(f"    {w['word']!r} heard as {w['heard_as']!r} at "
+              f"{w['start']}–{w['end']} s (prob {w['prob']})")
     if args.output:
         Path(args.output).write_text(
             json.dumps(report, indent=1, default=lambda o: o.item()

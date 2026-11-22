@@ -19,10 +19,23 @@ the build transcript within 0.04 s. Small is kept for word IDENTITY
 a small-model transcript biases the gaps — the report records which
 model the timestamps came from.
 
+SMEAR CORRECTION (22 Nov 2026): tiny still smears SOME sentence-initial
+words back across the preceding pause on the normalized mix — "Chat"
+timed 25.86 inside the real 25.47-26.28 pause, "So" timed 28.76 while
+the pause ran 28.82-29.40. The mix's music bed fills the pauses, so the
+silences are read from the CLEAN narration (--narration, default
+<metadata-dir>/narration.mp3) and the same rule as the builder applies
+(caption_timing.reanchor_smears): a word whose start lies inside a
+silence >= 0.3 s, or whose span contains one, moves to the silence end.
+No speech happens inside a silence, so the correction can only fix gaps
+caused by the smear — it cannot hide a genuinely late caption (the
+corrected start is a lower bound on the true start). Corrections are
+recorded in the report ("timing_corrections").
+
 Usage:
   check-sync.py --mp4 <final.mp4> --metadata videos/<slug>/metadata.json
       [--model tiny] [--transcript <narration-fuzzy-report.json>]
-      [--output sync.json]
+      [--narration videos/<slug>/narration.mp3] [--output sync.json]
 """
 import argparse
 import difflib
@@ -32,6 +45,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from caption_timing import reanchor_smears  # noqa: E402
 from narration_lexicon import canonical, words  # noqa: E402
 from transcribe import decode_to_pcm  # noqa: E402
 
@@ -60,6 +74,10 @@ def main():
     ap.add_argument("--transcript",
                     help="optional: JSON report from check-narration-fuzzy.py "
                          "(its 'words'); overrides --model")
+    ap.add_argument("--narration",
+                    help="clean narration mp3 for the smear correction "
+                         "(default: <metadata-dir>/narration.mp3 when it "
+                         "exists; without it, timings are uncorrected)")
     ap.add_argument("--output")
     args = ap.parse_args()
 
@@ -71,6 +89,23 @@ def main():
     else:
         wlist = transcribe(Path(args.mp4), args.model)
         model_used = args.model
+    # Smear correction (see module docstring): a sentence-initial word
+    # stretched back across a pause gets its start moved to the silence
+    # end, using the CLEAN narration's silences (the mix's bed fills the
+    # pauses, so silencedetect on the MP4 cannot see them).
+    narration = args.narration
+    if narration is None:
+        cand = Path(args.metadata).parent / "narration.mp3"
+        narration = str(cand) if cand.exists() else None
+    timing_corrections = []
+    if narration:
+        wlist, timing_corrections = reanchor_smears(wlist, Path(narration))
+        for c in timing_corrections:
+            print(f"  re-anchored {c['word']!r}: {c['old_start']:.2f} -> "
+                  f"{c['new_start']:.2f} s (silence "
+                  f"{c['silence'][0]:.2f}-{c['silence'][1]:.2f} s)")
+    else:
+        print("  no clean narration found — sync timings uncorrected")
     # Transcript words carry punctuation ("years,", "value.") — strip it
     # with the same tokenizer as the caption words, or "years" never
     # matches "years," and the alignment collapses (found 22 Nov 2026:
@@ -123,7 +158,8 @@ def main():
     verdict = "PASS" if (not unmatched and max_start is not None
                          and max_start <= THRESHOLD_S) else "FAIL"
     report = {"mp4": args.mp4, "verdict": verdict, "threshold_s": THRESHOLD_S,
-              "timing_model": model_used,
+              "timing_model": model_used, "narration": narration,
+              "timing_corrections": timing_corrections,
               "captions_checked": len(captions), "unmatched_captions": unmatched,
               "max_abs_start_gap_s": max_start, "mean_abs_start_gap_s": mean_start,
               "max_abs_end_gap_s": max_end, "mean_abs_end_gap_s": mean_end,

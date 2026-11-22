@@ -1,0 +1,1 @@
+Montserrat — SIL Open Font License 1.1 (https://openfontlicense.org/). Source: Google Fonts (fonts.gstatic.com). File: Montserrat-Variable.woff2 (latin, variable weight 100-900). The .woff2 is NOT stored in git (binary) — fetch it with `bash scripts/fetch-assets.sh`.

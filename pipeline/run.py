@@ -10,14 +10,18 @@ Stages (run --stage <name> to stop after that stage):
               (manual validation, no extra dependency): every claim has
               claim/source_url/date/status; status is verified/unverified/
               rephrased; unverified claims are NOT in the script.
-  script      validate the script: English, 30-45 s estimated
-              (words / 2.43 w/s). If the estimate exceeds 45 s the driver
-              REFUSES — rewrite the script, never cut audio.
+  script      validate the script: English, >= 4 sentences. The word-count
+              duration estimate (words / 2.43 w/s) is a WARNING only —
+              measured speech rate varies 2.07-3.32 wps, so it can never
+              validate the duration; the hard validation is on the MEASURED
+              narration in the builder.
   storyboard  validate the storyboard: >= 4 scenes, every scene has a
               visual, a motion and a caption; >= 2 distinct motions
               overall (no frozen-card video); the captions, concatenated,
               are exactly the script sentences in order (so the scene
-              breaks passed to the builder are exact).
+              breaks passed to the builder are exact). Also validates
+              source-notes.json when present: every note must cite a
+              verified claim in claims.json (date or source domain).
   build       build the composition (rendering/build_video.py) — the voice
               is generated inside the builder (built-in TTS, measured,
               never cut) and the duration is derived from it.
@@ -96,8 +100,15 @@ def stage_script(d: Path, claims):
     n = len(words(script))
     est = n / WPS
     print(f"  script: {n} words, estimated {est:.1f} s (target {DUR_MIN}-{DUR_MAX} s)")
-    assert DUR_MIN <= est <= DUR_MAX, \
-        f"script estimate {est:.1f} s outside {DUR_MIN}-{DUR_MAX} s — REWRITE the script, never cut audio"
+    # The estimate is a WARNING only (22 Nov 2026, owner's correction):
+    # measured speech rate varies 2.07-3.32 wps across videos, so a word
+    # count can never validate the duration. The hard validation is on the
+    # MEASURED narration, in the builder (step 2b) — a script that speaks
+    # too short or too long is rewritten and rebuilt, never cut.
+    if not (DUR_MIN <= est <= DUR_MAX):
+        print(f"  WARNING: script estimate {est:.1f} s outside "
+              f"{DUR_MIN}-{DUR_MAX} s — estimate only, the measured "
+              f"duration decides")
     assert not re.search(r"[àâéèêëîïôöùûüç]", script), \
         "script contains French accented characters — videos are English only"
     script_sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", script) if s.strip()]
@@ -140,6 +151,36 @@ def stage_storyboard(d: Path, script: str):
     return breaks
 
 
+def stage_source_notes(d: Path, claims):
+    """source-notes.json (optional): every on-screen source note must cite
+    a VERIFIED claim in claims.json — the claim's date rendered as
+    "Mon D, YYYY" or the claim source's domain must appear in the note
+    text. A note that cites nothing in claims.json is a false attribution
+    waiting to happen (22 Nov 2026: Phase 2 facts notes "Feb 2025" /
+    "Apr 2020" leaked into the age-check video on the wrong scenes)."""
+    from datetime import date
+    from urllib.parse import urlparse
+    p = d / "source-notes.json"
+    if not p.exists():
+        return {}
+    notes = json.loads(p.read_text())
+    verified = [c for c in claims["claims"] if c["status"] == "verified"]
+    for scene, text in notes.items():
+        ok = False
+        for c in verified:
+            y, m, dd = map(int, c["date"].split("-"))
+            rendered = date(y, m, dd).strftime("%b %-d, %Y")  # "Nov 18, 2025"
+            domain = urlparse(c["source_url"]).netloc.replace("www.", "")
+            if rendered in text or domain in text:
+                ok = True
+                break
+        assert ok, (f"source-notes.json scene {scene}: {text!r} cites no "
+                    f"verified claim in claims.json — a source note must "
+                    f"come from claims.json")
+    print(f"  source notes: {len(notes)} note(s), each citing a verified claim")
+    return notes
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url")
@@ -162,6 +203,7 @@ def main():
     claims = stage_research(d) if stop >= 0 else None
     script = stage_script(d, claims) if stop >= 1 else None
     breaks = stage_storyboard(d, script) if stop >= 2 else None
+    notes = stage_source_notes(d, claims) if stop >= 2 else None
     if stop == 2:
         print("\nSTOP POINT (Step 4): script + claims.json + storyboard are ready.")
         print("Waiting for the owner's green light before voice and render.")
@@ -171,13 +213,34 @@ def main():
     if stop >= 3:
         print("  build: composing (voice generated inside the builder, "
               "duration derived from narration)...")
-        run(["python3", "rendering/build_video.py", "--slug", args.slug,
+        # build_video.py --scene-breaks takes CUMULATIVE cut indices
+        # (n_scenes-1 values; the last scene takes the remainder), while
+        # the storyboard validator returns per-scene sentence COUNTS.
+        # Convert: [1,1,1,1,2,2] -> cuts [1,2,3,4,6].
+        cuts = []
+        total = 0
+        for c in breaks[:-1]:
+            total += c
+            cuts.append(total)
+        build_cmd = ["python3", "rendering/build_video.py", "--slug", args.slug,
              "--script", script, "--template",
              f"templates/formats/{fmt}.html" if fmt in ("facts", "top5", "mysteries")
              else "templates/base-vertical/index.html",
-             "--scene-breaks", ",".join(map(str, breaks)),
-             "--target-min", str(DUR_MIN), "--target-max", str(DUR_MAX)],
-            cwd=PROJECT)
+             "--scene-breaks", ",".join(map(str, cuts)),
+             "--target-min", str(DUR_MIN), "--target-max", str(DUR_MAX)]
+        image_map = d / "image-map.json"
+        if image_map.exists():
+            build_cmd += ["--image-map", image_map.read_text()]
+            print(f"  build: image map {image_map} (6 scenes)")
+        heads = d / "heads.json"
+        if heads.exists():
+            build_cmd += ["--heads", heads.read_text()]
+            print(f"  build: heads {heads} (on-screen titles)")
+        src_notes = d / "source-notes.json"
+        if src_notes.exists():
+            build_cmd += ["--source-notes", src_notes.read_text()]
+            print(f"  build: source notes {src_notes} (from claims.json only)")
+        run(build_cmd, cwd=PROJECT)
         print("  build: done")
     if stop >= 4:
         print("  draft: rendering...")

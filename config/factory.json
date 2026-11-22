@@ -1,155 +1,155 @@
 {
-  "$schema": "./factory.schema.json",
-  "audio": {
-    "music": "royalty-free-only",
-    "musicLevelDb": -18,
-    "note": "Music comes from a royalty-free library with attribution (e.g. Kevin MacLeod, CC BY). No generated music service is connected. Voice must sit clearly above the music in every speech window — a global loudness number alone does not prove it.",
-    "voiceMustSitAboveMusicDb": 6
-  },
-  "cloud": {
-    "framesCacheDir": "~/workspace/hyperframes-roblox-shorts/.cache-tmp/frames",
-    "hyperframesCacheDir": "~/.cache/hyperframes",
-    "maxParallelRenders": 1,
-    "minFreeMemoryMbBeforeRender": 500,
-    "neverUseTmp": true,
-    "note": "/tmp is a 512 MB tmpfs on this VM and HyperFrames refuses to render when it is nearly full. Every render must set TMPDIR and HYPERFRAMES_EXTRACT_CACHE_DIR inside the workspace (see rendering/render.sh).",
-    "projectDir": "~/workspace/hyperframes-roblox-shorts",
-    "tmpDir": "~/workspace/hyperframes-roblox-shorts/.cache-tmp/tmp"
-  },
-  "costs": {
-    "hyperframes": 0,
-    "imageGeneration": 0,
-    "music": 0,
-    "note": "No paid service is connected. Any feature needing payment must be flagged to the owner BEFORE integration.",
-    "policy": "zero-paid-services",
-    "tts": 0
-  },
-  "durationPolicy": {
-    "deriveFromNarration": true,
-    "endMarginFloorSeconds": 0.3,
-    "endMarginSeconds": 1.0,
-    "estimateWordsPerSecond": 2.43,
-    "note": "CORRECTED 21 Nov 2026 (Test 001 diagnosis): the video duration is DERIVED from the narration, never the reverse. Workflow: (1) estimate narration duration from word count (words / 2.43 w/s) BEFORE generating the voice — if the estimate exceeds the target range, rewrite the script, never cut audio; (2) generate the voice; (3) measure the real duration and the real end of speech (silencedetect); (4) video_duration = max(narration_duration + 0.3, last_speech_end + endMarginSeconds). Padding exists only to fill the end margin (<= ~1 s), never to reach a pre-set video length. v3.1b (22 Nov 2026): the audio is TRIMMED to the video duration (atrim) so |audio - video| <= 0.02 s — the old ±0.1 s container check is replaced by the blocking 0.02 s gate; never pad audio to match the video.",
-    "rule": "Never cut a sentence to fit a predefined video duration. Never truncate an audio file to match a template duration. If the script exceeds the target, rewrite it BEFORE generating the voice."
-  },
-  "editorialFormats": [
-    "mysteries",
-    "facts",
-    "top5",
-    "hidden-secrets",
-    "game-discoveries",
-    "updates",
-    "stories"
+ "$schema": "./factory.schema.json",
+ "audio": {
+  "music": "royalty-free-only",
+  "musicLevelDb": -18,
+  "note": "Music comes from a royalty-free library with attribution (e.g. Kevin MacLeod, CC BY). No generated music service is connected. Voice must sit clearly above the music in every speech window \u2014 a global loudness number alone does not prove it.",
+  "voiceMustSitAboveMusicDb": 6
+ },
+ "cloud": {
+  "framesCacheDir": "~/workspace/hyperframes-roblox-shorts/.cache-tmp/frames",
+  "hyperframesCacheDir": "~/.cache/hyperframes",
+  "maxParallelRenders": 1,
+  "minFreeMemoryMbBeforeRender": 500,
+  "neverUseTmp": true,
+  "note": "/tmp is a 512 MB tmpfs on this VM and HyperFrames refuses to render when it is nearly full. Every render must set TMPDIR and HYPERFRAMES_EXTRACT_CACHE_DIR inside the workspace (see rendering/render.sh).",
+  "projectDir": "~/workspace/hyperframes-roblox-shorts",
+  "tmpDir": "~/workspace/hyperframes-roblox-shorts/.cache-tmp/tmp"
+ },
+ "costs": {
+  "hyperframes": 0,
+  "imageGeneration": 0,
+  "music": 0,
+  "note": "No paid service is connected. Any feature needing payment must be flagged to the owner BEFORE integration.",
+  "policy": "zero-paid-services",
+  "tts": 0
+ },
+ "durationPolicy": {
+  "deriveFromNarration": true,
+  "endMarginFloorSeconds": 0.3,
+  "endMarginSeconds": 1.0,
+  "estimateWordsPerSecond": 2.43,
+  "note": "CORRECTED 21 Nov 2026 (Test 001 diagnosis): the video duration is DERIVED from the narration, never the reverse. Workflow: (1) estimate narration duration from word count (words / 2.43 w/s) BEFORE generating the voice \u2014 the estimate is a WARNING only (22 Nov 2026: measured speech rate varies 2.07-3.32 wps, so a word count can never validate the duration); (2) generate the voice; (3) measure the real duration and the real end of speech (silencedetect); (4) video_duration = max(narration_duration + 0.3, last_speech_end + endMarginSeconds). The HARD validation is on the MEASURED video duration (30-45 s) \u2014 a script that speaks too short or too long is rewritten and rebuilt, never cut. Padding exists only to fill the end margin (<= ~1 s), never to reach a pre-set video length. v3.1b (22 Nov 2026): the audio is TRIMMED to the video duration (atrim) so |audio - video| <= 0.02 s \u2014 the old \u00b10.1 s container check is replaced by the blocking 0.02 s gate; never pad audio to match the video. 22 Nov 2026: normalize-loudness.py trims the audio itself (atrim after loudnorm+aresample) and verifies the gap \u2014 no manual trim step.",
+  "rule": "Never cut a sentence to fit a predefined video duration. Never truncate an audio file to match a template duration. If the script exceeds the target, rewrite it BEFORE generating the voice."
+ },
+ "editorialFormats": [
+  "mysteries",
+  "facts",
+  "top5",
+  "hidden-secrets",
+  "game-discoveries",
+  "updates",
+  "stories"
+ ],
+ "language": {
+  "note": "All videos are in English (voice, on-screen text, metadata). Conversation with the owner stays French or English.",
+  "onScreenText": "en",
+  "subtitles": "en",
+  "voiceover": "en"
+ },
+ "music": {
+  "artist": "Kevin MacLeod",
+  "enabled": true,
+  "license": "CC BY 3.0 \u2014 attribution required in video description",
+  "note": "Phase 2: royalty-free bed mixed under the narration. The bed ends at last_speech + 0.3 s (0.3 s fade-out) so the end margin stays true silence and the final-silence QC gate still works. Voice must sit >= 6 dB above the bed in every speech window \u2014 verified by quality-control/check-mix.py, never by a global loudness number. Volume lowered 0.08 -> 0.04 on 22 Nov 2026: at 0.08 the facts draft measured only 3.0 dB voice-above-music (gate requires >= 6 dB).",
+  "source": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Basic%20Implosion.mp3",
+  "title": "Basic Implosion",
+  "track": "assets/music/basic-implosion.mp3",
+  "volume": 0.04
+ },
+ "phase": "Phase 3 \u2014 Repository + URL-to-video pipeline",
+ "project": "ROBLOX VIDEO FACTORY",
+ "qualityControl": {
+  "audioVideoDurationToleranceSeconds": 0.02,
+  "endSilenceMaxSeconds": 1.75,
+  "endSilenceMinSeconds": 0.5,
+  "maxSilentGapSeconds": 1.0,
+  "note": "Phase 3 gates (22 Nov 2026, blocking, no manual override \u2014 quality-control/gate.py runs them all): final silence within [endMargin - 0.5 s, endMargin + 0.75 s]; no mid-narration silence > 1.0 s; audio sample rate exactly 48000 Hz; |audio duration - video duration| <= 0.02 s (audio trimmed to the video duration with atrim, never padded); loudness -14 \u00b1 0.5 LUFS, true peak <= -1 dBTP; narration checked by FUZZY comparison (proper-noun lexicon, Whisper small on the final MP4, last sentence complete); captions synced within 0.3 s (Whisper tiny timings); voice >= 6 dB above the music in every speech window; Top 5: displayed and spoken values must sum consistently with the announced total; low-confidence Whisper words (< 0.6) listed with timestamps for the owner's listening. A FAIL blocks delivery.",
+  "requiredChecks": [
+   "duration",
+   "resolution",
+   "framerate",
+   "codec",
+   "pixelFormat",
+   "audioSampleRate48k",
+   "audioVideoDurationMatch002",
+   "loudnessGate",
+   "noBlackFrames",
+   "noMissingScenes",
+   "subtitleLegibility",
+   "mobilePreview",
+   "finalSilenceWithinMargin",
+   "noLongMidSilence",
+   "narrationContentMatchFuzzy",
+   "captionSync003",
+   "voiceAboveMusic6dB",
+   "top5SumConsistent",
+   "lowConfidenceWordsListed"
   ],
-  "language": {
-    "note": "All videos are in English (voice, on-screen text, metadata). Conversation with the owner stays French or English.",
-    "onScreenText": "en",
-    "subtitles": "en",
-    "voiceover": "en"
+  "audioSampleRateHz": 48000,
+  "loudnessIntegratedTargetLufs": -14,
+  "loudnessToleranceLufs": 0.5,
+  "truePeakMaxDbtp": -1,
+  "syncMaxStartGapSeconds": 0.3
+ },
+ "style": {
+  "accent": "#2DD4BF",
+  "accentAlt": "#F59E0B",
+  "accentsByFormat": {
+   "facts": "#2DD4BF",
+   "game-discoveries": "#38BDF8",
+   "hidden-secrets": "#34D399",
+   "mysteries": "#8B5CF6",
+   "stories": "#FB7185",
+   "top5": "#F59E0B",
+   "updates": "#F472B6"
   },
-  "music": {
-    "artist": "Kevin MacLeod",
-    "enabled": true,
-    "license": "CC BY 3.0 — attribution required in video description",
-    "note": "Phase 2: royalty-free bed mixed under the narration. The bed ends at last_speech + 0.3 s (0.3 s fade-out) so the end margin stays true silence and the final-silence QC gate still works. Voice must sit >= 6 dB above the bed in every speech window — verified by quality-control/check-mix.py, never by a global loudness number. Volume lowered 0.08 -> 0.04 on 22 Nov 2026: at 0.08 the facts draft measured only 3.0 dB voice-above-music (gate requires >= 6 dB).",
-    "source": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Basic%20Implosion.mp3",
-    "title": "Basic Implosion",
-    "track": "assets/music/basic-implosion.mp3",
-    "volume": 0.04
+  "background": "#0B1026",
+  "backgroundAlt": "#131A3D",
+  "fontDisplay": "Montserrat",
+  "fontWeights": {
+   "body": 400,
+   "subtitle": 800,
+   "title": 900
   },
-  "phase": "Phase 3 — Repository + URL-to-video pipeline",
-  "project": "ROBLOX VIDEO FACTORY",
-  "qualityControl": {
-    "audioVideoDurationToleranceSeconds": 0.02,
-    "endSilenceMaxSeconds": 1.75,
-    "endSilenceMinSeconds": 0.5,
-    "maxSilentGapSeconds": 1.0,
-    "note": "Phase 3 gates (22 Nov 2026, blocking, no manual override — quality-control/gate.py runs them all): final silence within [endMargin - 0.5 s, endMargin + 0.75 s]; no mid-narration silence > 1.0 s; audio sample rate exactly 48000 Hz; |audio duration - video duration| <= 0.02 s (audio trimmed to the video duration with atrim, never padded); loudness -14 ± 0.5 LUFS, true peak <= -1 dBTP; narration checked by FUZZY comparison (proper-noun lexicon, Whisper small on the final MP4, last sentence complete); captions synced within 0.3 s (Whisper tiny timings); voice >= 6 dB above the music in every speech window; Top 5: displayed and spoken values must sum consistently with the announced total; low-confidence Whisper words (< 0.6) listed with timestamps for the owner's listening. A FAIL blocks delivery.",
-    "requiredChecks": [
-      "duration",
-      "resolution",
-      "framerate",
-      "codec",
-      "pixelFormat",
-      "audioSampleRate48k",
-      "audioVideoDurationMatch002",
-      "loudnessGate",
-      "noBlackFrames",
-      "noMissingScenes",
-      "subtitleLegibility",
-      "mobilePreview",
-      "finalSilenceWithinMargin",
-      "noLongMidSilence",
-      "narrationContentMatchFuzzy",
-      "captionSync003",
-      "voiceAboveMusic6dB",
-      "top5SumConsistent",
-      "lowConfidenceWordsListed"
-    ],
-    "audioSampleRateHz": 48000,
-    "loudnessIntegratedTargetLufs": -14,
-    "loudnessToleranceLufs": 0.5,
-    "truePeakMaxDbtp": -1,
-    "syncMaxStartGapSeconds": 0.3
+  "ink": "#FFFFFF",
+  "muted": "#9AA3C7",
+  "safeZone": {
+   "note": "HyperFrames safe zone for 1080x1920 (TikTok / Reels / Shorts). Key text stays inside it; only texture/decoration outside. Captions sit at the bottom of the band.",
+   "xMax": 888,
+   "xMin": 120,
+   "yMax": 1248,
+   "yMin": 288
   },
-  "style": {
-    "accent": "#2DD4BF",
-    "accentAlt": "#F59E0B",
-    "accentsByFormat": {
-      "facts": "#2DD4BF",
-      "game-discoveries": "#38BDF8",
-      "hidden-secrets": "#34D399",
-      "mysteries": "#8B5CF6",
-      "stories": "#FB7185",
-      "top5": "#F59E0B",
-      "updates": "#F472B6"
-    },
-    "background": "#0B1026",
-    "backgroundAlt": "#131A3D",
-    "fontDisplay": "Montserrat",
-    "fontWeights": {
-      "body": 400,
-      "subtitle": 800,
-      "title": 900
-    },
-    "ink": "#FFFFFF",
-    "muted": "#9AA3C7",
-    "safeZone": {
-      "note": "HyperFrames safe zone for 1080x1920 (TikTok / Reels / Shorts). Key text stays inside it; only texture/decoration outside. Captions sit at the bottom of the band.",
-      "xMax": 888,
-      "xMin": 120,
-      "yMax": 1248,
-      "yMin": 288
-    },
-    "subtitleMinPx": 70,
-    "theme": "gaming-dark",
-    "titleMinPx": 110
-  },
-  "version": "1.0.0",
-  "video": {
-    "aspectRatio": "9:16",
-    "codec": "h264",
-    "container": "mp4",
-    "durationMaxSeconds": 45,
-    "durationMinSeconds": 30,
-    "durationTargetSeconds": 35,
-    "fps": 30,
-    "height": 1920,
-    "note": "Production target 30–45 s. The duration of EACH video is derived from its narration (see durationPolicy) — the target is a script-writing guide, never a render constraint. Test videos may use a different target range.",
-    "qualityDraft": "draft",
-    "qualityFinal": "standard",
-    "width": 1080,
-    "pixelFormat": "yuv420p"
-  },
-  "voiceover": {
-    "command": "/opt/hatch/bin/tts speak",
-    "engine": "muse-tts",
-    "format": "mp3",
-    "language": "en",
-    "note": "No paid TTS service. HeyGen TTS is NOT connected and must not be used without the owner's explicit approval and a funded API key.",
-    "speed": 100,
-    "voice": "avocado_v2:MAI_03",
-    "voiceLabel": "Helio (MAI_03) — do not expose the MAI id to the owner",
-    "wordsPerSecondTarget": 2.3
-  }
+  "subtitleMinPx": 70,
+  "theme": "gaming-dark",
+  "titleMinPx": 110
+ },
+ "version": "1.0.0",
+ "video": {
+  "aspectRatio": "9:16",
+  "codec": "h264",
+  "container": "mp4",
+  "durationMaxSeconds": 45,
+  "durationMinSeconds": 30,
+  "durationTargetSeconds": 35,
+  "fps": 30,
+  "height": 1920,
+  "note": "Production target 30\u201345 s. The duration of EACH video is derived from its narration (see durationPolicy) \u2014 the target is a script-writing guide, never a render constraint. Test videos may use a different target range.",
+  "qualityDraft": "draft",
+  "qualityFinal": "standard",
+  "width": 1080,
+  "pixelFormat": "yuv420p"
+ },
+ "voiceover": {
+  "command": "/opt/hatch/bin/tts speak",
+  "engine": "muse-tts",
+  "format": "mp3",
+  "language": "en",
+  "note": "No paid TTS service. HeyGen TTS is NOT connected and must not be used without the owner's explicit approval and a funded API key.",
+  "speed": 100,
+  "voice": "avocado_v2:MAI_03",
+  "voiceLabel": "Helio (MAI_03) \u2014 do not expose the MAI id to the owner",
+  "wordsPerSecondTarget": 2.3
+ }
 }

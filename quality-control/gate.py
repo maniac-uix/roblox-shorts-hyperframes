@@ -22,8 +22,11 @@ Checks (in order):
   6. check-sync.py: captions within 0.3 s of the spoken words (Whisper tiny)
   7. check-top5-sum.py: only for --format top5 (displayed + spoken sums
      consistent with the announced total)
-  8. low-confidence words (< 0.6) listed with timestamps — recorded, not
-     gated; they are the owner's listening list.
+  8. words to listen — low-confidence words (< 0.6) plus
+     pronunciation-sensitive words the check could not validate
+     (heard form + timestamp); recorded, not gated, but a sensitive
+     word that is not validated makes the narration check itself FAIL.
+     They are the owner's listening list.
 
 Usage:
   python3 quality-control/gate.py --mp4 output/<slug>.mp4 \
@@ -129,6 +132,16 @@ def main():
     low = narr.get("low_confidence_words", [])
     note("low-confidence words (< 0.6)", "recorded",
          f"{len(low)} words — see report for timestamps")
+    # Words to listen: low-confidence words + pronunciation-sensitive
+    # words the narration check could not validate (heard form +
+    # timestamp). A sensitive word that is not validated already makes
+    # the narration check FAIL; the list tells the owner where to listen.
+    listen_words = ([{"word": w["word"], "start": w["start"], "end": w["end"],
+                      "prob": w["prob"], "reason": "low-confidence"}
+                     for w in low]
+                    + narr.get("listen_words", []))
+    note("words to listen", "recorded",
+         f"{len(listen_words)} words — see report for timestamps")
 
     # 6. sync (Whisper tiny timings)
     sync_json = tmp / f"{slug}-sync.json"
@@ -155,7 +168,7 @@ def main():
                             for c in checks.values()) else "FAIL"
     report = {"slug": slug, "format": args.format, "file": str(mp4),
               "overall": overall, "checks": checks,
-              "low_confidence_words": low}
+              "low_confidence_words": low, "listen_words": listen_words}
     if args.output:
         Path(args.output).write_text(json.dumps(report, indent=1) + "\n")
         print(f"  gate report saved to {args.output}", flush=True)
