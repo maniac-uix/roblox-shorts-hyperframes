@@ -312,10 +312,12 @@ Phase 4B re-renders Facts and Mysteries with brand and retention rules.
   into extra scenes; existing images only, no new image generation.
 - **Brand (templates, not per video):** persistent "NoobNoMore" watermark
   text in the safe zone (top-right, right edge 1080−150 px, top 150 px,
-  30 px Montserrat 800, turquoise #1FD1C1, opacity 0.85) in
+  **36 px Montserrat 800** (Phase 4C — was 30 px in Phase 4B),
+  turquoise #1FD1C1, opacity 0.85) in
   `templates/formats/facts.html` and `mysteries.html`. Last scene: the
-  NoobNoMore mascot (240×240 px, bottom-left of the image card area) with
-  CTA **"FOLLOW NOOBNOMORE"** (replaces "FOLLOW FOR MORE"). Brand palette:
+  NoobNoMore mascot (240×240 px, bottom-right of the image card area —
+  `left:690px; top:1134px` in the template) with CTA
+  **"FOLLOW NOOBNOMORE"** (replaces "FOLLOW FOR MORE"). Brand palette:
   turquoise #1FD1C1 / amber #FFB020 / purple #7A4DF0; format accents
   (Facts teal, Mysteries purple) stay for scene design. Mascot asset:
   `assets/brand/noobnomore-mascot-transparent.png` (copy of the channel
@@ -338,6 +340,12 @@ Phase 4B re-renders Facts and Mysteries with brand and retention rules.
   from live video — it stays a recorded warning. v4 drafts measure 2.0 s
   (Facts 55 changes, Mysteries 46–51 changes) thanks to the 3-segment
   zoom.
+  **SUPERSEDED in Phase 4C (§11):** the frame-diff instrument counted
+  zooms as changes and measured 2.0 s max gaps on the v4 videos while
+  the same image was held 5.5–9.9 s — it could not detect the defect.
+  The gate no longer calls it (gate checks 7 and 13 are image-only).
+  The script file is kept for calibration history only; do not
+  re-enable it as a gate check.
 - **Final silence (target 0.5–0.7 s measured):** `run.py --end-margin`
   default is **0.85** (was 0.6). Loudnorm's gain (+9.5–12.6 dB) lifts the
   music-bed fade tail above the silence threshold and shrinks the
@@ -383,3 +391,149 @@ Phase 4B re-renders Facts and Mysteries with brand and retention rules.
   saved to" line, so a cached ok:true report reads as FAILED; workaround
   is to delete `videos/<slug>/.hyperframes/cache/check.json` before the
   run.
+
+## 11. Phase 4C — Pipeline and Gate Adjustments (23 Nov 2026)
+
+Phase 4C fixes the FACTORY, not the existing videos. No new video is
+produced in this phase. The v4 videos (and all earlier videos) were built
+under the old one-image-per-scene model and FAIL the new controls — that
+is the regression proof the controls work, not a reason to re-render or
+to loosen them. Published videos stay published.
+
+- **Storyboard model: one sentence = one visual beat
+  (`pipeline/validate-storyboard.py`, `pipeline/run.py` stage_storyboard).**
+  Every narration sentence maps to one beat: `{ phrase, titre, image,
+  durée, scene }` in `pipeline/<slug>/beats.json`. The pipeline REQUIRES
+  beats.json at the storyboard stage (blocking) — a missing file fails
+  the stage with a message pointing at the validator. The validator
+  checks: beats' phrases equal the script sentences in order; every
+  beat has a non-empty titre sharing a content word with its phrase
+  (same match rule as the gate: shared content word, stopwords removed,
+  prefix match ≥ 4 chars, number-words mapped to digits); every beat's
+  image file exists; every beat's durée is > 0 and ≤ 5.0 s; NO image is
+  reused across different scenes. **Top 5 outro exception (the single
+  named exception, never a threshold change):** in format top5, the
+  beats of the LAST scene may reuse the image of the immediately
+  preceding scene (the #1 reveal). Any other reuse is a violation.
+  `--legacy` mode derives beats from an existing storyboard.md +
+  image-map.json + heads.json + metadata.json captions (second shots
+  split a scene's image) and reports the same violations — used for the
+  4C regression dry-run on the v4 storyboards (Facts v4: 9 violations;
+  Mysteries v4: 9 violations; see `audit-package/PHASE4C-REPORT.md`).
+  A zoom, a pan or a fade does NOT count as an image change — anywhere
+  the code counts "visual change", zooms/pans/fades must not count.
+- **Synchronized titles (templates + `rendering/build_video.py`).**
+  Titles come from the storyboard (`--heads`, from beats.json / heads.json),
+  never hardcoded in a template. The four format templates carry the
+  literal placeholder `HEADLINE — NOT SET` on every storyboard-driven
+  head/title/subtitle element; the build FAILS if a placeholder survives
+  substitution (or if `--heads` was not passed at all). The displayed
+  title must match the current sentence and appear ≤ 0.3 s after the
+  sentence starts. The builder pins every head/title entrance tween to
+  its scene's start with a fixed 0.45 s duration (see below) — a title
+  stretched to 1.7 s by the old scene-factor scaling is the Phase 4B
+  defect (Mysteries v4 hook title at 1.25 s vs sentence start 0.00).
+- **First seconds.** The video's first image already contains the scene-1
+  title and image at t=0 — no empty screen at the start. In
+  facts.html/mysteries.html the scene-0 slide-in and title pop tweens
+  are removed (inner-0/title-0 are in their natural visible state from
+  t=0; slide-out and image zooms kept). NOTE: top5.html and
+  game-discoveries.html still slide scene 0 in (Phase 4C scoped the
+  removal to facts/mysteries); the first-frame rule is not yet
+  factory-wide there — a follow-up, not a 4C blocker.
+- **Hook, loop, first seconds (gate check 11).** First sentence ≤ 12
+  words AND a digit, a question mark, or a spelled-out number word.
+  Digit-or-question is the enforceable rule (a "surprising statement"
+  alone cannot be checked automatically). The loop stays report-only
+  (`run.py` shared-content-word check).
+- **Brand (templates).** Watermark "NoobNoMore" top-right, text at least
+  **36 px** (font-size; the rendered glyph height is ~0.6em, so a pixel
+  measurement of the glyphs is presence evidence only — the blocking
+  comparison is the declared font-size from the composition CSS), in the
+  safe zone (120 px top, 250 px bottom, 150 px right). Last scene:
+  mascot `noobnomore-mascot-transparent.png` at least **220 px** wide
+  (240 px in the v4 templates), with "FOLLOW NOOBNOMORE". Brand elements
+  live in the templates, not hardcoded per video.
+- **Transitions (`rendering/build_video.py` §5e).** The builder used to
+  scale every GSAP tween duration twice (global factor, then per-scene
+  factor), so a 0.45 s template slide became a 1.72 s slide in a 36 s
+  video — the outgoing card left the zone before the incoming card
+  covered it (empty zones 0.3–0.5 s at scene changes). Scene slide
+  in/out tweens and head/title entrance tweens now run at a FIXED
+  0.45 s of video time, pinned to the scene start (slide-out ends at
+  scene end). Image zoom segments still scale with the scene (they fill
+  the scene by design); progress/glow/CTA/mascot/source-note tweens are
+  untouched. No transition may leave the image zone empty more than
+  0.2 s.
+- **New gate controls — ALL BLOCKING (`quality-control/gate.py`,
+  checks 7–13; all existing controls stay in force).**
+  1. **Duplicate images** (`check-image-runs.py`): 64-bin RGB histogram
+     of the image card (crop x 140–940, y 850–1130) every 0.5 s,
+     running-mean reference, join threshold 0.20, adjacent-run merge
+     0.15 (repairs splits from zoom jump-cuts and overlay pops).
+     Calibrated: same image ≈ 0.03–0.04, different images ≥ 0.24.
+     FAIL if any image span exceeds 5.0 s (a span of exactly 5.0 s
+     passes; sampling resolution ±0.5 s) or the same image file is used
+     in two scenes (identity from `metadata.json["images"]`; pixel
+     clustering is the fallback and is weaker — it does not group the
+     Top 5 outro's reframed town image, hist_dist 0.209 > 0.15).
+  2. **Title / sentence** (`check-title-sentence.py`): from the
+     storyboard titles and the composition timeline (scene windows +
+     head texts + GSAP entrance positions), not pixels alone. FAIL if
+     the active title shares no content word with the current sentence,
+     or the title appears more than 0.3 s after the sentence starts.
+     N/A when no composition timeline exists (pre-Phase-3 videos).
+  3. **Empty zone** (`check-empty-zone.py`): image-card grayscale
+     stddev < 12 = empty (calibrated: empty frames 5.9–10.1, image
+     frames ≥ ~17), sampled at 10 fps. FAIL if any empty span exceeds
+     0.2 s (measured ≥ 0.3 s at 0.1 s resolution), including the first
+     0.2 s of the video.
+  4. **First frame** (`check-first-frame.py`): at t=0 the image card
+     stddev must be ≥ 12 AND the title band (x 120–960, y 340–560)
+     must contain ≥ 200 bright pixels (luminance > 180, half-scale).
+  5. **Hook** (`check-hook.py`): first sentence ≤ 12 words with a
+     digit, "?", or spelled-out number word.
+  6. **Brand** (`check-brand.py`): watermark present in pixels
+     (median ≥ 50 watermark-colored pixels in the top-right zone,
+     glyph height reported) with declared font-size ≥ 36 px; final
+     mascot present in pixels (masked NCC ≥ 0.5 vs the mascot PNG at
+     the composition-declared position) with declared width ≥ 220 px.
+     Applies ONLY to videos built from v4 templates onwards — v3.1b
+     videos record N/A. The v4 videos were built with a 30 px
+     watermark, so they FAIL this control against the new 36 px
+     minimum: a real finding, not a control bug — do NOT re-render v4
+     and do NOT weaken the control.
+  7. **Visual change, image-only** (gate check 13, from the same
+     image-runs spans): FAIL if more than 5.0 s passes without a NEW
+     image. This SUPERSEDES the Phase 4B frame-diff warning (§10):
+     that instrument counted zooms and is no longer called by the gate.
+- **publish.md generation (`pipeline/write-publish-md.py`).** The
+  deliver stage generates `pipeline/<slug>/publish.md` when
+  `pipeline/<slug>/publish-title.txt` exists (one line, the editorial
+  title — never invented). The generator assembles and validates the
+  five elements: title ≤ 60 chars; description (script sentences +
+  "From noob to pro…" + the fan-made non-affiliated line + the verbatim
+  `attribution.txt` music text + ≤ 5 hashtags); short TikTok/Reels
+  caption (default: hook + hashtags, ≤ 150 chars); share line exactly
+  "Send this to a friend who plays Roblox". `--check` verifies an
+  existing publish.md against the same five elements. Both v4
+  publish.md files pass `--check` (titles 45 / 31 chars) and were NOT
+  rewritten.
+- **Regression (Phase 4C proof).** The full updated gate runs on all 6
+  existing videos; results in
+  `audit-package/technical-reports/<slug>-gate-4c.json` and the table in
+  `audit-package/PHASE4C-REPORT.md`. Acceptance: Facts v4 and Mysteries
+  v4 MUST FAIL the new controls (they do — see the report). The 5.0 s
+  rule postdates every existing video, so all six fail the image-duration
+  control; the threshold is NOT raised for that — it governs future
+  videos, and the published videos stay published.
+- **Known follow-ups (not 4C blockers).** (1) top5.html's visits pills
+  are `<span>`s, so the `--heads` regex (h1/p only) cannot substitute
+  them — stale visit counts could render on a future Top 5 video.
+  (2) First-frame rule not yet factory-wide (top5/game-discoveries
+  still slide scene 0 in). (3) `metadata.json` for Facts v4 records
+  the second-shot image as `assets/images/creator.webp`, which does not
+  exist (the real file is `assets/images/facts/creator.webp`); the
+  render is unaffected (a copy sits in the video folder). (4) The
+  HyperFrames check-cache trap (above) is still latent, not fixed in
+  code.

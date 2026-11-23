@@ -1,0 +1,466 @@
+{
+ "slug": "roblox-mystery-1x1x1x1-v4",
+ "format": "mysteries",
+ "file": "output/roblox-mystery-1x1x1x1-v4.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.62 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 36.800 s vs video 36.800 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.35 LUFS (gate -14 \u00b1 0.5); true_peak: -1.48 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.7 dB (bed gain +11.26 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "98/98 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.16 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "FAIL",
+   "value": "max span 8.5 s; 5 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "FAIL",
+   "value": "10 sentences; mismatches [2, 5, 8, 9]; late titles [1, 3, 4, 5]"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "FAIL",
+   "value": "max empty 0.6 s; 5 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "FAIL",
+   "value": "image std 8.07; title bright px 0"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "12 words; digit=False, ?=True, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "FAIL",
+   "value": "watermark 30.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "FAIL",
+   "value": "longest stretch 8.5 s; 7 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "exploiters",
+   "start": 14.02,
+   "end": 14.76,
+   "prob": 0.59
+  },
+  {
+   "word": "for",
+   "start": 35.32,
+   "end": 35.48,
+   "prob": 0.5
+  },
+  {
+   "word": "Sagan.",
+   "start": 35.48,
+   "end": 35.84,
+   "prob": 0.54
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "exploiters",
+   "start": 14.02,
+   "end": 14.76,
+   "prob": 0.59,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "for",
+   "start": 35.32,
+   "end": 35.48,
+   "prob": 0.5,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Sagan.",
+   "start": 35.48,
+   "end": 35.84,
+   "prob": 0.54,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "duration_s": 36.8,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 0.5,
+    "end_s": 6.5,
+    "duration_s": 6.0,
+    "n_frames": 12,
+    "fragment": false
+   },
+   {
+    "start_s": 6.5,
+    "end_s": 7.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 7.0,
+    "end_s": 7.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 7.5,
+    "end_s": 13.0,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   },
+   {
+    "start_s": 13.0,
+    "end_s": 13.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 13.5,
+    "end_s": 19.0,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   },
+   {
+    "start_s": 19.0,
+    "end_s": 20.0,
+    "duration_s": 1.0,
+    "n_frames": 2,
+    "fragment": false
+   },
+   {
+    "start_s": 20.0,
+    "end_s": 28.5,
+    "duration_s": 8.5,
+    "n_frames": 17,
+    "fragment": false
+   },
+   {
+    "start_s": 28.5,
+    "end_s": 29.5,
+    "duration_s": 1.0,
+    "n_frames": 2,
+    "fragment": false
+   },
+   {
+    "start_s": 29.5,
+    "end_s": 37.0,
+    "duration_s": 7.5,
+    "n_frames": 15,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 8.5,
+  "duration_verdict": "FAIL",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "FAIL"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "metadata": "videos/roblox-mystery-1x1x1x1-v4/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-mystery-1x1x1x1-v4/index.html",
+  "n_sentences": 10,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 3.76,
+    "text": "Could one username hack your account, destroy your game, and ban you?",
+    "scene": 0,
+    "title": "THE ROBLOX HACKER MYTH.",
+    "title_element": "title-0",
+    "shared_words": [
+     "hack"
+    ],
+    "match": true,
+    "appearance_s": 1.25,
+    "timing_gap_s": 1.25,
+    "timing_verdict": "FAIL"
+   },
+   {
+    "index": 2,
+    "start_s": 4.34,
+    "end_s": 7.14,
+    "text": "His name was 1x1x1x1.",
+    "scene": 0,
+    "title": "THE ROBLOX HACKER MYTH.",
+    "title_element": "title-0",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 1.25,
+    "timing_gap_s": -3.09,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 7.62,
+    "end_s": 13.2,
+    "text": "It first appeared in 2007, in the description of a spooky Roblox hat called the Necrobloxicon.",
+    "scene": 1,
+    "title": "A NAME IN A HAUNTED HAT",
+    "title_element": "head-1",
+    "shared_words": [
+     "hat"
+    ],
+    "match": true,
+    "appearance_s": 8.2,
+    "timing_gap_s": 0.58,
+    "timing_verdict": "FAIL"
+   },
+   {
+    "index": 4,
+    "start_s": 13.94,
+    "end_s": 19.28,
+    "text": "Then exploiters wrecked games and signed their chaos with his name, so every crash looked like proof.",
+    "scene": 2,
+    "title": "EVERY CRASH LOOKED LIKE PROOF",
+    "title_element": "head-2",
+    "shared_words": [
+     "every",
+     "crash",
+     "looked",
+     "like",
+     "proof"
+    ],
+    "match": true,
+    "appearance_s": 14.26,
+    "timing_gap_s": 0.32,
+    "timing_verdict": "FAIL"
+   },
+   {
+    "index": 5,
+    "start_s": 20.04,
+    "end_s": 22.98,
+    "text": "But in 2011, a Roblox admin revealed the truth.",
+    "scene": 3,
+    "title": "A TEST ACCOUNT, NOT A HACKER",
+    "title_element": "head-3",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 21.0,
+    "timing_gap_s": 0.96,
+    "timing_verdict": "FAIL"
+   },
+   {
+    "index": 6,
+    "start_s": 23.49,
+    "end_s": 27.54,
+    "text": "It was a test account, created by an admin named Shedletsky, for a story.",
+    "scene": 3,
+    "title": "A TEST ACCOUNT, NOT A HACKER",
+    "title_element": "head-3",
+    "shared_words": [
+     "test",
+     "account"
+    ],
+    "match": true,
+    "appearance_s": 21.0,
+    "timing_gap_s": -2.49,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 28.23,
+    "end_s": 29.1,
+    "text": "He was never a hacker.",
+    "scene": 3,
+    "title": "A TEST ACCOUNT, NOT A HACKER",
+    "title_element": "head-3",
+    "shared_words": [
+     "hacker"
+    ],
+    "match": true,
+    "appearance_s": 21.0,
+    "timing_gap_s": -7.23,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 29.57,
+    "end_s": 30.76,
+    "text": "The hacker never existed.",
+    "scene": 4,
+    "title": "THE LEGEND LIVES ON.",
+    "title_element": "title-4",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 29.67,
+    "timing_gap_s": 0.1,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 9,
+    "start_s": 31.44,
+    "end_s": 32.56,
+    "text": "So the answer is no.",
+    "scene": 4,
+    "title": "THE LEGEND LIVES ON.",
+    "title_element": "title-4",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 29.67,
+    "timing_gap_s": -1.77,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 10,
+    "start_s": 32.9,
+    "end_s": 35.42,
+    "text": "But the legend lives on, as a killer in the game Forsaken.",
+    "scene": 4,
+    "title": "THE LEGEND LIVES ON.",
+    "title_element": "title-4",
+    "shared_words": [
+     "legend",
+     "lives"
+    ],
+    "match": true,
+    "appearance_s": 29.67,
+    "timing_gap_s": -3.23,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [
+   2,
+   5,
+   8,
+   9
+  ],
+  "late_titles": [
+   1,
+   3,
+   4,
+   5
+  ],
+  "verdict": "FAIL"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "duration_s": 36.8,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.3,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 6.8,
+    "end_s": 7.4,
+    "duration_s": 0.6,
+    "n_frames": 6
+   },
+   {
+    "start_s": 13.0,
+    "end_s": 13.5,
+    "duration_s": 0.5,
+    "n_frames": 5
+   },
+   {
+    "start_s": 19.1,
+    "end_s": 19.7,
+    "duration_s": 0.6,
+    "n_frames": 6
+   },
+   {
+    "start_s": 28.9,
+    "end_s": 29.3,
+    "duration_s": 0.4,
+    "n_frames": 4
+   }
+  ],
+  "max_empty_s": 0.6,
+  "verdict": "FAIL"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "image_std_t0": 8.07,
+  "title_bright_px_t0": 0,
+  "image_visible": false,
+  "title_visible": false,
+  "image_std_t01": 7.97,
+  "title_bright_px_t01": 0,
+  "verdict": "FAIL"
+ },
+ "hook": {
+  "first_sentence": "Could one username hack your account, destroy your game, and ban you?",
+  "n_words": 12,
+  "has_digit": false,
+  "has_question": true,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/roblox-mystery-1x1x1x1-v4/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "watermark": {
+   "declared_font_px": 30.0,
+   "present": true,
+   "median_px": 237.0,
+   "median_glyph_height_half_px": 9.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.956
+  },
+  "verdict": "FAIL"
+ },
+ "visual_change": {
+  "verdict": "FAIL",
+  "max_span_s": 8.5,
+  "n_image_spans": 7,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

@@ -1,0 +1,466 @@
+{
+ "slug": "roblox-age-check-explained",
+ "format": "facts",
+ "file": "output/roblox-age-check-explained-v3-norm.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.76 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 32.200 s vs video 32.200 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.27 LUFS (gate -14 \u00b1 0.5); true_peak: -1.49 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 12.2 dB (bed gain +10.0 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "FAIL",
+   "value": "106/107 words, missing 1; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "0 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "1 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.12 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "FAIL",
+   "value": "max span 5.5 s; 2 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "FAIL",
+   "value": "8 sentences; mismatches [6, 7]; late titles [5]"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "FAIL",
+   "value": "max empty 0.6 s; 6 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "FAIL",
+   "value": "image std 5.91; title bright px 0"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "FAIL",
+   "value": "11 words; digit=False, ?=False, number-word=False"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "N/A",
+   "value": "template predates brand (no watermark in composition)"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "FAIL",
+   "value": "longest stretch 5.5 s; 7 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [],
+ "listen_words": [
+  {
+   "word": "selfie",
+   "heard_as": "sucky",
+   "start": 8.38,
+   "end": 8.82,
+   "prob": 0.82,
+   "reason": "pronunciation-sensitive: not heard exactly"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-age-check-explained-v3-norm.mp4",
+  "duration_s": 32.2,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 0.5,
+    "end_s": 2.5,
+    "duration_s": 2.0,
+    "n_frames": 4,
+    "fragment": false
+   },
+   {
+    "start_s": 2.5,
+    "end_s": 3.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 3.0,
+    "end_s": 3.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 3.5,
+    "end_s": 6.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 6.5,
+    "end_s": 7.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 7.0,
+    "end_s": 7.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 7.5,
+    "end_s": 10.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 10.5,
+    "end_s": 11.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 11.0,
+    "end_s": 11.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 11.5,
+    "end_s": 14.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 14.5,
+    "end_s": 15.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 15.0,
+    "end_s": 15.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 15.5,
+    "end_s": 16.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 16.0,
+    "end_s": 21.5,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   },
+   {
+    "start_s": 21.5,
+    "end_s": 24.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 24.5,
+    "end_s": 25.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 25.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 25.5,
+    "end_s": 26.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 26.0,
+    "end_s": 26.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 26.5,
+    "end_s": 32.0,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 5.5,
+  "duration_verdict": "FAIL",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "FAIL"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-age-check-explained-v3-norm.mp4",
+  "metadata": "videos/roblox-age-check-explained/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-age-check-explained/index.html",
+  "n_sentences": 8,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 2.86,
+    "text": "Roblox now makes you prove your age before you can chat.",
+    "scene": 0,
+    "title": "PROVE YOUR AGE TO CHAT.",
+    "title_element": "title-0",
+    "shared_words": [
+     "prove",
+     "age",
+     "chat"
+    ],
+    "match": true,
+    "appearance_s": 0.21,
+    "timing_gap_s": 0.21,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 3.36,
+    "end_s": 6.96,
+    "text": "Since November 2025, chat needs an age check for everyone.",
+    "scene": 1,
+    "title": "NOV 2025 \u2022 A FIRST FOR GAMING",
+    "title_element": "head-1",
+    "shared_words": [
+     "nov",
+     "2025"
+    ],
+    "match": true,
+    "appearance_s": 3.58,
+    "timing_gap_s": 0.22,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 7.56,
+    "end_s": 11.1,
+    "text": "You film a short video selfie, or show an ID if you are thirteen or older.",
+    "scene": 2,
+    "title": "SELFIE OR ID",
+    "title_element": "head-2",
+    "shared_words": [
+     "selfie",
+     "id"
+    ],
+    "match": true,
+    "appearance_s": 7.69,
+    "timing_gap_s": 0.13,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 11.68,
+    "end_s": 15.02,
+    "text": "Persona estimates your age from it, then deletes the video right away.",
+    "scene": 3,
+    "title": "DELETED RIGHT AWAY",
+    "title_element": "head-3",
+    "shared_words": [
+     "right",
+     "away"
+    ],
+    "match": true,
+    "appearance_s": 11.79,
+    "timing_gap_s": 0.11,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 15.7,
+    "end_s": 21.0,
+    "text": "Roblox sorts you into one of six age groups, and you can only chat with your group and the ones next to it.",
+    "scene": 4,
+    "title": "6 AGE GROUPS",
+    "title_element": "head-4",
+    "shared_words": [
+     "6",
+     "age",
+     "groups"
+    ],
+    "match": true,
+    "appearance_s": 16.93,
+    "timing_gap_s": 1.23,
+    "timing_verdict": "FAIL"
+   },
+   {
+    "index": 6,
+    "start_s": 21.34,
+    "end_s": 25.92,
+    "text": "A twelve-year-old can reach up to fifteen, but no one sixteen or older can message them.",
+    "scene": 4,
+    "title": "6 AGE GROUPS",
+    "title_element": "head-4",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 16.93,
+    "timing_gap_s": -4.41,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 26.32,
+    "end_s": 28.76,
+    "text": "Chat stays off under nine unless a parent agrees.",
+    "scene": 5,
+    "title": "YOUR AGE, NOT YOUR BIRTHDAY.",
+    "title_element": "title-5",
+    "shared_words": [],
+    "match": false,
+    "match_reason": "no shared content word",
+    "appearance_s": 26.39,
+    "timing_gap_s": 0.07,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 29.4,
+    "end_s": 31.22,
+    "text": "So your chat now depends on your age.",
+    "scene": 5,
+    "title": "YOUR AGE, NOT YOUR BIRTHDAY.",
+    "title_element": "title-5",
+    "shared_words": [
+     "age"
+    ],
+    "match": true,
+    "appearance_s": 26.39,
+    "timing_gap_s": -3.01,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [
+   6,
+   7
+  ],
+  "late_titles": [
+   5
+  ],
+  "verdict": "FAIL"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-age-check-explained-v3-norm.mp4",
+  "duration_s": 32.2,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 2.8,
+    "end_s": 3.0,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 6.9,
+    "end_s": 7.1,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 11.0,
+    "end_s": 11.2,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 14.9,
+    "end_s": 15.3,
+    "duration_s": 0.4,
+    "n_frames": 4
+   },
+   {
+    "start_s": 25.5,
+    "end_s": 26.1,
+    "duration_s": 0.6,
+    "n_frames": 6
+   }
+  ],
+  "max_empty_s": 0.6,
+  "verdict": "FAIL"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-age-check-explained-v3-norm.mp4",
+  "image_std_t0": 5.91,
+  "title_bright_px_t0": 0,
+  "image_visible": false,
+  "title_visible": false,
+  "image_std_t01": 20.69,
+  "title_bright_px_t01": 0,
+  "verdict": "FAIL"
+ },
+ "hook": {
+  "first_sentence": "Roblox now makes you prove your age before you can chat.",
+  "n_words": 11,
+  "has_digit": false,
+  "has_question": false,
+  "has_number_word": false,
+  "verdict": "FAIL",
+  "source": "videos/roblox-age-check-explained/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-age-check-explained-v3-norm.mp4",
+  "verdict": "N/A",
+  "reason": "template predates brand (no watermark in composition)"
+ },
+ "visual_change": {
+  "verdict": "FAIL",
+  "max_span_s": 5.5,
+  "n_image_spans": 7,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

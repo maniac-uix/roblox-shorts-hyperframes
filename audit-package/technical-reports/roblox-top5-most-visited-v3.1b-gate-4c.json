@@ -1,0 +1,413 @@
+{
+ "slug": "roblox-top5-most-visited-v3.1b",
+ "format": "top5",
+ "file": "output/roblox-top5-most-visited-v3.1b.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.75 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 41.766 s vs video 41.767 s, gap 0.001 s (gate <= 0.02 s); loudness_integrated: -14.11 LUFS (gate -14 \u00b1 0.5); true_peak: -1.36 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.3 dB (bed gain +11.7 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "98/98 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "8 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "8 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.12 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "FAIL",
+   "value": "max span 6.5 s; 3 span(s) over 5.0 s; reuse: none (method images_map)"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "N/A",
+   "value": "no composition timeline available (pre-Phase-3 video)"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "FAIL",
+   "value": "max empty 0.3 s; 7 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "FAIL",
+   "value": "image std 5.85; title bright px 0"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "11 words; digit=True, ?=False, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "N/A",
+   "value": "no composition available (pre-v4 video)"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "FAIL",
+   "value": "longest stretch 6.5 s; 7 image spans (zooms do not count)"
+  },
+  "top5 sum": {
+   "verdict": "PASS",
+   "value": "  count: PASS \u2014 5 displayed, 5 spoken (need 5 each)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "five",
+   "start": 0.18,
+   "end": 0.38,
+   "prob": 0.47
+  },
+  {
+   "word": "counted",
+   "start": 2.12,
+   "end": 2.66,
+   "prob": 0.31
+  },
+  {
+   "word": "5.",
+   "start": 4.78,
+   "end": 5.12,
+   "prob": 0.44
+  },
+  {
+   "word": "garden.",
+   "start": 5.92,
+   "end": 6.16,
+   "prob": 0.53
+  },
+  {
+   "word": "and",
+   "start": 12.26,
+   "end": 12.5,
+   "prob": 0.47
+  },
+  {
+   "word": "The",
+   "start": 26.76,
+   "end": 27.34,
+   "prob": 0.22
+  },
+  {
+   "word": "1.",
+   "start": 29.76,
+   "end": 30.08,
+   "prob": 0.13
+  },
+  {
+   "word": "Five",
+   "start": 36.46,
+   "end": 36.72,
+   "prob": 0.56
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "five",
+   "start": 0.18,
+   "end": 0.38,
+   "prob": 0.47,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "counted",
+   "start": 2.12,
+   "end": 2.66,
+   "prob": 0.31,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "5.",
+   "start": 4.78,
+   "end": 5.12,
+   "prob": 0.44,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "garden.",
+   "start": 5.92,
+   "end": 6.16,
+   "prob": 0.53,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "and",
+   "start": 12.26,
+   "end": 12.5,
+   "prob": 0.47,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "The",
+   "start": 26.76,
+   "end": 27.34,
+   "prob": 0.22,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "1.",
+   "start": 29.76,
+   "end": 30.08,
+   "prob": 0.13,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Five",
+   "start": 36.46,
+   "end": 36.72,
+   "prob": 0.56,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-top5-most-visited-v3.1b.mp4",
+  "duration_s": 41.767,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 0.5,
+    "end_s": 4.0,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 4.0,
+    "end_s": 4.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 4.5,
+    "end_s": 9.0,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 9.0,
+    "end_s": 9.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 9.5,
+    "end_s": 10.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 15.0,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 15.0,
+    "end_s": 15.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 15.5,
+    "end_s": 16.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 16.0,
+    "end_s": 21.5,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   },
+   {
+    "start_s": 21.5,
+    "end_s": 22.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 22.0,
+    "end_s": 22.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 22.5,
+    "end_s": 27.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 27.5,
+    "end_s": 28.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 28.0,
+    "end_s": 28.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 28.5,
+    "end_s": 35.0,
+    "duration_s": 6.5,
+    "n_frames": 13,
+    "fragment": false
+   },
+   {
+    "start_s": 35.0,
+    "end_s": 35.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 35.5,
+    "end_s": 36.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 36.0,
+    "end_s": 42.0,
+    "duration_s": 6.0,
+    "n_frames": 12,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 6.5,
+  "duration_verdict": "FAIL",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": true,
+  "verdict": "FAIL"
+ },
+ "title_sentence": {
+  "verdict": "N/A",
+  "reason": "no composition timeline available"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-top5-most-visited-v3.1b.mp4",
+  "duration_s": 41.767,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 4.0,
+    "end_s": 4.3,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 9.3,
+    "end_s": 9.5,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 15.4,
+    "end_s": 15.7,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 21.8,
+    "end_s": 22.0,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 27.9,
+    "end_s": 28.2,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 35.5,
+    "end_s": 35.7,
+    "duration_s": 0.2,
+    "n_frames": 2
+   }
+  ],
+  "max_empty_s": 0.3,
+  "verdict": "FAIL"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-top5-most-visited-v3.1b.mp4",
+  "image_std_t0": 5.85,
+  "title_bright_px_t0": 0,
+  "image_visible": false,
+  "title_visible": false,
+  "image_std_t01": 8.13,
+  "title_bright_px_t01": 0,
+  "verdict": "FAIL"
+ },
+ "hook": {
+  "first_sentence": "The five most visited Roblox games ever, counted in November 2026.",
+  "n_words": 11,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/roblox-top5-most-visited-v3.1b/metadata.json"
+ },
+ "brand": {
+  "verdict": "N/A",
+  "reason": "no composition available"
+ },
+ "visual_change": {
+  "verdict": "FAIL",
+  "max_span_s": 6.5,
+  "n_image_spans": 7,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

@@ -10,6 +10,11 @@
   Phase 4B (Brand and Retention): persistent "NoobNoMore" watermark
   (top-right), original voxel mascot pop-in in the last scene, CTA
   "FOLLOW NOOBNOMORE", and 3-segment cut-zoom Ken Burns on every image.
+  Phase 4C (first-frame rule): scene 0 has NO entrance tweens — the
+  hook image and title are in their natural visible state from t=0, so
+  frame 0 is never empty. All storyboard-driven heads are a literal
+  placeholder (see PLACEHOLDER_HEAD in build_video.py); --heads must
+  supply every one or the build FAILS.
 -->
 <html lang="en">
   <head>
@@ -39,7 +44,7 @@
       .caption { width: 840px; text-align: center; color: var(--ink); font-weight: 800; font-size: 54px; line-height: 1.3; text-shadow: 0 4px 0 rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.6); }
       .caption .hl { color: #fde047; }
       .cta { display: inline-block; padding: 26px 44px; border-radius: 999px; background: var(--amber); color: #231303; font-weight: 900; font-size: 44px; letter-spacing: 0.04em; box-shadow: 0 14px 40px rgba(245,158,11,0.45); }
-      .watermark { font-weight: 800; font-size: 30px; letter-spacing: 0.1em; color: #1FD1C1; opacity: 0.85; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+      .watermark { font-weight: 800; font-size: 36px; letter-spacing: 0.1em; color: #1FD1C1; opacity: 0.85; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
       .mascot { position: absolute; width: 240px; height: 240px; }
       .scene { width: 1080px; height: 1920px; left: 0; top: 0; }
       .scene-inner { position: absolute; left: 120px; top: 340px; width: 840px; }
@@ -64,42 +69,42 @@
       </div>
       <div class="scene clip" data-start="0" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-0">
-          <h1 id="title-0" class="title">OLDER THAN<br /><span class="accent">YOU THINK.</span></h1>
+          <h1 id="title-0" class="title">HEADLINE — NOT SET</h1>
           <div class="img-wrap"><img id="img-0" data-img-scene="0" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
       </div>
       <div class="scene clip" data-start="2" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-1">
           <div id="num-1" class="fact-num">01</div>
-          <p id="head-1" class="fact-head">Started in 2004 as Dynablocks</p>
+          <p id="head-1" class="fact-head">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-1" data-img-scene="1" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
       </div>
       <div class="scene clip" data-start="4" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-2">
           <div id="num-2" class="fact-num">02</div>
-          <p id="head-2" class="fact-head">85 million players a day</p>
+          <p id="head-2" class="fact-head">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-2" data-img-scene="2" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
       </div>
       <div class="scene clip" data-start="6" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-3">
           <div id="num-3" class="fact-num">03</div>
-          <p id="head-3" class="fact-head">Over half of American kids</p>
+          <p id="head-3" class="fact-head">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-3" data-img-scene="3" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
       </div>
       <div class="scene clip" data-start="8" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-4">
           <div id="num-4" class="fact-num">04</div>
-          <p id="head-4" class="fact-head">Players get paid in real money</p>
+          <p id="head-4" class="fact-head">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-4" data-img-scene="4" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
       </div>
       <div class="scene clip" data-start="10" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-5">
-          <h1 id="title-5" class="title">BUILT BY<br /><span class="accent">ITS PLAYERS.</span></h1>
-          <p id="sub-5" class="subtitle" style="margin-top:36px;">One block at a time.</p>
+          <h1 id="title-5" class="title">HEADLINE — NOT SET</h1>
+          <p id="sub-5" class="subtitle" style="margin-top:36px;">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-5" data-img-scene="5" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
         <div class="cta-zone"><span id="cta" class="cta">FOLLOW NOOBNOMORE</span></div>
@@ -116,9 +121,8 @@
       tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 12, ease: "none" }, 0);
       tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 12, ease: "sine.inOut" }, 0);
       tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 12, ease: "sine.inOut" }, 0);
-      // Scene 0 — hook
-      tl.fromTo("#inner-0", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0);
-      tl.fromTo("#title-0", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.15);
+      // Scene 0 — hook (Phase 4C: NO entrance tweens — image and title
+      // are visible from t=0; the slide-out below still applies)
       tl.fromTo("#img-0", { scale: 1.22, x: -18 }, { scale: 1.17, x: -6, duration: 0.67, ease: "none" }, 0);
       tl.fromTo("#img-0", { scale: 1.14, x: -6 }, { scale: 1.09, x: 6, duration: 0.67, ease: "none" }, 0.67);
       tl.fromTo("#img-0", { scale: 1.06, x: 6 }, { scale: 1.02, x: 18, duration: 0.67, ease: "none" }, 1.33);

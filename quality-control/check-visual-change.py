@@ -2,6 +2,14 @@
 """check-visual-change.py — visual-change detection for the ROBLOX VIDEO
 FACTORY (Phase 4B).
 
+SUPERSEDED (Phase 4C, 23 Nov 2026): the gate no longer calls this script.
+It counted zooms/pans as visual changes (fps=2 frame difference) and
+measured 2.0 s max gaps on the v4 videos while the same image was held
+for 5.5-9.9 s — it could not detect the defect. The blocking control is
+now image-only (quality-control/check-image-runs.py, gate checks 7 and
+13): only a NEW image counts as a change, limit 5.0 s. This file is kept
+for calibration history only; do not re-enable it as a gate check.
+
 Detects visual changes with ffmpeg frame difference
 (``fps=2,select='gt(scene,T)',showinfo``) and computes the longest
 stretch of video with NO visual change — the max gap between

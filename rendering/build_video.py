@@ -119,9 +119,11 @@ def main() -> int:
                     help='JSON mapping element id to inner HTML for the '
                          'scene heads, e.g. \'{"title-0": "PROVE YOUR AGE'
                          '<br /><span class=\\"accent\\">TO CHAT.</span>", '
-                         '"head-1": "NOV 2025", "sub-5": ""}\'. Without it '
-                         'the template\'s hardcoded heads stay (stale '
-                         'content from the previous video on that template).')
+                         '"head-1": "NOV 2025", "sub-5": ""}\'. Phase 4C: '
+                         'templates carry the literal placeholder '
+                         '"HEADLINE — NOT SET" for every storyboard-driven '
+                         'head; the build FAILS if any placeholder survives '
+                         'substitution (or if no --heads is passed at all).')
     ap.add_argument("--source-notes", default=None,
                     help='JSON mapping scene index to the on-screen source '
                          'note, e.g. \'{"1": "Source: Roblox announcement '
@@ -408,6 +410,27 @@ def main() -> int:
                 print(f"head {el_id}: set")
             else:
                 print(f"WARNING: head element not found in template: {el_id}")
+    # 5c4b. Phase 4C placeholder survival check — FAIL the build if any
+    # storyboard-driven head was not supplied. Templates carry the literal
+    # placeholder "HEADLINE — NOT SET" (U+2014 em dash) for every head the
+    # storyboard must provide; a surviving placeholder means a head id is
+    # missing from --heads (or --heads was not passed at all), and the
+    # stale-text failure of Phase 2 (a previous video's heads rendering on
+    # the wrong video) must never happen again. Runs right after the 5c4
+    # substitution and before the composition is written. No-op for
+    # templates without the placeholder (e.g. templates/base-vertical).
+    PLACEHOLDER_HEAD = "HEADLINE — NOT SET"
+    if PLACEHOLDER_HEAD in html:
+        if not args.heads:
+            print(f"REFUSED: template {args.template} uses placeholder heads "
+                  f"({PLACEHOLDER_HEAD!r}) but no --heads argument was passed "
+                  f"— every storyboard head must be supplied via --heads.")
+        else:
+            print(f"REFUSED: placeholder head(s) {PLACEHOLDER_HEAD!r} still "
+                  f"present after --heads substitution — a head the "
+                  f"storyboard was supposed to supply was not provided "
+                  f"(check the --heads ids against the template).")
+        return 1
     # 5d. Audio source (relative to the composition folder).
     html = re.sub(r'(<audio[^>]*src=")[^"]*(")',
                   r'\1narration-mix.mp3\2', html)
@@ -440,6 +463,30 @@ def main() -> int:
     # Re-time each scene window AND its GSAP tweens to the sentences the
     # scene actually speaks. Full-duration tweens (progress, glows) keep
     # the global scaling — they belong to no scene.
+    #
+    # Phase 4C rules implemented here (see repl_tween below):
+    # - Transition / entrance durations are FIXED at 0.45 s in video time,
+    #   never scaled. Step 5b already scaled every GSAP duration by the
+    #   global factor (video/template, ~3.1-3.7x); re-scaling by the
+    #   per-scene factor f here stretched a 0.45 s slide-in to ~1.72 s, so
+    #   at every scene change the image zone sat empty ~0.3-0.5 s (the
+    #   outgoing card fully out before the incoming card covered the zone)
+    #   and titles popped up to 1.25 s after their sentence started.
+    # - #inner-* slide-in (fromTo) starts exactly at the scene's new start;
+    #   slide-out (to) ends exactly at the scene's new end (position =
+    #   new end - 0.45). The incoming card therefore covers the zone as the
+    #   outgoing card leaves it.
+    # - Head/title entrance pops (#title-*, #head-*, #num-*, #label-*,
+    #   #q-*, #sub-*) start exactly at the scene's new start with a fixed
+    #   0.45 s duration, so the title is on screen no later than 0.3 s
+    #   after its first sentence starts (the Phase 4B defect was a pop
+    #   stretched to 1.7 s by the scene factor).
+    # - Untouched: img-* zoom segments (they fill the scene by design),
+    #   progress/glow tweens (full-duration, no scene), CTA/mascot tweens
+    #   (payoff elements, no timing rule in this phase), source-note
+    #   tweens (already computed from new_bounds in 5e2).
+    # - Placeholder-head survival is checked in 5c4b, right after the
+    #   --heads substitution and before the composition is written.
     scene_pat = re.compile(
         r'<div class="scene clip" data-start="([0-9.]+)" '
         r'data-duration="([0-9.]+)" data-track-index="2">(.*?)</div>\s*</div>',
@@ -509,6 +556,21 @@ def main() -> int:
                           lambda mm: f"duration: {fmt(float(mm.group(1)) * f)}",
                           vars_text)
 
+        # Phase 4C fixed transition/entrance duration (video time). The
+        # builder scales GSAP durations twice (global factor in 5b, then
+        # the per-scene factor f in repl_tween) — for transitions and head
+        # entrances that double scaling is the Phase 4B defect, so these
+        # tweens get an exact 0.45 s instead, overriding whatever scaling
+        # produced. Only an existing duration key is rewritten; a from-vars
+        # dict carries no duration key in these templates (GSAP reads the
+        # tween duration from the to-vars of a fromTo), so there is nothing
+        # to set there.
+        FIXED_TWEEN_DURATION = 0.45
+
+        def set_duration(vars_text, dur=FIXED_TWEEN_DURATION):
+            return re.sub(r'duration:\s*[0-9.]+',
+                          f"duration: {fmt(dur)}", vars_text)
+
         def repl_tween(m):
             kind, target = m.group(1), m.group(2)
             k = id_to_scene.get(target.lstrip("#"))
@@ -516,6 +578,34 @@ def main() -> int:
                 return m.group(0)
             pos = float(m.group(5))
             new_pos, f = scene_map(k, pos)
+            base = target.lstrip("#")
+            # Phase 4C: scene transitions — fixed 0.45 s, pinned to the
+            # scene edges. Slide-in (fromTo) at the scene's new start;
+            # slide-out (to) ending at the scene's new end.
+            if re.fullmatch(r"inner-\d+", base):
+                if kind == "fromTo":
+                    v1 = set_duration(m.group(3))
+                    v2 = set_duration(m.group(4))
+                    return (f'tl.fromTo("{target}", {v1}, {v2}, '
+                            f'{fmt(new_bounds[k][0])})')
+                v1 = set_duration(m.group(3))
+                return (f'tl.to("{target}", {v1}, '
+                        f'{fmt(new_bounds[k][1] - FIXED_TWEEN_DURATION)})')
+            # Phase 4C: head/title entrance pops — at the scene's new start
+            # with a fixed 0.45 s duration. Rationale: the title must appear
+            # at the scene start, i.e. no later than 0.3 s after its first
+            # sentence starts; a pop stretched to 1.7 s by the scene factor
+            # is the Phase 4B defect (Mysteries v4 title-0 at 1.25 s vs
+            # sentence start 0.00; Facts v4 head-1 at 3.52 vs sentence 2.82).
+            if re.fullmatch(r"(title|head|num|label|q|sub)-\d+", base):
+                if kind == "fromTo":
+                    v1 = set_duration(m.group(3))
+                    v2 = set_duration(m.group(4))
+                    return (f'tl.fromTo("{target}", {v1}, {v2}, '
+                            f'{fmt(new_bounds[k][0])})')
+                v1 = set_duration(m.group(3))
+                return (f'tl.to("{target}", {v1}, '
+                        f'{fmt(new_bounds[k][0])})')
             if kind == "fromTo":
                 v1 = scale_durations(m.group(3), f)
                 v2 = scale_durations(m.group(4), f)

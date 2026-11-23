@@ -176,6 +176,20 @@ def stage_script(d: Path, claims):
 
 
 def stage_storyboard(d: Path, script: str):
+    # Phase 4C: beats.json is REQUIRED — one sentence = one title + one
+    # distinct image. The strict validator blocks the stage on any
+    # violation; --legacy dry-run shows the current storyboard's
+    # violations without blocking anything.
+    beats_path = d / "beats.json"
+    if not beats_path.exists():
+        raise SystemExit(
+            "beats.json is required (Phase 4C: one sentence = one title + "
+            "one distinct image). Write it per the schema in "
+            "pipeline/validate-storyboard.py, or run: python3 "
+            f"pipeline/validate-storyboard.py --slug {d.name} --legacy to "
+            "see the violations of the current storyboard.")
+    run([sys.executable, str(PROJECT / "pipeline" / "validate-storyboard.py"),
+         "--slug", d.name], cwd=PROJECT)
     text = (d / "storyboard.md").read_text()
     rows = [ln for ln in text.splitlines() if ln.strip().startswith("|")
             and not ln.strip().startswith("| #") and "---" not in ln]
@@ -397,6 +411,20 @@ def main():
         print(f"    gate: pipeline/{args.slug}/gate.json")
         print(f"    attribution: {r.stdout.strip()}")
         print("    The owner must listen to the voice before any manual publication.")
+        # Phase 4C: generate publish.md from the editorial title, if one
+        # was provided. Never invent a title — without
+        # publish-title.txt the file is simply not generated.
+        title_file = d / "publish-title.txt"
+        if title_file.exists():
+            title = title_file.read_text().strip().splitlines()[0].strip()
+            run(["python3", "pipeline/write-publish-md.py",
+                 "--slug", args.slug, "--title", title,
+                 "--output", str(d / "publish.md")], cwd=PROJECT)
+            print(f"    publish: pipeline/{args.slug}/publish.md")
+        else:
+            print("    publish.md not generated: no publish-title.txt "
+                  "(editorial title required — see "
+                  "pipeline/write-publish-md.py)")
     return 0
 
 
