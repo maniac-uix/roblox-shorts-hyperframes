@@ -5,6 +5,9 @@
   question mark hook, labelled evidence/truth cards, image card with
   Ken Burns motion in every scene. 5 scenes, 10 s base (builder scales
   + re-times to the narration).
+  Phase 4B (Brand and Retention): persistent "NoobNoMore" watermark
+  (top-right), original voxel mascot pop-in in the last scene, CTA
+  "FOLLOW NOOBNOMORE", and 3-segment cut-zoom Ken Burns on every image.
   Images: data-img-scene="N" — build_video.py --image-map rewrites src.
 -->
 <html lang="en">
@@ -36,6 +39,8 @@
       .caption { width: 840px; text-align: center; color: var(--ink); font-weight: 800; font-size: 54px; line-height: 1.3; text-shadow: 0 4px 0 rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.6); }
       .caption .hl { color: #fde047; }
       .cta { display: inline-block; padding: 26px 44px; border-radius: 999px; background: var(--amber); color: #231303; font-weight: 900; font-size: 44px; letter-spacing: 0.04em; box-shadow: 0 14px 40px rgba(245,158,11,0.45); }
+      .watermark { font-weight: 800; font-size: 30px; letter-spacing: 0.1em; color: #1FD1C1; opacity: 0.85; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+      .mascot { position: absolute; width: 240px; height: 240px; }
       .scene { width: 1080px; height: 1920px; left: 0; top: 0; }
       .scene-inner { position: absolute; left: 120px; top: 340px; width: 840px; }
       .img-wrap { width: 840px; height: 680px; border-radius: 28px; overflow: hidden; border: 3px solid rgba(255,255,255,0.18); box-shadow: 0 24px 60px rgba(0,0,0,0.5); margin-top: 36px; }
@@ -53,6 +58,9 @@
       </div>
       <div class="clip" data-start="0" data-duration="10" data-track-index="1" style="left:120px; top:270px;">
         <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+      <div class="clip" data-start="0" data-duration="10" data-track-index="1" style="left:630px; top:150px; width:300px; text-align:right;">
+        <span class="watermark">NoobNoMore</span>
       </div>
       <div class="scene clip" data-start="0" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-0">
@@ -88,7 +96,8 @@
           <p id="sub-4" class="subtitle" style="margin-top:36px;">Now he haunts Forsaken.</p>
           <div class="img-wrap"><img id="img-4" data-img-scene="4" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
-        <div class="cta-zone"><span id="cta" class="cta">FOLLOW FOR MORE</span></div>
+        <div class="cta-zone"><span id="cta" class="cta">FOLLOW NOOBNOMORE</span></div>
+        <img id="mascot" class="mascot" src="../../assets/brand/noobnomore-mascot-transparent.png" alt="" style="left:690px; top:1134px;" />
       </div>
       <div class="clip" data-start="0" data-duration="10" data-track-index="3" style="left:120px; top:1520px;">
         <p class="caption">Your caption goes here.</p>
@@ -105,32 +114,43 @@
       tl.fromTo("#inner-0", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0);
       tl.fromTo("#q-0", { opacity: 0, scale: 0.5, rotation: -12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 0.1);
       tl.fromTo("#title-0", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.35);
-      tl.fromTo("#img-0", { scale: 1, x: -14 }, { scale: 1.16, x: 14, duration: 2, ease: "none" }, 0);
+      tl.fromTo("#img-0", { scale: 1, x: -14 }, { scale: 1.07, x: -4.67, duration: 0.67, ease: "none" }, 0);
+      tl.fromTo("#img-0", { scale: 1.1, x: -4.67 }, { scale: 1.16, x: 4.67, duration: 0.67, ease: "none" }, 0.67);
+      tl.fromTo("#img-0", { scale: 1.19, x: 4.67 }, { scale: 1.24, x: 14, duration: 0.67, ease: "none" }, 1.33);
       tl.to("#inner-0", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 1.65);
       // Scene 1 — setup
       tl.fromTo("#inner-1", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 2);
       tl.fromTo("#label-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.1);
       tl.fromTo("#head-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.35);
-      tl.fromTo("#img-1", { scale: 1.18, x: 14 }, { scale: 1, x: -14, duration: 2, ease: "none" }, 2);
+      tl.fromTo("#img-1", { scale: 1.18, x: 14 }, { scale: 1.13, x: 4.67, duration: 0.67, ease: "none" }, 2);
+      tl.fromTo("#img-1", { scale: 1.1, x: 4.67 }, { scale: 1.05, x: -4.67, duration: 0.67, ease: "none" }, 2.67);
+      tl.fromTo("#img-1", { scale: 1.02, x: -4.67 }, { scale: 1, x: -14, duration: 0.67, ease: "none" }, 3.33);
       tl.to("#inner-1", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 3.65);
       // Scene 2 — evidence
       tl.fromTo("#inner-2", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4);
       tl.fromTo("#label-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.1);
       tl.fromTo("#head-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.35);
-      tl.fromTo("#img-2", { scale: 1, x: 18 }, { scale: 1.16, x: -18, duration: 2, ease: "none" }, 4);
+      tl.fromTo("#img-2", { scale: 1, x: 18 }, { scale: 1.07, x: 6, duration: 0.67, ease: "none" }, 4);
+      tl.fromTo("#img-2", { scale: 1.1, x: 6 }, { scale: 1.16, x: -6, duration: 0.67, ease: "none" }, 4.67);
+      tl.fromTo("#img-2", { scale: 1.19, x: -6 }, { scale: 1.24, x: -18, duration: 0.67, ease: "none" }, 5.33);
       tl.to("#inner-2", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 5.65);
       // Scene 3 — truth
       tl.fromTo("#inner-3", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6);
       tl.fromTo("#label-3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 6.1);
       tl.fromTo("#head-3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 6.35);
-      tl.fromTo("#img-3", { scale: 1.18, x: 14 }, { scale: 1, x: -14, duration: 2, ease: "none" }, 6);
+      tl.fromTo("#img-3", { scale: 1.18, x: 14 }, { scale: 1.13, x: 4.67, duration: 0.67, ease: "none" }, 6);
+      tl.fromTo("#img-3", { scale: 1.1, x: 4.67 }, { scale: 1.05, x: -4.67, duration: 0.67, ease: "none" }, 6.67);
+      tl.fromTo("#img-3", { scale: 1.02, x: -4.67 }, { scale: 1, x: -14, duration: 0.67, ease: "none" }, 7.33);
       tl.to("#inner-3", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 7.65);
       // Scene 4 — conclusion (stays on screen to the end: no slide-out)
       tl.fromTo("#inner-4", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 8);
       tl.fromTo("#title-4", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 8.15);
       tl.fromTo("#sub-4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 8.5);
-      tl.fromTo("#img-4", { scale: 1, x: -18 }, { scale: 1.18, x: 18, duration: 2, ease: "none" }, 8);
+      tl.fromTo("#img-4", { scale: 1, x: -18 }, { scale: 1.07, x: -6, duration: 0.67, ease: "none" }, 8);
+      tl.fromTo("#img-4", { scale: 1.1, x: -6 }, { scale: 1.16, x: 6, duration: 0.67, ease: "none" }, 8.67);
+      tl.fromTo("#img-4", { scale: 1.19, x: 6 }, { scale: 1.24, x: 18, duration: 0.67, ease: "none" }, 9.33);
       tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 8.7);
+      tl.fromTo("#mascot", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 8.7);
       tl.to("#cta", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 9.2);
       window.__timelines["mysteries"] = tl;
       tl.seek(0);

@@ -346,6 +346,22 @@ def main() -> int:
         font_dst.parent.mkdir(parents=True, exist_ok=True)
         font_dst.write_bytes(font_src.read_bytes())
         html = html.replace("../../assets/", "assets/")
+    # 5c2b. Brand mascot (Phase 4B): the template's last scene references
+    # ../../assets/brand/noobnomore-mascot-transparent.png (already
+    # rewritten to assets/brand/... by the replace above). Copy it into
+    # the video dir like the font. The mascot is a local-only asset
+    # (assets/brand/ is git-ignored, never pushed to GitHub).
+    mascot_src = (PROJECT_DIR / "assets" / "brand"
+                  / "noobnomore-mascot-transparent.png")
+    if "assets/brand/" in html and mascot_src.exists():
+        mascot_dst = out_dir / "assets" / "brand" / mascot_src.name
+        mascot_dst.parent.mkdir(parents=True, exist_ok=True)
+        mascot_dst.write_bytes(mascot_src.read_bytes())
+        print(f"brand mascot: {mascot_src.name} -> "
+              f"{mascot_dst.relative_to(PROJECT_DIR)}")
+    elif "assets/brand/" in html:
+        print("WARNING: template references a brand asset but "
+              f"{mascot_src} is missing — mascot will not render")
     # 5c3. Images: --image-map maps scene index -> project-relative image.
     # Copy each image into the video dir and rewrite the <img
     # data-img-scene="N"> src to the local copy.
@@ -525,6 +541,13 @@ def main() -> int:
         # Inserted into the scene's inner div (after the image card) so the
         # note slides with its scene; the fade-in tween is appended in
         # final (post-alignment) time, 0.6 s after the scene starts.
+        # Phase 4B: a note belongs to the FIRST sentence of its scene (the
+        # figure it sources) — it fades OUT 0.2 s after that sentence's
+        # caption ends, so it never lingers into a sentence it does not
+        # source (22 Nov 2026: a note that outlived its figure misattributed
+        # the next claim). Storyboards must place each figure first in its
+        # scene; a note on a scene whose first caption is not its figure
+        # is a storyboard error, not a builder problem.
         if args.source_notes:
             notes = json.loads(args.source_notes)
             for k_str, text in notes.items():
@@ -547,6 +570,19 @@ def main() -> int:
                 html = html.replace("      window.__timelines[",
                                     tween + "      window.__timelines[", 1)
                 print(f"source note scene {k}: {text!r} (fades in at {pos:.2f} s)")
+                out_pos = groups[k][0]["end"] + 0.2
+                if out_pos > pos + 0.4 and out_pos < new_bounds[k][1] - 0.1:
+                    out_tween = (f'      tl.to("#source-{k}", '
+                                 f'{{ opacity: 0, duration: 0.3, '
+                                 f'ease: "none" }}, {fmt(out_pos)});\n')
+                    html = html.replace("      window.__timelines[",
+                                        out_tween + "      window.__timelines[", 1)
+                    print(f"source note scene {k}: fades out at {out_pos:.2f} s "
+                          f"(end of its figure's sentence)")
+                else:
+                    print(f"WARNING: source note scene {k}: no fade-out "
+                          f"(figure sentence ends at {groups[k][0]['end']:.2f} s, "
+                          f"scene ends at {new_bounds[k][1]:.2f} s)")
 
     comp_path = out_dir / "index.html"
     comp_path.write_text(html)

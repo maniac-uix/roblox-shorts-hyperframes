@@ -20,7 +20,14 @@ Checks (in order):
      from metadata.json (lexicon + numbers + difflib >= 0.80), last
      sentence complete and ending before the final silence
   6. check-sync.py: captions within 0.3 s of the spoken words (Whisper tiny)
-  7. check-top5-sum.py: only for --format top5 (displayed + spoken sums
+  7. check-visual-change.py (Phase 4B, RECORDED, non-blocking): longest
+     stretch with no visual change (fps=2 frame-diff, threshold 0.01,
+     limit 4.0 s). Calibration (23 Nov 2026) proved it cannot block:
+     full-fps scdet at 0.05-0.15 finds 0 changes on good videos at
+     >= 0.08, and even the fps=2 variant leaves facts at 4.50 s and
+     top5 / throw-food exactly at 4.00 s — a blocking limit would fail
+     good videos. A frozen clip reads max gap = video length, 0 changes.
+  8. check-top5-sum.py: only for --format top5 (displayed + spoken sums
      consistent with the announced total)
   8. words to listen — low-confidence words (< 0.6) plus
      pronunciation-sensitive words the check could not validate
@@ -153,7 +160,26 @@ def main():
          f"max |start gap| {sync.get('max_abs_start_gap_s', '?')} s "
          f"(gate <= 0.3 s)")
 
-    # 7. Top 5 sum (only for top5)
+    # 7. visual change (Phase 4B, RECORDED — never blocking). The verdict
+    # is deliberately "recorded", not PASS/FAIL: the calibration proved
+    # no threshold lets all 5 good videos pass with margin (facts
+    # 4.50 s, top5 / throw-food exactly 4.00 s at fps=2, thr 0.01), so
+    # a FAIL here must not block delivery. The value carries the signal:
+    # a frozen video reads max gap = video length with 0 changes.
+    vc = {}
+    r = run([sys.executable, str(QC / "check-visual-change.py"),
+             "--mp4", str(mp4), "--threshold", "0.01", "--max-gap", "4.0"])
+    try:
+        vc = json.loads(r.stdout.strip().splitlines()[-1])
+    except (IndexError, ValueError):
+        vc = {}
+    vc_over = vc.get("max_gap_s") is not None and vc["max_gap_s"] > 4.0
+    note("visual change (max gap <= 4.0 s, fps=2 frame-diff)", "recorded",
+         f"{'WARNING — ' if vc_over else ''}max gap "
+         f"{vc.get('max_gap_s', '?')} s, {vc.get('n_changes', '?')} changes "
+         f"@ thr 0.01 (non-blocking, Phase 4B calibration)")
+
+    # 8. Top 5 sum (only for top5)
     if args.format == "top5":
         if not args.top5_values:
             note("top5 sum", "FAIL", "no --top5-values file given")
@@ -168,7 +194,8 @@ def main():
                             for c in checks.values()) else "FAIL"
     report = {"slug": slug, "format": args.format, "file": str(mp4),
               "overall": overall, "checks": checks,
-              "low_confidence_words": low, "listen_words": listen_words}
+              "low_confidence_words": low, "listen_words": listen_words,
+              "visual_change": vc}
     if args.output:
         Path(args.output).write_text(json.dumps(report, indent=1) + "\n")
         print(f"  gate report saved to {args.output}", flush=True)

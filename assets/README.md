@@ -20,6 +20,15 @@ Images, fonts and music. **Rights-cleared only.**
 - `music/` — royalty-free tracks only, with a `CREDITS.md` per track
   (title, author, licence, attribution text for the description).
 
+## Brand (Phase 4B)
+
+- `brand/noobnomore-mascot-transparent.png` — NoobNoMore original voxel
+  mascot (half beginner / half pro, turquoise cape), source
+  `~/workspace/noobnomore/noobnomore-mascot-transparent.png`, 1600×1600
+  RGBA. Used as a watermark-adjacent mascot pop-in in the last scene of
+  the facts and mysteries templates. **Local-only asset — NOT pushed to
+  GitHub** (binary; `assets/brand/` is git-ignored).
+
 ## Phase 2 asset registry (21 Nov 2026)
 
 All images below are **original illustrations generated in this
@@ -82,3 +91,14 @@ characters, no game footage. Free to use in this project.
 | `images/roblox-age-check-explained/bands-original.webp` | — unshifted copy | Original bands image before the +150 px shift (kept for reference) |
 | `images/roblox-age-check-explained/bands-closeup.webp` | 4 groups, 2nd shot at 21.34 s | Voxel kid with a chat bubble reaching the teal "15" badge, red barrier with "16" behind it (scene 4 lasts 10.90 s > 8 s, so the image changes at sentence 6) |
 | `images/roblox-age-check-explained/lock.webp` | 5 under-9 | Locked chat bubble with padlock, parent shield with checkmark, tilt block mark behind |
+
+### throw-food-for-animals (sky-blue #38BDF8, Game Discoveries, Phase 3)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/throw-food-for-animals/throw-field.webp` | 0 hook | Blue-hoodie voxel hero throwing a giant carrot in a high arc, deer/rabbit/fox running toward it, voxel field |
+| `images/throw-food-for-animals/title-calendar.webp` | 1 launch | Giant blank voxel calendar (no digits, no garbled text) over a voxel village, armored hero below, sky-blue confetti |
+| `images/throw-food-for-animals/throw-catch.webp` | 2 loop | Giant voxel hand throwing a carrot in an arc, cute voxel bunny leaping mid-air to catch it, wooden pen with hay |
+| `images/throw-food-for-animals/pen-coins.webp` | 3 earnings | Sleeping fox/sheep/bunny/bear in a wooden pen, gold coins popping above, giant voxel sun sliding into a voxel moon |
+| `images/throw-food-for-animals/pull-up-biomes.webp` | 4 training | Voxel hero doing pull-ups on a bar, glowing blue power meter filling, biome strip behind (forest, desert, snow, wasteland) |
+| `images/throw-food-for-animals/hero-payoff.webp` | 5 payoff | Proud armored hero with golden lion, purple dragon and crystal fox, big golden star badge above, confetti |

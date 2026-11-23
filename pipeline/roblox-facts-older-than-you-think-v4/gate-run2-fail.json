@@ -1,0 +1,141 @@
+{
+ "slug": "roblox-facts-older-than-you-think-v4",
+ "format": "facts",
+ "file": "output/roblox-facts-older-than-you-think-v4.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.59 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 38.333 s vs video 38.333 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.28 LUFS (gate -14 \u00b1 0.5); true_peak: -1.49 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.2 dB (bed gain +10.83 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "FAIL",
+   "value": "98/100 words, missing 2; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.11 s (gate <= 0.3 s)"
+  },
+  "visual change (max gap <= 4.0 s, fps=2 frame-diff)": {
+   "verdict": "recorded",
+   "value": "max gap 2.0 s, 56 changes @ thr 0.01 (non-blocking, Phase 4B calibration)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "robots",
+   "start": 7.46,
+   "end": 7.94,
+   "prob": 0.32
+  },
+  {
+   "word": "Robux",
+   "start": 26.88,
+   "end": 27.34,
+   "prob": 0.36
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "robots",
+   "start": 7.46,
+   "end": 7.94,
+   "prob": 0.32,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Robux",
+   "start": 26.88,
+   "end": 27.34,
+   "prob": 0.36,
+   "reason": "low-confidence"
+  }
+ ],
+ "visual_change": {
+  "mp4": "output/roblox-facts-older-than-you-think-v4.mp4",
+  "duration_s": 38.333,
+  "threshold": 0.01,
+  "max_gap_s": 2.0,
+  "n_changes": 56,
+  "changes_s": [
+   0.5,
+   1.0,
+   2.0,
+   3.0,
+   3.5,
+   4.0,
+   5.5,
+   6.5,
+   7.5,
+   8.0,
+   8.5,
+   9.0,
+   9.5,
+   10.0,
+   10.5,
+   11.0,
+   11.5,
+   12.0,
+   12.5,
+   13.0,
+   13.5,
+   14.0,
+   14.5,
+   15.0,
+   15.5,
+   17.5,
+   18.0,
+   18.5,
+   19.0,
+   19.5,
+   20.0,
+   20.5,
+   21.0,
+   21.5,
+   22.0,
+   22.5,
+   23.0,
+   23.5,
+   24.5,
+   25.0,
+   25.5,
+   27.5,
+   28.0,
+   28.5,
+   29.0,
+   29.5,
+   30.0,
+   30.5,
+   31.5,
+   32.5,
+   34.0,
+   34.5,
+   35.0,
+   35.5,
+   37.5,
+   38.0
+  ],
+  "max_gap_limit_s": 4.0,
+  "verdict": "PASS"
+ }
+}

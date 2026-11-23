@@ -1,0 +1,184 @@
+{
+ "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+ "verdict": "FAIL",
+ "threshold_s": 0.3,
+ "timing_model": "tiny",
+ "narration": "videos/roblox-mystery-1x1x1x1-v4/narration.mp3",
+ "timing_corrections": [
+  {
+   "word": "so",
+   "old_start": 18.42,
+   "new_start": 18.46,
+   "silence": [
+    17.951583,
+    18.460625
+   ]
+  },
+  {
+   "word": "1x1x1x1x1",
+   "old_start": 26.46,
+   "new_start": 26.92,
+   "silence": [
+    26.583125,
+    26.919583
+   ]
+  },
+  {
+   "word": "as",
+   "old_start": 38.0,
+   "new_start": 38.12,
+   "silence": [
+    37.724458,
+    38.1215
+   ]
+  }
+ ],
+ "captions_checked": 10,
+ "unmatched_captions": [],
+ "max_abs_start_gap_s": 0.78,
+ "mean_abs_start_gap_s": 0.088,
+ "max_abs_end_gap_s": 0.74,
+ "mean_abs_end_gap_s": 0.126,
+ "per_caption": [
+  {
+   "caption": 0,
+   "text": "Could one username hack your account, destroy your game, and",
+   "caption_start_s": 0.0,
+   "caption_end_s": 3.84,
+   "first_word": "Could",
+   "first_word_start_s": 0.0,
+   "last_word": "you?",
+   "last_word_end_s": 3.78,
+   "start_gap_s": 0.0,
+   "end_gap_s": 0.06,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 1,
+   "text": "His name was 1x1x1x1.",
+   "caption_start_s": 4.38,
+   "caption_end_s": 7.44,
+   "first_word": "His",
+   "first_word_start_s": 4.38,
+   "last_word": "1x1x1x1.",
+   "last_word_end_s": 7.68,
+   "start_gap_s": 0.0,
+   "end_gap_s": -0.24,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 2,
+   "text": "The name first appeared in 2007, in the description of a spo",
+   "caption_start_s": 8.08,
+   "caption_end_s": 14.0,
+   "first_word": "name",
+   "first_word_start_s": 8.1,
+   "last_word": "Necro",
+   "last_word_end_s": 13.26,
+   "start_gap_s": -0.02,
+   "end_gap_s": 0.74,
+   "matched": true,
+   "coverage": 0.94
+  },
+  {
+   "caption": 3,
+   "text": "Then exploiters wrecked games and signed their chaos with hi",
+   "caption_start_s": 14.8,
+   "caption_end_s": 20.12,
+   "first_word": "then",
+   "first_word_start_s": 14.8,
+   "last_word": "proof.",
+   "last_word_end_s": 20.06,
+   "start_gap_s": 0.0,
+   "end_gap_s": 0.06,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 4,
+   "text": "But in 2011, a Roblox admin revealed the truth.",
+   "caption_start_s": 20.8,
+   "caption_end_s": 23.88,
+   "first_word": "But",
+   "first_word_start_s": 20.8,
+   "last_word": "truth.",
+   "last_word_end_s": 23.82,
+   "start_gap_s": 0.0,
+   "end_gap_s": 0.06,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 5,
+   "text": "1x1x1x1 was a test account, created by an admin named Shedle",
+   "caption_start_s": 26.2,
+   "caption_end_s": 31.26,
+   "first_word": "was",
+   "first_word_start_s": 26.98,
+   "last_word": "story.",
+   "last_word_end_s": 31.24,
+   "start_gap_s": -0.78,
+   "end_gap_s": 0.02,
+   "matched": true,
+   "coverage": 0.93
+  },
+  {
+   "caption": 6,
+   "text": "He was never a hacker.",
+   "caption_start_s": 31.86,
+   "caption_end_s": 32.74,
+   "first_word": "He",
+   "first_word_start_s": 31.92,
+   "last_word": "hacker.",
+   "last_word_end_s": 32.72,
+   "start_gap_s": -0.06,
+   "end_gap_s": 0.02,
+   "matched": true,
+   "coverage": 0.8
+  },
+  {
+   "caption": 7,
+   "text": "The hacker never existed.",
+   "caption_start_s": 33.28,
+   "caption_end_s": 34.5,
+   "first_word": "The",
+   "first_word_start_s": 33.3,
+   "last_word": "existed.",
+   "last_word_end_s": 34.44,
+   "start_gap_s": -0.02,
+   "end_gap_s": 0.06,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 8,
+   "text": "So the answer is no.",
+   "caption_start_s": 35.12,
+   "caption_end_s": 36.16,
+   "first_word": "So",
+   "first_word_start_s": 35.12,
+   "last_word": "no.",
+   "last_word_end_s": 36.16,
+   "start_gap_s": 0.0,
+   "end_gap_s": 0.0,
+   "matched": true,
+   "coverage": 1.0
+  },
+  {
+   "caption": 9,
+   "text": "But the legend lives on, as a killer in the game Forsaken.",
+   "caption_start_s": 36.6,
+   "caption_end_s": 39.28,
+   "first_word": "But",
+   "first_word_start_s": 36.6,
+   "last_word": "game",
+   "last_word_end_s": 39.28,
+   "start_gap_s": 0.0,
+   "end_gap_s": 0.0,
+   "matched": true,
+   "coverage": 0.92
+  }
+ ]
+}

@@ -113,6 +113,60 @@ def stage_script(d: Path, claims):
         "script contains French accented characters — videos are English only"
     script_sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", script) if s.strip()]
     assert len(script_sents) >= 4, "script needs at least 4 sentences"
+    # HOOK check (Phase 4B, blocking): the first sentence must be short
+    # (<= 12 words) AND contain an Arabic digit, a "?", or a spelled-out
+    # number word. A "surprising statement" cannot be checked
+    # automatically, so the enforceable rule is digit-or-question; a hook
+    # that is only a surprising statement must be rephrased to include a
+    # number or a question.
+    NUMBER_WORDS = {
+        "one", "two", "three", "four", "five", "six", "seven", "eight",
+        "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+        "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
+        "eighty", "ninety", "hundred", "thousand", "million", "billion",
+    }
+    hook = script_sents[0]
+    hook_words = words(hook)
+    hook_lower = [w.lower() for w in hook_words]
+    hook_has_digit = any(any(ch.isdigit() for ch in w) for w in hook_words)
+    hook_has_question = "?" in hook
+    hook_has_number_word = any(w in NUMBER_WORDS for w in hook_lower)
+    assert len(hook_words) <= 12, (
+        f"hook too long ({len(hook_words)} words, max 12): {hook!r}")
+    assert hook_has_digit or hook_has_question or hook_has_number_word, (
+        f"hook has no digit, no '?', and no spelled-out number word: {hook!r} "
+        f"— rephrase the hook to include a number or a question")
+    hook_parts = []
+    if hook_has_digit:
+        hook_parts.append("digit")
+    if hook_has_question:
+        hook_parts.append("question-mark")
+    if hook_has_number_word:
+        hook_parts.append("number-word")
+    print(f"  hook: PASS ({len(hook_words)} words, "
+          f"{', '.join(hook_parts)})")
+    # LOOP check (Phase 4B, REPORT-ONLY, never blocking): compare the
+    # first and last sentences on shared content words (stopwords
+    # stripped). A loop can be a logical continuation with no shared
+    # word, so a WARNING only asks for a manual check of the link.
+    STOPWORDS = {
+        "a", "an", "the", "is", "are", "was", "were", "be", "been",
+        "it", "its", "this", "that", "these", "those", "and", "or",
+        "but", "so", "to", "of", "in", "on", "for", "with", "by", "at",
+        "as", "from", "you", "your", "he", "she", "they", "we", "i",
+        "did", "do", "does", "can", "could", "will", "would", "not",
+        "no", "still", "just", "very", "more", "than", "then", "when",
+        "what", "how", "why", "who", "whom",
+    }
+    first_content = {w.lower() for w in words(script_sents[0])} - STOPWORDS
+    last_content = {w.lower() for w in words(script_sents[-1])} - STOPWORDS
+    shared = sorted(first_content & last_content)
+    if shared:
+        print(f"  LOOP: PASS (shared content words: {', '.join(shared)})")
+    else:
+        print("  LOOP: WARNING (no shared content word between first and "
+              "last sentence — verify the logical link manually)")
     # Traceability (researcher's job, checked by the owner at the stop
     # point): every verified claim must be spoken in the script, in its
     # own terms — the driver cannot judge that, so it only reports the
@@ -134,14 +188,18 @@ def stage_storyboard(d: Path, script: str):
         assert cells[2] and cells[3] and cells[5], \
             f"storyboard scene needs visual + motion + caption: {row}"
         motions.add(cells[3].lower())
-        cap = re.sub(r"<[^>]+>", " ", cells[5]).replace("*", " ").strip()
+        cap = re.sub(r"<[^>]+>", " ", cells[5]).replace("*", "").strip()
         sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", cap) if s.strip()]
         assert sents, f"storyboard scene has an empty caption: {row}"
         captions.extend(sents)
         breaks.append(len(sents))
     assert len(motions) >= 2, "storyboard needs >= 2 distinct motions/animations"
     script_sents = [s.strip() for s in
-                    re.split(r"(?<=[.!?])\s+", script.replace("*", " ")) if s.strip()]
+                    re.split(r"(?<=[.!?])\s+", script.replace("*", "")) if s.strip()]
+    # NOTE: "*" is removed (not replaced with a space) on both sides:
+    # replacing it with " " left a stray space before the period
+    # ("...into  real money ." vs "...into real money."), so a script
+    # sentence with *emphasis* never matched its plain caption.
     norm = lambda s: re.sub(r"\s+", " ", s.strip().lower())
     assert [norm(c) for c in captions] == [norm(s) for s in script_sents], \
         ("storyboard captions do not match the script sentences in order — "
@@ -151,14 +209,46 @@ def stage_storyboard(d: Path, script: str):
     return breaks
 
 
+def _date_citations(date_str):
+    """Date renderings a note may cite for one claim date — without ever
+    fabricating a day or month that was not claimed (Phase 4B).
+    Claim dates in claims.json come in four forms:
+      "undated"    -> None: the claim can never be cited by date
+                      (it may still be cited by its source domain).
+      "YYYY"       -> ["2004"]: the year alone.
+      "YYYY-MM"    -> ["Feb 2025"]: month-year only — never a day.
+      "YYYY-MM-DD" -> ["Nov 18, 2025", "Nov 2025"]: full date, and the
+                      month-year subset (a month that was claimed).
+    Anything else unparseable -> None (skipped, never crashes)."""
+    from datetime import date
+    if not date_str or str(date_str).strip().lower() == "undated":
+        return None
+    parts = str(date_str).strip().split("-")
+    try:
+        if len(parts) == 1:
+            return [f"{int(parts[0])}"]
+        if len(parts) == 2:
+            y, m = map(int, parts)
+            return [date(y, m, 1).strftime("%b %Y")]  # "Feb 2025"
+        if len(parts) == 3:
+            y, m, dd = map(int, parts)
+            d = date(y, m, dd)
+            return [d.strftime("%b %-d, %Y"),  # "Nov 18, 2025"
+                    d.strftime("%b %Y")]       # "Nov 2025"
+    except ValueError:
+        return None
+    return None
+
+
 def stage_source_notes(d: Path, claims):
     """source-notes.json (optional): every on-screen source note must cite
-    a VERIFIED claim in claims.json — the claim's date rendered as
-    "Mon D, YYYY" or the claim source's domain must appear in the note
-    text. A note that cites nothing in claims.json is a false attribution
-    waiting to happen (22 Nov 2026: Phase 2 facts notes "Feb 2025" /
-    "Apr 2020" leaked into the age-check video on the wrong scenes)."""
-    from datetime import date
+    a VERIFIED claim in claims.json — the claim's date (in whatever
+    precision it was claimed: year, month-year, or full date — see
+    _date_citations) or the claim source's domain must appear in the
+    note text. A note that cites nothing in claims.json is a false
+    attribution waiting to happen (22 Nov 2026: Phase 2 facts notes
+    "Feb 2025" / "Apr 2020" leaked into the age-check video on the
+    wrong scenes)."""
     from urllib.parse import urlparse
     p = d / "source-notes.json"
     if not p.exists():
@@ -168,11 +258,17 @@ def stage_source_notes(d: Path, claims):
     for scene, text in notes.items():
         ok = False
         for c in verified:
-            y, m, dd = map(int, c["date"].split("-"))
-            rendered = date(y, m, dd).strftime("%b %-d, %Y")  # "Nov 18, 2025"
             domain = urlparse(c["source_url"]).netloc.replace("www.", "")
-            if rendered in text or domain in text:
+            if domain and domain in text:
                 ok = True
+                break
+            for cit in (_date_citations(c.get("date")) or []):
+                # Word-boundary match so a year ("2004") cannot match
+                # inside a longer number.
+                if re.search(rf"\b{re.escape(cit)}\b", text):
+                    ok = True
+                    break
+            if ok:
                 break
         assert ok, (f"source-notes.json scene {scene}: {text!r} cites no "
                     f"verified claim in claims.json — a source note must "
@@ -189,6 +285,7 @@ def main():
                                          "updates", "stories"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--stage", choices=STAGES, default="deliver")
+    ap.add_argument("--end-margin", type=float, default=0.85)
     args = ap.parse_args()
     d = PROJECT / "pipeline" / args.slug
     d.mkdir(parents=True, exist_ok=True)
@@ -217,6 +314,17 @@ def main():
         # (n_scenes-1 values; the last scene takes the remainder), while
         # the storyboard validator returns per-scene sentence COUNTS.
         # Convert: [1,1,1,1,2,2] -> cuts [1,2,3,4,6].
+        # Phase 4B: --end-margin defaults to 0.85 s, aiming for the low end
+        # of the final-silence range (0.5-0.7 s) as MEASURED on the
+        # normalised delivered file. The gate threshold is UNCHANGED
+        # (qc.sh default margin 1.0 allows 0.5-1.75 s). 0.6 was tried
+        # first (Facts v4 gate run #1): the raw render measured 0.56 s
+        # but the normalised file measured 0.45 s — FAIL. Loudnorm's
+        # +9.54 dB gain lifts the music-bed fade tail above the silence
+        # threshold, so the measured silence shrinks 0.11-0.26 s on
+        # normalise (throw-food, margin 1.0, measured 0.74 s). 0.85
+        # targets ~0.6-0.7 s measured; the builder must never trim
+        # narration to hit it.
         cuts = []
         total = 0
         for c in breaks[:-1]:
@@ -224,9 +332,11 @@ def main():
             cuts.append(total)
         build_cmd = ["python3", "rendering/build_video.py", "--slug", args.slug,
              "--script", script, "--template",
-             f"templates/formats/{fmt}.html" if fmt in ("facts", "top5", "mysteries")
+             f"templates/formats/{fmt}.html" if fmt in ("facts", "top5", "mysteries",
+                                                      "game-discoveries")
              else "templates/base-vertical/index.html",
              "--scene-breaks", ",".join(map(str, cuts)),
+             "--end-margin", str(args.end_margin),
              "--target-min", str(DUR_MIN), "--target-max", str(DUR_MAX)]
         image_map = d / "image-map.json"
         if image_map.exists():

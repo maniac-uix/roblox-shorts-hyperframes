@@ -274,6 +274,7 @@ replaces the rule it contradicts, and the replacement must be written here.
   briefs). Unverified claims are excluded from the narration. Script:
   English, 30–45 s estimated. Storyboard: ≥ 4 scenes, ≥ 2 distinct
   motions, captions exactly the script sentences in order.
+- Templates: `templates/formats/game-discoveries.html` (sky-blue #38BDF8, copy of facts.html, 6 scenes; CTA is a `<p>` so `--heads` can set it) — first used for throw-food-for-animals (23 Nov 2026).
 - **Stop point (Step 4): after script + claims.json + storyboard, STOP and
   wait for the owner's green light before voice and final render.**
   No voice, no render, no delivery before that green light.
@@ -284,3 +285,101 @@ replaces the rule it contradicts, and the replacement must be written here.
   `pipeline/music-attribution.py` (config `music` entry — never invented).
 - No automatic publishing, ever. The owner listens to the voice before
   any manual publication.
+
+## 10. Phase 4B — Brand and Retention (v4, 23 Nov 2026)
+
+Phase 4B re-renders Facts and Mysteries with brand and retention rules.
+**It overrides the Phase 3 stop point: there is no stop point in Phase 4B
+— the gate decides.** Everything else in §9 still applies.
+
+- **Hook (blocking, in the script stage of `pipeline/run.py`):** the first
+  sentence must be ≤ 12 words AND contain a digit, a question mark, or a
+  spelled-out number word (one..twenty, thirty…ninety, hundred, thousand,
+  million, billion). "Surprising statement" cannot be checked
+  automatically, so the enforceable rule is digit-or-question; a hook that
+  is only a surprising statement must be rephrased with a number or a
+  question. The first-scene title echoes the hook. Dates and "counted
+  in…" move later in the script.
+- **Loop (report-only, `pipeline/run.py`):** the last sentence must connect
+  back to the first — checked as a shared content word between first and
+  last sentence, excluding stopwords; printed as `LOOP: PASS/WARNING`.
+  Never blocks.
+- **Rhythm (4 s rule):** no scene stays more than 4 s without a visible
+  change. Implemented as a 3-segment zoom cut per scene (jump cuts at 1/3
+  and 2/3 of the scene) in the facts/mysteries templates, plus slide
+  transitions, caption swaps, source-note fades and title pops — max gap
+  without a discrete change ≈ scene length / 3. Long scenes are NOT split
+  into extra scenes; existing images only, no new image generation.
+- **Brand (templates, not per video):** persistent "NoobNoMore" watermark
+  text in the safe zone (top-right, right edge 1080−150 px, top 150 px,
+  30 px Montserrat 800, turquoise #1FD1C1, opacity 0.85) in
+  `templates/formats/facts.html` and `mysteries.html`. Last scene: the
+  NoobNoMore mascot (240×240 px, bottom-left of the image card area) with
+  CTA **"FOLLOW NOOBNOMORE"** (replaces "FOLLOW FOR MORE"). Brand palette:
+  turquoise #1FD1C1 / amber #FFB020 / purple #7A4DF0; format accents
+  (Facts teal, Mysteries purple) stay for scene design. Mascot asset:
+  `assets/brand/noobnomore-mascot-transparent.png` (copy of the channel
+  mascot, SHA-256 `58bfc921…013b6b`) — **local-only, git-ignored, never
+  pushed**; `build_video.py` copies it into each video folder at build
+  time and warns if a template references a missing brand asset.
+- **Visual-change gate control (`quality-control/check-visual-change.py`,
+  gate check 7):** ffmpeg fps=2 frame-difference, threshold 0.01,
+  max-gap limit 4.0 s. **Recorded as a non-blocking warning, never
+  PASS/FAIL.** Calibration on the 5 existing videos (23 Nov 2026):
+  full-fps scdet fails ALL good videos at every threshold (T=0.05–0.15,
+  max gaps 10–20 s — factory motion is smooth slides/zooms, not hard
+  cuts); frame-diff fps=2 T=0.01 gives facts 4.50 s / top5 4.00 s /
+  mystery 3.50 s / age-check 3.50 s / throw-food 4.00 s — even the best
+  instrument leaves facts above 4.0 s and two videos exactly on the
+  limit, so blocking would fail good videos. The 4.0 s limit itself is
+  unachievable for these videos (slow scenes + the intentionally static
+  final payoff/CTA scene). A frozen-frame and a black clip both measure
+  max gap 10.00 s / 0 changes, so the instrument does separate dead video
+  from live video — it stays a recorded warning. v4 drafts measure 2.0 s
+  (Facts 55 changes, Mysteries 46–51 changes) thanks to the 3-segment
+  zoom.
+- **Final silence (target 0.5–0.7 s measured):** `run.py --end-margin`
+  default is **0.85** (was 0.6). Loudnorm's gain (+9.5–12.6 dB) lifts the
+  music-bed fade tail above the silence threshold and shrinks the
+  measured final silence by 0.11–0.26 s vs the raw render — the extra
+  0.25 s of margin compensates. **The gate threshold is unchanged
+  (0.5–1.75 s)** and the builder never trims narration.
+- **Source-note fade-out (convention + `build_video.py`):** a source note
+  belongs to the FIRST sentence of its scene (the figure it sources) and
+  fades out 0.2 s after that sentence's caption ends, so it never lingers
+  into a sentence it does not source. The storyboard must arrange each
+  figure sentence to start its scene.
+- **Second shot (`pipeline/second-shot.py`):** parameterized crossfade to
+  a second image mid-scene (`--slug --scene --at --end --image <path>
+  --reason`); records in `metadata.json` as `secondShots`. Used when one
+  scene holds two sentences with different visuals (Facts v4 scene 4:
+  kids figure, then DevEx sentence).
+- **TTS determinism:** `/opt/hatch/bin/tts` is effectively deterministic
+  per script text — rebuilding the voice does not produce a new take
+  (two consecutive rebuilds of Facts v4 gave byte-identical narration
+  timings). A pronunciation defect is fixed by **rephrasing the script**,
+  never by re-generating the voice. A rephrase that changes a sentence
+  onset is the fix for a misheard word (Facts v4: "As of February 2025"
+  heard as "says" by all three models → "In February 2025"; Mysteries
+  v4: sentence-initial "The" heard as "his" → "It first appeared…").
+- **Slowly-spelled proper nouns:** a token like `1x1x1x1` in
+  sentence-initial position is spelled out slowly by the TTS (~2.2 s,
+  "one x one x…"); Whisper models latch onto different parts of it, so
+  both the build caption timing and the sync check go wrong (Mysteries
+  v4 gate run #1: caption 1.8 s late vs true speech onset, sync gap
+  −0.78 s). Never start a sentence with a slowly-spelled token — start
+  with a normal word instead (Mysteries v4: "1x1x1x1 was a test
+  account…" → "It was a test account…").
+- **Lexicon rule (reminder):** a variant is added only for a Whisper
+  respelling of a correctly-spoken word — small must hear the word
+  EXACTLY on the clean narration (Mysteries v4: "sagan"/"for sagan" →
+  "forsaken", same class as the existing "saken"/"for saken"; small
+  hears "Forsaken" on the clean narration, the /k/→/g/ voicing confusion
+  appears only under the music bed). A word the voice itself misrenders
+  ("selfie" → "sucky") is never legitimised by a variant — rephrase the
+  script instead.
+- **Known latent bug (not fixed):** HyperFrames check-cache trap —
+  `build_video.py` judges `npx hyperframes check` only by the "report
+  saved to" line, so a cached ok:true report reads as FAILED; workaround
+  is to delete `videos/<slug>/.hyperframes/cache/check.json` before the
+  run.

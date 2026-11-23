@@ -1,0 +1,150 @@
+<!doctype html>
+<!--
+  FORMAT: GAME DISCOVERIES — Phase 3. Sky-blue accent #38BDF8.
+  Full-height layout: pill + progress (top), title, image card with
+  Ken Burns motion, caption band at y1300 (replaced by build_video.py).
+  Scene transitions: each .scene-inner slides in from the right and out
+  to the left (last scene stays on screen to the end).
+  6 scenes, 12 s base (builder scales + re-times to the narration).
+  Images: data-img-scene="N" — build_video.py --image-map rewrites src.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Montserrat"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../../assets/fonts/Montserrat-Variable.woff2") format("woff2"); }
+      :root { --ground: #0b1026; --ground-2: #131a3d; --ink: #ffffff; --muted: #9aa3c7; --accent: #38bdf8; --amber: #f59e0b; --font-display: "Montserrat", sans-serif; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      #root { width: 100%; height: 100%; position: relative; font-family: var(--font-display); background: linear-gradient(180deg, var(--ground) 0%, var(--ground-2) 62%, #0a0e22 100%); overflow: hidden; }
+      .clip { position: absolute; }
+      .glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; }
+      #glow-a { width: 620px; height: 620px; left: -160px; top: 180px; background: #0ea5e9; }
+      #glow-b { width: 560px; height: 560px; right: -180px; top: 980px; background: #7c3aed; }
+      .grid { position: absolute; inset: 0; opacity: 0.14; background-image: linear-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.35) 1px, transparent 1px); background-size: 108px 108px; }
+      .pill { display: inline-block; padding: 16px 30px; border-radius: 999px; font-weight: 800; font-size: 34px; letter-spacing: 0.12em; color: #082f49; background: var(--accent); }
+      h1.title { color: var(--ink); font-weight: 900; font-size: 108px; line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase; text-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 18px 44px rgba(0,0,0,0.55); }
+      h1.title .accent { color: var(--accent); }
+      .fact-num { color: var(--accent); font-weight: 900; font-size: 180px; line-height: 0.9; text-shadow: 0 10px 40px rgba(56,189,248,0.35); }
+      .fact-head { color: var(--ink); font-weight: 900; font-size: 68px; line-height: 1.05; letter-spacing: -0.01em; text-transform: uppercase; margin-top: 24px; text-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 16px 40px rgba(0,0,0,0.5); }
+      .source-note { color: #dbe2f5; font-weight: 700; font-size: 30px; margin-top: 18px; text-align: center; letter-spacing: 0.02em; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+      .subtitle { color: var(--muted); font-weight: 700; font-size: 50px; line-height: 1.25; }
+      .progress-track { width: 840px; height: 10px; border-radius: 99px; background: rgba(255,255,255,0.18); overflow: hidden; }
+      #progress-fill { width: 100%; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), #7dd3fc); transform-origin: left center; }
+      .caption { width: 840px; text-align: center; color: var(--ink); font-weight: 800; font-size: 54px; line-height: 1.3; text-shadow: 0 4px 0 rgba(0,0,0,0.6), 0 10px 28px rgba(0,0,0,0.6); }
+      .caption .hl { color: #fde047; }
+      .cta { display: inline-block; padding: 26px 44px; border-radius: 999px; background: var(--amber); color: #231303; font-weight: 900; font-size: 44px; letter-spacing: 0.04em; box-shadow: 0 14px 40px rgba(245,158,11,0.45); }
+      .scene { width: 1080px; height: 1920px; left: 0; top: 0; }
+      .scene-inner { position: absolute; left: 120px; top: 340px; width: 840px; }
+      .img-wrap { width: 840px; height: 680px; border-radius: 28px; overflow: hidden; border: 3px solid rgba(255,255,255,0.18); box-shadow: 0 24px 60px rgba(0,0,0,0.5); margin-top: 36px; }
+      .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .cta-zone { position: absolute; left: 120px; top: 1760px; width: 840px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="game-discoveries" data-start="0" data-duration="12" data-width="1080" data-height="1920">
+      <div class="grid clip" data-start="0" data-duration="12" data-track-index="0"></div>
+      <div id="glow-a" class="glow clip" data-start="0" data-duration="12" data-track-index="0"></div>
+      <div id="glow-b" class="glow clip" data-start="0" data-duration="12" data-track-index="0"></div>
+      <div class="clip" data-start="0" data-duration="12" data-track-index="1" style="left:120px; top:180px;">
+        <span class="pill">GAME DISCOVERIES</span>
+      </div>
+      <div class="clip" data-start="0" data-duration="12" data-track-index="1" style="left:120px; top:270px;">
+        <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+      <div class="scene clip" data-start="0" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-0">
+          <h1 id="title-0" class="title">OLDER THAN<br /><span class="accent">YOU THINK.</span></h1>
+          <div class="img-wrap"><img id="img-0" data-img-scene="0" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="2" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-1">
+          <div id="num-1" class="fact-num">01</div>
+          <p id="head-1" class="fact-head">Started in 2004 as Dynablocks</p>
+          <div class="img-wrap"><img id="img-1" data-img-scene="1" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="4" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-2">
+          <div id="num-2" class="fact-num">02</div>
+          <p id="head-2" class="fact-head">85 million players a day</p>
+          <div class="img-wrap"><img id="img-2" data-img-scene="2" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="6" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-3">
+          <div id="num-3" class="fact-num">03</div>
+          <p id="head-3" class="fact-head">Over half of American kids</p>
+          <div class="img-wrap"><img id="img-3" data-img-scene="3" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="8" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-4">
+          <div id="num-4" class="fact-num">04</div>
+          <p id="head-4" class="fact-head">Players get paid in real money</p>
+          <div class="img-wrap"><img id="img-4" data-img-scene="4" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="10" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-5">
+          <h1 id="title-5" class="title">BUILT BY<br /><span class="accent">ITS PLAYERS.</span></h1>
+          <p id="sub-5" class="subtitle" style="margin-top:36px;">One block at a time.</p>
+          <div class="img-wrap"><img id="img-5" data-img-scene="5" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+        <div class="cta-zone"><p id="cta" class="cta">FOLLOW FOR MORE</p></div>
+      </div>
+      <div class="clip" data-start="0" data-duration="12" data-track-index="3" style="left:120px; top:1520px;">
+        <p class="caption">Your caption goes here.</p>
+      </div>
+      <audio id="narration" src="../../voiceover/narration.mp3" data-start="0" data-duration="12"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 12, ease: "none" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 12, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 12, ease: "sine.inOut" }, 0);
+      // Scene 0 — hook
+      tl.fromTo("#inner-0", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0);
+      tl.fromTo("#title-0", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.15);
+      tl.fromTo("#img-0", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 0);
+      tl.to("#inner-0", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 1.65);
+      // Scene 1
+      tl.fromTo("#inner-1", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 2);
+      tl.fromTo("#num-1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 2.1);
+      tl.fromTo("#head-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.35);
+      tl.fromTo("#img-1", { scale: 1, x: 18 }, { scale: 1.16, x: -18, duration: 2, ease: "none" }, 2);
+      tl.to("#inner-1", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 3.65);
+      // Scene 2
+      tl.fromTo("#inner-2", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 4);
+      tl.fromTo("#num-2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 4.1);
+      tl.fromTo("#head-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 4.35);
+      tl.fromTo("#img-2", { scale: 1, x: -14 }, { scale: 1.16, x: 14, duration: 2, ease: "none" }, 4);
+      tl.to("#inner-2", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 5.65);
+      // Scene 3
+      tl.fromTo("#inner-3", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6);
+      tl.fromTo("#num-3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 6.1);
+      tl.fromTo("#head-3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 6.35);
+      tl.fromTo("#img-3", { scale: 1, x: -18 }, { scale: 1.16, x: 18, duration: 2, ease: "none" }, 6);
+      tl.to("#inner-3", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 7.65);
+      // Scene 4
+      tl.fromTo("#inner-4", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 8);
+      tl.fromTo("#num-4", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 8.1);
+      tl.fromTo("#head-4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 8.35);
+      tl.fromTo("#img-4", { scale: 1, x: -18 }, { scale: 1.16, x: 18, duration: 2, ease: "none" }, 8);
+      tl.to("#inner-4", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 9.65);
+      // Scene 5 — payoff (stays on screen to the end: no slide-out)
+      tl.fromTo("#inner-5", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 10);
+      tl.fromTo("#title-5", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 10.15);
+      tl.fromTo("#sub-5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 10.5);
+      tl.fromTo("#img-5", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 10);
+      tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 10.7);
+      tl.to("#cta", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 11.2);
+      window.__timelines["game-discoveries"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

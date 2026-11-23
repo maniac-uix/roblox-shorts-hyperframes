@@ -1,0 +1,136 @@
+{
+ "slug": "roblox-mystery-1x1x1x1-v4",
+ "format": "mysteries",
+ "file": "output/roblox-mystery-1x1x1x1-v4.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.66 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 40.667 s vs video 40.667 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.44 LUFS (gate -14 \u00b1 0.5); true_peak: -1.48 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 9.3 dB (bed gain +12.56 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "FAIL",
+   "value": "98/99 words, missing 1; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "FAIL",
+   "value": "max |start gap| 0.78 s (gate <= 0.3 s)"
+  },
+  "visual change (max gap <= 4.0 s, fps=2 frame-diff)": {
+   "verdict": "recorded",
+   "value": "max gap 2.0 s, 51 changes @ thr 0.01 (non-blocking, Phase 4B calibration)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "exploiters",
+   "start": 14.88,
+   "end": 15.62,
+   "prob": 0.59
+  },
+  {
+   "word": "saken.",
+   "start": 39.36,
+   "end": 39.74,
+   "prob": 0.41
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "exploiters",
+   "start": 14.88,
+   "end": 15.62,
+   "prob": 0.59,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "saken.",
+   "start": 39.36,
+   "end": 39.74,
+   "prob": 0.41,
+   "reason": "low-confidence"
+  }
+ ],
+ "visual_change": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "duration_s": 40.667,
+  "threshold": 0.01,
+  "max_gap_s": 2.0,
+  "n_changes": 51,
+  "changes_s": [
+   0.5,
+   1.0,
+   1.5,
+   2.0,
+   2.5,
+   3.0,
+   4.0,
+   4.5,
+   5.5,
+   6.5,
+   7.5,
+   8.0,
+   8.5,
+   9.0,
+   10.0,
+   12.0,
+   12.5,
+   13.0,
+   14.5,
+   15.0,
+   15.5,
+   16.0,
+   16.5,
+   18.0,
+   18.5,
+   19.0,
+   19.5,
+   20.5,
+   21.0,
+   23.0,
+   24.0,
+   25.0,
+   26.0,
+   26.5,
+   28.5,
+   29.0,
+   31.0,
+   31.5,
+   32.0,
+   32.5,
+   33.0,
+   33.5,
+   34.0,
+   34.5,
+   35.5,
+   36.0,
+   37.0,
+   38.0,
+   38.5,
+   39.5,
+   40.0
+  ],
+  "max_gap_limit_s": 4.0,
+  "verdict": "PASS"
+ }
+}

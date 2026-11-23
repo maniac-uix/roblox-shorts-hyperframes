@@ -1,0 +1,96 @@
+{
+ "slug": "throw-food-for-animals",
+ "format": "game-discoveries",
+ "file": "output/throw-food-for-animals.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.74 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 35.367 s vs video 35.367 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.26 LUFS (gate -14 \u00b1 0.5); true_peak: -1.39 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 11.6 dB (bed gain +10.68 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "109/109 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "4 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "4 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.02 s (gate <= 0.3 s)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "and",
+   "start": 3.24,
+   "end": 3.74,
+   "prob": 0.46
+  },
+  {
+   "word": "five",
+   "start": 4.56,
+   "end": 4.86,
+   "prob": 0.44
+  },
+  {
+   "word": "and",
+   "start": 14.6,
+   "end": 15.06,
+   "prob": 0.39
+  },
+  {
+   "word": "the",
+   "start": 26.9,
+   "end": 27.02,
+   "prob": 0.44
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "and",
+   "start": 3.24,
+   "end": 3.74,
+   "prob": 0.46,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "five",
+   "start": 4.56,
+   "end": 4.86,
+   "prob": 0.44,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "and",
+   "start": 14.6,
+   "end": 15.06,
+   "prob": 0.39,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "the",
+   "start": 26.9,
+   "end": 27.02,
+   "prob": 0.44,
+   "reason": "low-confidence"
+  }
+ ]
+}

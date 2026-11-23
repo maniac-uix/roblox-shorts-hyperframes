@@ -22,6 +22,7 @@ phase2-audit-package*.zip
 assets/fonts/*.woff2
 assets/images/
 assets/music/
+assets/brand/  # Phase 4B mascot — local-only, never pushed to GitHub
 
 # Local / secrets
 .env

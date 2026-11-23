@@ -1,0 +1,145 @@
+{
+ "slug": "roblox-mystery-1x1x1x1-v4",
+ "format": "mysteries",
+ "file": "output/roblox-mystery-1x1x1x1-v4.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.62 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 36.800 s vs video 36.800 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.35 LUFS (gate -14 \u00b1 0.5); true_peak: -1.48 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.7 dB (bed gain +11.26 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "98/98 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.16 s (gate <= 0.3 s)"
+  },
+  "visual change (max gap <= 4.0 s, fps=2 frame-diff)": {
+   "verdict": "recorded",
+   "value": "max gap 2.0 s, 47 changes @ thr 0.01 (non-blocking, Phase 4B calibration)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "exploiters",
+   "start": 14.02,
+   "end": 14.76,
+   "prob": 0.59
+  },
+  {
+   "word": "for",
+   "start": 35.32,
+   "end": 35.48,
+   "prob": 0.5
+  },
+  {
+   "word": "Sagan.",
+   "start": 35.48,
+   "end": 35.84,
+   "prob": 0.54
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "exploiters",
+   "start": 14.02,
+   "end": 14.76,
+   "prob": 0.59,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "for",
+   "start": 35.32,
+   "end": 35.48,
+   "prob": 0.5,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Sagan.",
+   "start": 35.48,
+   "end": 35.84,
+   "prob": 0.54,
+   "reason": "low-confidence"
+  }
+ ],
+ "visual_change": {
+  "mp4": "output/roblox-mystery-1x1x1x1-v4.mp4",
+  "duration_s": 36.8,
+  "threshold": 0.01,
+  "max_gap_s": 2.0,
+  "n_changes": 47,
+  "changes_s": [
+   0.5,
+   2.0,
+   3.0,
+   4.0,
+   4.5,
+   6.0,
+   6.5,
+   7.0,
+   7.5,
+   8.0,
+   8.5,
+   9.0,
+   9.5,
+   11.0,
+   11.5,
+   12.5,
+   13.0,
+   13.5,
+   14.0,
+   14.5,
+   15.0,
+   15.5,
+   17.5,
+   18.0,
+   18.5,
+   19.0,
+   19.5,
+   20.5,
+   21.5,
+   22.0,
+   22.5,
+   23.5,
+   24.0,
+   26.0,
+   26.5,
+   27.5,
+   28.0,
+   28.5,
+   29.0,
+   29.5,
+   30.0,
+   30.5,
+   31.0,
+   32.5,
+   33.5,
+   35.5,
+   36.0
+  ],
+  "max_gap_limit_s": 4.0,
+  "verdict": "PASS"
+ }
+}

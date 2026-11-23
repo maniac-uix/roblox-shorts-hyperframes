@@ -1,0 +1,623 @@
+{
+ "mp4": "videos/roblox-mystery-1x1x1x1-v4/narration.mp3",
+ "model": "small",
+ "model_fallback": null,
+ "verdict": "PASS",
+ "script_words": 98,
+ "transcript_words": 98,
+ "matched": 98,
+ "missing": [],
+ "fuzzy_matches": [],
+ "lexicon_matches": [],
+ "lexicon_variants_heard": [],
+ "extra_transcript_words": [],
+ "transcript": "Could one username hack your account, destroy your game, and ban you? His name was 1x1x1x1. It first appeared in 2007, in the description of a spooky Roblox hat called the Necrobloxicon. Then, exploiters wrecked games and signed their chaos with his name, so every crash looked like proof. But in 2011, a Roblox admin revealed the truth. It was a test account, created by an admin named Shedletsky for a story. He was never a hacker. The hacker never existed. So the answer is no, but the legend lives on as a killer in the game Forsaken.",
+ "words": [
+  {
+   "word": "Could",
+   "start": 0.0,
+   "end": 0.2,
+   "prob": 0.78
+  },
+  {
+   "word": "one",
+   "start": 0.2,
+   "end": 0.42,
+   "prob": 0.98
+  },
+  {
+   "word": "username",
+   "start": 0.42,
+   "end": 0.82,
+   "prob": 0.84
+  },
+  {
+   "word": "hack",
+   "start": 0.82,
+   "end": 1.24,
+   "prob": 0.99
+  },
+  {
+   "word": "your",
+   "start": 1.24,
+   "end": 1.38,
+   "prob": 0.99
+  },
+  {
+   "word": "account,",
+   "start": 1.38,
+   "end": 1.74,
+   "prob": 1.0
+  },
+  {
+   "word": "destroy",
+   "start": 1.98,
+   "end": 2.26,
+   "prob": 1.0
+  },
+  {
+   "word": "your",
+   "start": 2.26,
+   "end": 2.48,
+   "prob": 1.0
+  },
+  {
+   "word": "game,",
+   "start": 2.48,
+   "end": 2.76,
+   "prob": 1.0
+  },
+  {
+   "word": "and",
+   "start": 2.96,
+   "end": 3.06,
+   "prob": 1.0
+  },
+  {
+   "word": "ban",
+   "start": 3.06,
+   "end": 3.32,
+   "prob": 1.0
+  },
+  {
+   "word": "you?",
+   "start": 3.32,
+   "end": 3.52,
+   "prob": 1.0
+  },
+  {
+   "word": "His",
+   "start": 4.2,
+   "end": 4.38,
+   "prob": 0.98
+  },
+  {
+   "word": "name",
+   "start": 4.38,
+   "end": 4.6,
+   "prob": 1.0
+  },
+  {
+   "word": "was",
+   "start": 4.6,
+   "end": 4.78,
+   "prob": 1.0
+  },
+  {
+   "word": "1x1x1x1.",
+   "start": 4.78,
+   "end": 6.96,
+   "prob": 0.87
+  },
+  {
+   "word": "It",
+   "start": 7.44,
+   "end": 7.66,
+   "prob": 0.99
+  },
+  {
+   "word": "first",
+   "start": 7.66,
+   "end": 7.88,
+   "prob": 1.0
+  },
+  {
+   "word": "appeared",
+   "start": 7.88,
+   "end": 8.16,
+   "prob": 1.0
+  },
+  {
+   "word": "in",
+   "start": 8.16,
+   "end": 8.36,
+   "prob": 1.0
+  },
+  {
+   "word": "2007,",
+   "start": 8.36,
+   "end": 9.14,
+   "prob": 1.0
+  },
+  {
+   "word": "in",
+   "start": 9.44,
+   "end": 9.52,
+   "prob": 1.0
+  },
+  {
+   "word": "the",
+   "start": 9.52,
+   "end": 9.6,
+   "prob": 1.0
+  },
+  {
+   "word": "description",
+   "start": 9.6,
+   "end": 9.9,
+   "prob": 1.0
+  },
+  {
+   "word": "of",
+   "start": 9.9,
+   "end": 10.14,
+   "prob": 1.0
+  },
+  {
+   "word": "a",
+   "start": 10.14,
+   "end": 10.24,
+   "prob": 0.99
+  },
+  {
+   "word": "spooky",
+   "start": 10.24,
+   "end": 10.54,
+   "prob": 1.0
+  },
+  {
+   "word": "Roblox",
+   "start": 10.54,
+   "end": 11.2,
+   "prob": 0.9
+  },
+  {
+   "word": "hat",
+   "start": 11.2,
+   "end": 11.42,
+   "prob": 0.99
+  },
+  {
+   "word": "called",
+   "start": 11.42,
+   "end": 11.74,
+   "prob": 0.86
+  },
+  {
+   "word": "the",
+   "start": 11.74,
+   "end": 11.92,
+   "prob": 0.86
+  },
+  {
+   "word": "Necrobloxicon.",
+   "start": 11.92,
+   "end": 13.0,
+   "prob": 0.82
+  },
+  {
+   "word": "Then,",
+   "start": 13.64,
+   "end": 14.02,
+   "prob": 0.99
+  },
+  {
+   "word": "exploiters",
+   "start": 14.16,
+   "end": 14.74,
+   "prob": 0.83
+  },
+  {
+   "word": "wrecked",
+   "start": 14.74,
+   "end": 15.1,
+   "prob": 0.99
+  },
+  {
+   "word": "games",
+   "start": 15.1,
+   "end": 15.44,
+   "prob": 0.99
+  },
+  {
+   "word": "and",
+   "start": 15.44,
+   "end": 15.62,
+   "prob": 0.97
+  },
+  {
+   "word": "signed",
+   "start": 15.62,
+   "end": 15.92,
+   "prob": 0.99
+  },
+  {
+   "word": "their",
+   "start": 15.92,
+   "end": 16.06,
+   "prob": 1.0
+  },
+  {
+   "word": "chaos",
+   "start": 16.06,
+   "end": 16.4,
+   "prob": 0.97
+  },
+  {
+   "word": "with",
+   "start": 16.4,
+   "end": 16.66,
+   "prob": 1.0
+  },
+  {
+   "word": "his",
+   "start": 16.66,
+   "end": 16.8,
+   "prob": 1.0
+  },
+  {
+   "word": "name,",
+   "start": 16.8,
+   "end": 17.1,
+   "prob": 1.0
+  },
+  {
+   "word": "so",
+   "start": 17.5,
+   "end": 17.68,
+   "prob": 1.0
+  },
+  {
+   "word": "every",
+   "start": 17.68,
+   "end": 17.92,
+   "prob": 0.99
+  },
+  {
+   "word": "crash",
+   "start": 17.92,
+   "end": 18.28,
+   "prob": 0.97
+  },
+  {
+   "word": "looked",
+   "start": 18.28,
+   "end": 18.56,
+   "prob": 0.99
+  },
+  {
+   "word": "like",
+   "start": 18.56,
+   "end": 18.74,
+   "prob": 1.0
+  },
+  {
+   "word": "proof.",
+   "start": 18.74,
+   "end": 19.06,
+   "prob": 0.99
+  },
+  {
+   "word": "But",
+   "start": 19.78,
+   "end": 20.06,
+   "prob": 1.0
+  },
+  {
+   "word": "in",
+   "start": 20.06,
+   "end": 20.16,
+   "prob": 0.94
+  },
+  {
+   "word": "2011,",
+   "start": 20.16,
+   "end": 20.66,
+   "prob": 1.0
+  },
+  {
+   "word": "a",
+   "start": 21.0,
+   "end": 21.12,
+   "prob": 1.0
+  },
+  {
+   "word": "Roblox",
+   "start": 21.12,
+   "end": 21.58,
+   "prob": 0.99
+  },
+  {
+   "word": "admin",
+   "start": 21.58,
+   "end": 21.92,
+   "prob": 0.95
+  },
+  {
+   "word": "revealed",
+   "start": 21.92,
+   "end": 22.28,
+   "prob": 1.0
+  },
+  {
+   "word": "the",
+   "start": 22.28,
+   "end": 22.48,
+   "prob": 1.0
+  },
+  {
+   "word": "truth.",
+   "start": 22.48,
+   "end": 22.76,
+   "prob": 1.0
+  },
+  {
+   "word": "It",
+   "start": 23.4,
+   "end": 23.54,
+   "prob": 1.0
+  },
+  {
+   "word": "was",
+   "start": 23.54,
+   "end": 23.66,
+   "prob": 1.0
+  },
+  {
+   "word": "a",
+   "start": 23.66,
+   "end": 23.8,
+   "prob": 1.0
+  },
+  {
+   "word": "test",
+   "start": 23.8,
+   "end": 23.96,
+   "prob": 0.99
+  },
+  {
+   "word": "account,",
+   "start": 23.96,
+   "end": 24.3,
+   "prob": 0.99
+  },
+  {
+   "word": "created",
+   "start": 24.72,
+   "end": 25.0,
+   "prob": 1.0
+  },
+  {
+   "word": "by",
+   "start": 25.0,
+   "end": 25.24,
+   "prob": 1.0
+  },
+  {
+   "word": "an",
+   "start": 25.24,
+   "end": 25.34,
+   "prob": 1.0
+  },
+  {
+   "word": "admin",
+   "start": 25.34,
+   "end": 25.68,
+   "prob": 1.0
+  },
+  {
+   "word": "named",
+   "start": 25.68,
+   "end": 26.0,
+   "prob": 0.99
+  },
+  {
+   "word": "Shedletsky",
+   "start": 26.0,
+   "end": 26.72,
+   "prob": 0.84
+  },
+  {
+   "word": "for",
+   "start": 26.72,
+   "end": 26.94,
+   "prob": 0.68
+  },
+  {
+   "word": "a",
+   "start": 26.94,
+   "end": 27.08,
+   "prob": 0.97
+  },
+  {
+   "word": "story.",
+   "start": 27.08,
+   "end": 27.3,
+   "prob": 0.99
+  },
+  {
+   "word": "He",
+   "start": 28.06,
+   "end": 28.26,
+   "prob": 0.99
+  },
+  {
+   "word": "was",
+   "start": 28.26,
+   "end": 28.38,
+   "prob": 1.0
+  },
+  {
+   "word": "never",
+   "start": 28.38,
+   "end": 28.56,
+   "prob": 1.0
+  },
+  {
+   "word": "a",
+   "start": 28.56,
+   "end": 28.74,
+   "prob": 0.95
+  },
+  {
+   "word": "hacker.",
+   "start": 28.74,
+   "end": 28.96,
+   "prob": 1.0
+  },
+  {
+   "word": "The",
+   "start": 28.96,
+   "end": 29.6,
+   "prob": 0.42
+  },
+  {
+   "word": "hacker",
+   "start": 29.6,
+   "end": 29.82,
+   "prob": 0.96
+  },
+  {
+   "word": "never",
+   "start": 29.82,
+   "end": 30.1,
+   "prob": 0.96
+  },
+  {
+   "word": "existed.",
+   "start": 30.1,
+   "end": 30.6,
+   "prob": 1.0
+  },
+  {
+   "word": "So",
+   "start": 31.24,
+   "end": 31.44,
+   "prob": 0.96
+  },
+  {
+   "word": "the",
+   "start": 31.44,
+   "end": 31.58,
+   "prob": 0.9
+  },
+  {
+   "word": "answer",
+   "start": 31.58,
+   "end": 31.8,
+   "prob": 1.0
+  },
+  {
+   "word": "is",
+   "start": 31.8,
+   "end": 31.98,
+   "prob": 1.0
+  },
+  {
+   "word": "no,",
+   "start": 31.98,
+   "end": 32.22,
+   "prob": 0.91
+  },
+  {
+   "word": "but",
+   "start": 32.72,
+   "end": 32.92,
+   "prob": 0.99
+  },
+  {
+   "word": "the",
+   "start": 32.92,
+   "end": 33.02,
+   "prob": 0.98
+  },
+  {
+   "word": "legend",
+   "start": 33.02,
+   "end": 33.32,
+   "prob": 0.96
+  },
+  {
+   "word": "lives",
+   "start": 33.32,
+   "end": 33.6,
+   "prob": 0.99
+  },
+  {
+   "word": "on",
+   "start": 33.6,
+   "end": 33.92,
+   "prob": 0.99
+  },
+  {
+   "word": "as",
+   "start": 33.92,
+   "end": 34.42,
+   "prob": 0.8
+  },
+  {
+   "word": "a",
+   "start": 34.42,
+   "end": 34.5,
+   "prob": 0.99
+  },
+  {
+   "word": "killer",
+   "start": 34.5,
+   "end": 34.78,
+   "prob": 0.98
+  },
+  {
+   "word": "in",
+   "start": 34.78,
+   "end": 34.98,
+   "prob": 1.0
+  },
+  {
+   "word": "the",
+   "start": 34.98,
+   "end": 35.06,
+   "prob": 0.99
+  },
+  {
+   "word": "game",
+   "start": 35.06,
+   "end": 35.32,
+   "prob": 0.98
+  },
+  {
+   "word": "Forsaken.",
+   "start": 35.32,
+   "end": 35.84,
+   "prob": 0.7
+  }
+ ],
+ "final_sentence": {
+  "text": "But the legend lives on, as a killer in the game Forsaken.",
+  "complete": true,
+  "missing_words": [],
+  "last_word_end_s": 35.84,
+  "final_silence_start_s": 35.92,
+  "ends_before_silence": true
+ },
+ "low_confidence_words": [
+  {
+   "word": "The",
+   "start": 28.96,
+   "end": 29.6,
+   "prob": 0.42
+  }
+ ],
+ "low_confidence_threshold": 0.6,
+ "listen_words": []
+}
