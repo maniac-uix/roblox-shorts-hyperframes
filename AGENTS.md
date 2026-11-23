@@ -386,11 +386,7 @@ Phase 4B re-renders Facts and Mysteries with brand and retention rules.
   appears only under the music bed). A word the voice itself misrenders
   ("selfie" → "sucky") is never legitimised by a variant — rephrase the
   script instead.
-- **Known latent bug (not fixed):** HyperFrames check-cache trap —
-  `build_video.py` judges `npx hyperframes check` only by the "report
-  saved to" line, so a cached ok:true report reads as FAILED; workaround
-  is to delete `videos/<slug>/.hyperframes/cache/check.json` before the
-  run.
+- **HyperFrames check-cache trap — FIXED in code (Phase 4D, 23 Nov 2026):** `npx hyperframes check` returns a cached report with no "report saved to" line when nothing changed, which used to read as FAILED because `build_video.py` judged the check only by that line. `run_hyperframes_check()` in `rendering/build_video.py` now deletes `videos/<slug>/.hyperframes/cache/check.json` before every run and refuses any saved report whose mtime predates the run — a report that cannot be proven fresh fails the build. No manual cache deletion is needed any more; the workaround is removed.
 
 ## 11. Phase 4C — Pipeline and Gate Adjustments (23 Nov 2026)
 
@@ -433,14 +429,9 @@ to loosen them. Published videos stay published.
   its scene's start with a fixed 0.45 s duration (see below) — a title
   stretched to 1.7 s by the old scene-factor scaling is the Phase 4B
   defect (Mysteries v4 hook title at 1.25 s vs sentence start 0.00).
-- **First seconds.** The video's first image already contains the scene-1
-  title and image at t=0 — no empty screen at the start. In
-  facts.html/mysteries.html the scene-0 slide-in and title pop tweens
-  are removed (inner-0/title-0 are in their natural visible state from
-  t=0; slide-out and image zooms kept). NOTE: top5.html and
-  game-discoveries.html still slide scene 0 in (Phase 4C scoped the
-  removal to facts/mysteries); the first-frame rule is not yet
-  factory-wide there — a follow-up, not a 4C blocker.
+  Phase 4D extends the same mechanism to `<span>` elements for the Top 5
+  visits pills (see the pills note under "Known follow-ups").
+- **First seconds.** The video's first image already contains the scene-1 title and image at t=0 — no empty screen at the start. In all four format templates (facts, mysteries, top5, game-discoveries) the scene-0 slide-in and title/subtitle pop tweens are removed (inner-0/title-0/sub-0 are in their natural visible state from t=0; slide-out and image zooms kept). Phase 4C scoped the removal to facts/mysteries; Phase 4D (23 Nov 2026) extended it factory-wide to top5 and game-discoveries. The gate's title/sentence check treats a missing scene-0 entrance tween as appearance 0.0 ("no entrance tween — visible from t=0").
 - **Hook, loop, first seconds (gate check 11).** First sentence ≤ 12
   words AND a digit, a question mark, or a spelled-out number word.
   Digit-or-question is the enforceable rule (a "surprising statement"
@@ -527,13 +518,15 @@ to loosen them. Published videos stay published.
   rule postdates every existing video, so all six fail the image-duration
   control; the threshold is NOT raised for that — it governs future
   videos, and the published videos stay published.
-- **Known follow-ups (not 4C blockers).** (1) top5.html's visits pills
-  are `<span>`s, so the `--heads` regex (h1/p only) cannot substitute
-  them — stale visit counts could render on a future Top 5 video.
-  (2) First-frame rule not yet factory-wide (top5/game-discoveries
-  still slide scene 0 in). (3) `metadata.json` for Facts v4 records
-  the second-shot image as `assets/images/creator.webp`, which does not
-  exist (the real file is `assets/images/facts/creator.webp`); the
-  render is unaffected (a copy sits in the video folder). (4) The
-  HyperFrames check-cache trap (above) is still latent, not fixed in
-  code.
+- **Known follow-ups — all four 4C items resolved in Phase 4D (23 Nov 2026).** (1) Top 5 visits pills — FIXED: the pills are `<span id="pill-1..5" class="visits-pill">` carrying the literal placeholder `VISITS — NOT SET`; `--heads` substitution in `rendering/build_video.py` covers `<span>` as well as `h1`/`p`, and the build FAILS if a pill placeholder survives (same philosophy as the `HEADLINE — NOT SET` check). The values come from `pipeline/<slug>/top5-values.json` (`displayed`, rank order #1..#5); `pipeline/run.py` derives the pill heads from that file (`pill-k = displayed[5-k]`, scene order = rank #5..#1) and merges them into `--heads`, and refuses a top5 build without the file before any voice is generated — so the numbers the gate's Top 5 sum check reads are the numbers rendered. The displayed total (311.3 on the v3.1b video) is the sum of the five pills — no element displays it; the announced total ("over 311 billion") is displayed in the conclusion title via `--heads` (title-6). `heads.json` must never define a `pill-*` key (top5-values.json is the single source). (2) First-frame rule factory-wide — FIXED: top5 and game-discoveries no longer slide scene 0 in; see "First seconds" above. (3) Facts v4 metadata path — CORRECTED UNDERSTANDING, no metadata change: the citation `assets/images/creator.webp` is correct in video-folder form (the file exists in `videos/roblox-facts-older-than-you-think-v4/assets/images/`); the 4C "does not exist" wording applied the wrong base. The real defect was a validator false positive — see (5). The 24 refs in the 4 metadata-only v3.1/v3.1b folders are inherited byte-identical copies of the v3 maps, not live references; left as historical records. (4) The HyperFrames check-cache trap is FIXED in code (Phase 4D, 23 Nov 2026) — see §10. `run_hyperframes_check()` in `rendering/build_video.py` deletes the cached report before the run and verifies the saved report's mtime; no manual workaround remains. (5) Validator false positive — FIXED: `pipeline/validate-storyboard.py` applied a project-root-only existence check to legacy-derived beats, so Facts v4's second-shot image `assets/images/creator.webp` — correct in video-folder form, as recorded by `second-shot.py` — was falsely flagged "image file not found". That was the unaccounted 9th violation in the 4C report (4 titre-match + 1 reuse + 3 duration = 8 enumerated). The fix: `check_beats` accepts an `image_bases` list; legacy mode checks the project root AND `videos/<slug>/`, strict mode keeps the project-root default (beats.json is validated before any video folder exists). Verified by real runs: Facts v4 legacy 9 → 8 violations with all other violations byte-identical, Mysteries v4 unchanged at 9, and a genuinely missing image still fails in both modes.
+- **Open follow-ups (not 4D blockers).** (a) Reuse detection keys on the raw image string — the same file referenced once in image-map form (`assets/images/facts/X.webp`) and once in second-shot form (`assets/images/X.webp`) would not be detected as a reuse; does not occur in current data. (b) The builder's placeholder check runs after voice generation on a direct `build_video.py` call — a step-0 pre-check (template contains a placeholder but `--heads` lacks its ids → refuse before TTS) would save a wasted TTS call. (c) Gate check 14 verifies `top5-values.json` numbers, never the rendered pills themselves — now the same numbers by construction, but the gate does not read the pixels.
+
+## 12. Phase 4D — Factory Corrections and Non-Regression (23 Nov 2026)
+
+Phase 4D fixes the four 4C follow-ups in code and proves by regression that nothing drifted. No new video is produced in this phase; template/builder changes stay unproven on a real render until the next video build.
+
+- **Check-cache trap (§10):** fixed in code — `run_hyperframes_check()` in `rendering/build_video.py` deletes the cached report before the run and refuses any saved report whose mtime predates the run. Proven with a seeded bogus cache (see `audit-package/PHASE4D-REPORT.md` §1.1). The manual workaround is removed.
+- **First frame t=0, all four formats:** scene-0 entrance tweens removed in top5.html and game-discoveries.html (facts/mysteries already fixed in 4C); dry-simulated GSAP t=0 state passes on all four templates.
+- **Top 5 pills:** `<span id="pill-1..5">` with `VISITS — NOT SET` placeholder; `--heads` covers `<span>`; values derived from `top5-values.json` by `pipeline/run.py`; the build FAILS if a pill placeholder survives. Dry-simulated (32 checks).
+- **Metadata path:** no change — the Facts v4 citation `assets/images/creator.webp` is correct in video-folder form. The real defect was a validator false positive, fixed in `pipeline/validate-storyboard.py` (dual-base legacy check: project root AND `videos/<slug>/`; strict mode unchanged). Facts v4 legacy dry-run 9 → 8 violations, all others byte-identical; Mysteries v4 unchanged at 9. Sweep: 20 metadata.json files, 115 image refs, 0 genuinely broken live refs.
+- **Non-regression (proof):** the full 14-check gate re-run on the 6 existing videos (21:23:20–21:29:20 UTC) reproduces the 4C verdicts and values exactly — all 6 gate-4d.json reports are **byte-identical** to their 4C counterparts (91 check cells, every sub-object node); 0 drift, 0 fix cycles used. Reports in `audit-package/technical-reports/<slug>-gate-4d.json`; comparison table in `audit-package/PHASE4D-REPORT.md` §2.

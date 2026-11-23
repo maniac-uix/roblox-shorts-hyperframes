@@ -291,6 +291,63 @@ def stage_source_notes(d: Path, claims):
     return notes
 
 
+def top5_pill_heads(values: dict) -> dict:
+    """Pill heads from a parsed top5-values.json (Phase 4D).
+
+    Single source of truth for the five visit counts: the same file
+    the gate's Top 5 sum check reads, so the numbers the gate checks
+    are the numbers rendered. `displayed` is in RANK order [#1..#5];
+    pills are in SCENE order (scene 1 = rank #5 ... scene 5 = rank
+    #1), so pill-k = displayed[5-k], formatted "36.0B VISITS".
+    The displayed sum (311.3 on the v3.1b video) is derived from these
+    five values — no element displays it; the announced total ("over
+    311 billion") is displayed in the conclusion title via heads.json
+    (title-6). Raises ValueError on a malformed file or a sum below
+    the announced total (the gate would fail it later; failing here
+    saves the voice).
+    """
+    displayed = values.get("displayed")
+    total = values.get("announced_total")
+    if (not isinstance(displayed, list) or len(displayed) != 5
+            or not all(isinstance(v, (int, float)) for v in displayed)):
+        raise ValueError("top5-values.json: 'displayed' must be a list "
+                         "of exactly 5 numbers")
+    if not isinstance(total, (int, float)):
+        raise ValueError("top5-values.json: 'announced_total' must be a number")
+    if sum(displayed) < total:
+        raise ValueError(
+            f"top5-values.json: displayed sum {sum(displayed):.1f} is below "
+            f"the announced total {total:.0f} — the gate would fail this")
+    return {f"pill-{k}": f"{displayed[5 - k]:.1f}B VISITS"
+            for k in range(1, 6)}
+
+
+def merge_top5_heads(d: Path, heads_dict: dict) -> dict:
+    """Derive the pill heads for a top5 build from d/top5-values.json.
+
+    Refuses (SystemExit) if the file is missing — without it the pills
+    have no source and the builder would refuse on the surviving
+    placeholder after generating the voice — or if heads.json already
+    defines a pill-* key (top5-values.json is the single source).
+    """
+    values_path = d / "top5-values.json"
+    if not values_path.exists():
+        raise SystemExit(
+            f"REFUSED: top5 build needs {values_path} (displayed + "
+            f"spoken values + announced total) — the visits pills come "
+            f"from that file, never from the template.")
+    try:
+        pill_heads = top5_pill_heads(json.loads(values_path.read_text()))
+    except ValueError as e:
+        raise SystemExit(f"REFUSED: {values_path}: {e}")
+    clash = sorted(set(pill_heads) & set(heads_dict))
+    if clash:
+        raise SystemExit(
+            f"REFUSED: heads.json defines pill key(s) {clash} — the "
+            f"visits pills come only from top5-values.json.")
+    return pill_heads
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url")
@@ -357,9 +414,22 @@ def main():
             build_cmd += ["--image-map", image_map.read_text()]
             print(f"  build: image map {image_map} (6 scenes)")
         heads = d / "heads.json"
+        heads_dict = {}
         if heads.exists():
-            build_cmd += ["--heads", heads.read_text()]
+            heads_dict = json.loads(heads.read_text())
             print(f"  build: heads {heads} (on-screen titles)")
+        if fmt == "top5":
+            # Phase 4D: the visits pills come from top5-values.json
+            # (single source of truth — the same file the gate's Top 5
+            # sum check reads), never from the template. Derived here
+            # and merged into --heads; a top5 build without the file
+            # fails now, before any voice is generated.
+            pill_heads = merge_top5_heads(d, heads_dict)
+            heads_dict.update(pill_heads)
+            print(f"  build: pills from {d / 'top5-values.json'} "
+                  f"({', '.join(pill_heads.values())})")
+        if heads_dict:
+            build_cmd += ["--heads", json.dumps(heads_dict)]
         src_notes = d / "source-notes.json"
         if src_notes.exists():
             build_cmd += ["--source-notes", src_notes.read_text()]

@@ -37,7 +37,11 @@ LEGACY mode (--legacy): for existing storyboards WITHOUT beats.json.
   second-shot image). Then runs the SAME checks (b)-(g) on the derived
   beats (skips (a) — the storyboard captions already matched the
   script when the video was built — but DOES check that every derived
-  beat has a title and a distinct image). In legacy mode check (e)
+  beat has a title and a distinct image). Image existence in legacy
+  mode accepts the project root (image-map paths) AND the video folder
+  (second-shot paths, which metadata.json records in video-folder
+  form assets/images/<basename>); strict mode accepts the project
+  root only. In legacy mode check (e)
   applies to each image's CONSECUTIVE display span (scene windows
   from videos/<slug>/index.html when present, else derived from the
   caption timings), since one image covers a whole multi-sentence
@@ -151,13 +155,23 @@ def strip_html(text: str) -> str:
 
 
 def check_beats(beats: list, fmt: str, script_sents=None,
-                check_duree=True) -> list:
+                check_duree=True, image_bases=None) -> list:
     """Checks (b)-(g) on a list of beat dicts (phrase/titre/image/duree/
     scene). Returns a violations list of {beat, check, detail}.
     check_duree=False skips the per-beat duree check (legacy mode: a
     derived beat's duree is its sentence's spoken duration, not an
-    image display time — the image-span check covers (e) there)."""
+    image display time — the image-span check covers (e) there).
+    image_bases: directories an image path may resolve against
+    (default: the project root only). Legacy mode also accepts the
+    video folder, because metadata.json records second-shot images in
+    video-folder form (assets/images/<basename>, copied there by
+    second-shot.py) while image-map images are project-root form
+    (assets/images/<format>/<basename>) — a single-base check would
+    false-flag the second shots. Strict mode keeps the default:
+    beats.json is validated before any video folder exists, so its
+    paths must resolve at the project root."""
     violations = []
+    bases = image_bases if image_bases is not None else (PROJECT,)
     for i, b in enumerate(beats):
         phrase, titre = b.get("phrase", ""), b.get("titre", "")
         if not titre or not str(titre).strip():
@@ -174,7 +188,7 @@ def check_beats(beats: list, fmt: str, script_sents=None,
         if not image:
             violations.append({"beat": i, "check": "image",
                                "detail": "missing image"})
-        elif not (PROJECT / image).exists():
+        elif not any((base / image).exists() for base in bases):
             violations.append({"beat": i, "check": "image",
                                "detail": f"image file not found: {image}"})
         duree = b.get("duree")
@@ -350,8 +364,11 @@ def validate_legacy(slug: str) -> dict:
                           "end_s": round(end, 2)})
     fmt = (d / "format.txt").read_text().strip() if (d / "format.txt").exists() else ""
     # (b)-(d), (f), (g) on the derived beats; (e) is the image-span
-    # check below, not the per-sentence duree.
-    violations = check_beats(beats, fmt, check_duree=False)
+    # check below, not the per-sentence duree. Image existence accepts
+    # the project root (image-map paths) AND the video folder
+    # (second-shot paths, video-folder form) — see check_beats.
+    violations = check_beats(beats, fmt, check_duree=False,
+                             image_bases=(PROJECT, VIDEOS / slug))
     # legacy (e): consecutive display span per image (scene windows +
     # second-shot splits), not the per-sentence duree
     segments = []  # (image, start, end, scenes)

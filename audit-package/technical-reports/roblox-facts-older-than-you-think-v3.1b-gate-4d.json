@@ -1,0 +1,370 @@
+{
+ "slug": "roblox-facts-older-than-you-think-v3.1b",
+ "format": "facts",
+ "file": "output/roblox-facts-older-than-you-think-v3.1b.mp4",
+ "overall": "FAIL",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.75 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 35.100 s vs video 35.100 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.39 LUFS (gate -14 \u00b1 0.5); true_peak: -1.03 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.9 dB (bed gain +10.3 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "94/94 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "6 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "6 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.16 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "FAIL",
+   "value": "max span 7.0 s; 3 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "N/A",
+   "value": "no composition timeline available (pre-Phase-3 video)"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "FAIL",
+   "value": "max empty 0.4 s; 6 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "FAIL",
+   "value": "image std 5.91; title bright px 0"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "FAIL",
+   "value": "6 words; digit=False, ?=False, number-word=False"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "N/A",
+   "value": "no composition available (pre-v4 video)"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "FAIL",
+   "value": "longest stretch 7.0 s; 6 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "and",
+   "start": 5.14,
+   "end": 5.42,
+   "prob": 0.56
+  },
+  {
+   "word": "robots",
+   "start": 6.68,
+   "end": 7.2,
+   "prob": 0.58
+  },
+  {
+   "word": "more",
+   "start": 10.2,
+   "end": 11.22,
+   "prob": 0.29
+  },
+  {
+   "word": "and",
+   "start": 14.7,
+   "end": 15.02,
+   "prob": 0.53
+  },
+  {
+   "word": "get",
+   "start": 27.1,
+   "end": 27.2,
+   "prob": 0.57
+  },
+  {
+   "word": "it",
+   "start": 30.02,
+   "end": 30.72,
+   "prob": 0.05
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "and",
+   "start": 5.14,
+   "end": 5.42,
+   "prob": 0.56,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "robots",
+   "start": 6.68,
+   "end": 7.2,
+   "prob": 0.58,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "more",
+   "start": 10.2,
+   "end": 11.22,
+   "prob": 0.29,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "and",
+   "start": 14.7,
+   "end": 15.02,
+   "prob": 0.53,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "get",
+   "start": 27.1,
+   "end": 27.2,
+   "prob": 0.57,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "it",
+   "start": 30.02,
+   "end": 30.72,
+   "prob": 0.05,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-facts-older-than-you-think-v3.1b.mp4",
+  "duration_s": 35.1,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 1.5,
+    "duration_s": 1.5,
+    "n_frames": 3,
+    "fragment": false
+   },
+   {
+    "start_s": 1.5,
+    "end_s": 2.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 2.0,
+    "end_s": 2.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 2.5,
+    "end_s": 7.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 7.5,
+    "end_s": 8.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 8.0,
+    "end_s": 8.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 8.5,
+    "end_s": 14.0,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   },
+   {
+    "start_s": 14.0,
+    "end_s": 14.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 14.5,
+    "end_s": 15.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 15.0,
+    "end_s": 19.5,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 19.5,
+    "end_s": 20.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 20.0,
+    "end_s": 20.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 20.5,
+    "end_s": 21.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 21.0,
+    "end_s": 28.0,
+    "duration_s": 7.0,
+    "n_frames": 14,
+    "fragment": false
+   },
+   {
+    "start_s": 28.0,
+    "end_s": 28.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 28.5,
+    "end_s": 29.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 29.0,
+    "end_s": 29.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 29.5,
+    "end_s": 35.0,
+    "duration_s": 5.5,
+    "n_frames": 11,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 7.0,
+  "duration_verdict": "FAIL",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "FAIL"
+ },
+ "title_sentence": {
+  "verdict": "N/A",
+  "reason": "no composition timeline available"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-facts-older-than-you-think-v3.1b.mp4",
+  "duration_s": 35.1,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 0.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 1.9,
+    "end_s": 2.1,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 8.0,
+    "end_s": 8.4,
+    "duration_s": 0.4,
+    "n_frames": 4
+   },
+   {
+    "start_s": 14.3,
+    "end_s": 14.6,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 20.1,
+    "end_s": 20.4,
+    "duration_s": 0.3,
+    "n_frames": 3
+   },
+   {
+    "start_s": 28.6,
+    "end_s": 28.9,
+    "duration_s": 0.3,
+    "n_frames": 3
+   }
+  ],
+  "max_empty_s": 0.4,
+  "verdict": "FAIL"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-facts-older-than-you-think-v3.1b.mp4",
+  "image_std_t0": 5.91,
+  "title_bright_px_t0": 0,
+  "image_visible": false,
+  "title_visible": false,
+  "image_std_t01": 42.43,
+  "title_bright_px_t01": 0,
+  "verdict": "FAIL"
+ },
+ "hook": {
+  "first_sentence": "Roblox is older than you think.",
+  "n_words": 6,
+  "has_digit": false,
+  "has_question": false,
+  "has_number_word": false,
+  "verdict": "FAIL",
+  "source": "videos/roblox-facts-older-than-you-think-v3.1b/metadata.json"
+ },
+ "brand": {
+  "verdict": "N/A",
+  "reason": "no composition available"
+ },
+ "visual_change": {
+  "verdict": "FAIL",
+  "max_span_s": 7.0,
+  "n_image_spans": 6,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

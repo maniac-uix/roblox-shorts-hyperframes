@@ -68,6 +68,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
@@ -100,6 +101,131 @@ def caption_html(marked_text: str) -> str:
 # (shared by the builder and the sync check); imported in main() below.
 
 
+# Storyboard-driven placeholders (Phase 4C heads, Phase 4D pills).
+# Templates carry these literals for every value the storyboard must
+# supply; the build FAILS if one survives substitution (see
+# check_placeholders below). The literal strings must NOT appear in
+# template comments — a comment containing one would fail every build
+# (4C lesson).
+PLACEHOLDER_HEAD = "HEADLINE — NOT SET"
+PLACEHOLDER_PILLS = "VISITS — NOT SET"
+
+
+def substitute_heads(html: str, heads: dict):
+    """--heads substitution (Phase 4C, extended Phase 4D to <span>).
+
+    Maps element id -> inner HTML for h1/p/span elements. The span case
+    is the Top 5 visits pills (pill-1..5, <span class="visits-pill">).
+    The regex only fires for ids explicitly present in heads, so other
+    spans (e.g. <span id="cta"> in facts/mysteries) are untouched
+    unless a heads.json names them.
+    Returns (html, set_ids, not_found_ids).
+    """
+    set_ids, not_found = [], []
+    for el_id, inner in heads.items():
+        pat = re.compile(
+            r'(<(?:h1|p|span)[^>]*\bid="' + re.escape(el_id) + r'"[^>]*>)'
+            r'(.*?)'
+            r'(</(?:h1|p|span)>)', re.DOTALL)
+        html, n_sub = pat.subn(
+            lambda m, inner=inner: m.group(1) + inner + m.group(3),
+            html, count=1)
+        (set_ids if n_sub else not_found).append(el_id)
+    return html, set_ids, not_found
+
+
+def check_placeholders(html: str, template_label: str,
+                       heads_arg_present: bool):
+    """Placeholder survival check — returns an error string, or None.
+
+    FAIL the build if any storyboard-driven placeholder survives
+    substitution (or if no --heads was passed at all for a template
+    that uses placeholders). Runs right after the --heads substitution
+    and before the composition is written. No-op for templates without
+    the placeholders (e.g. templates/base-vertical).
+    """
+    if PLACEHOLDER_HEAD in html:
+        if not heads_arg_present:
+            return (f"template {template_label} uses placeholder heads "
+                    f"({PLACEHOLDER_HEAD!r}) but no --heads argument was "
+                    f"passed — every storyboard head must be supplied via "
+                    f"--heads.")
+        return (f"placeholder head(s) {PLACEHOLDER_HEAD!r} still present "
+                f"after --heads substitution — a head the storyboard was "
+                f"supposed to supply was not provided (check the --heads "
+                f"ids against the template).")
+    if PLACEHOLDER_PILLS in html:
+        if not heads_arg_present:
+            return (f"template {template_label} uses placeholder pills "
+                    f"({PLACEHOLDER_PILLS!r}) but no --heads argument was "
+                    f"passed — every visits pill must be supplied via "
+                    f"--heads (pill-1..5; pipeline/run.py derives them "
+                    f"from top5-values.json).")
+        return (f"placeholder pill(s) {PLACEHOLDER_PILLS!r} still present "
+                f"after --heads substitution — a pill the storyboard was "
+                f"supposed to supply was not provided (check the --heads "
+                f"pill-1..5 ids against the template).")
+    return None
+
+
+def run_hyperframes_check(out_dir: Path) -> int:
+    """Step 7: `npx hyperframes check` on the built composition (check
+    takes the composition's directory as a positional argument).
+    Returns 0 when the check passes, 1 otherwise.
+
+    Cache-trap fix (Phase 4D, 23 Nov 2026): `hyperframes check` returns a
+    cached report with no "report saved to" line when nothing changed
+    since the last check, and the old code judged the check ONLY by that
+    line — so a warm cache read as FAILED. Two guards, both required:
+    (1) the cached report is deleted before the run (a missing file is
+    fine), so the tool must re-run the check; (2) the saved report's
+    mtime must be newer than the start of this run — a report that
+    cannot be proven fresh is a FAILED check, never silently accepted.
+    NOTE: `hyperframes check` exits 1 even on a clean report when the
+    directory is not a registered project root — so judge by the JSON
+    report (ok + errorCount), not by the exit code.
+    """
+    check_cache = out_dir / ".hyperframes" / "cache" / "check.json"
+    try:
+        check_cache.unlink()
+        print(f"hyperframes check: invalidated cached report {check_cache}")
+    except FileNotFoundError:
+        pass
+    check_started = time.time()
+    print("--- hyperframes check ---")
+    r = subprocess.run(["npx", "hyperframes", "check", "--json",
+                        str(out_dir.relative_to(PROJECT_DIR))],
+                       cwd=PROJECT_DIR, text=True, capture_output=True)
+    print(r.stdout[-1500:])
+    # Judge by the SAVED report file (authoritative): the check prints
+    # "report saved to <path>.json" (on stderr). The stdout also embeds
+    # summary JSON fragments whose "ok" fields are sub-objects, not the verdict.
+    combined = r.stdout + "\n" + r.stderr
+    m_rep = re.search(r"report saved to (\S+\.json)", combined)
+    ok_flag, err_count = None, None
+    if m_rep:
+        report_path = Path(m_rep.group(1))
+        if not report_path.is_absolute():
+            report_path = PROJECT_DIR / report_path
+        try:
+            if report_path.stat().st_mtime < check_started:
+                print(f"hyperframes check FAILED: report {report_path} is "
+                      f"stale (written before this check run) — refusing "
+                      f"a cached report")
+                return 1
+            rep = json.load(open(report_path))
+            ok_flag = rep.get("ok")
+            err_count = rep.get("lint", {}).get("errorCount")
+        except Exception as e:
+            print("could not read check report:", e)
+    if ok_flag is True and err_count == 0:
+        print("hyperframes check: ok (0 errors)")
+        return 0
+    print(r.stderr[-1000:])
+    print(f"hyperframes check FAILED: ok={ok_flag}, errors={err_count}")
+    return 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True)
@@ -123,7 +249,11 @@ def main() -> int:
                          'templates carry the literal placeholder '
                          '"HEADLINE — NOT SET" for every storyboard-driven '
                          'head; the build FAILS if any placeholder survives '
-                         'substitution (or if no --heads is passed at all).')
+                         'substitution (or if no --heads is passed at all). '
+                         'Phase 4D: the same mechanism covers <span> '
+                         'elements — the Top 5 visits pills (pill-1..5, '
+                         '"VISITS — NOT SET"); pipeline/run.py derives '
+                         'them from top5-values.json and merges them in.')
     ap.add_argument("--source-notes", default=None,
                     help='JSON mapping scene index to the on-screen source '
                          'note, e.g. \'{"1": "Source: Roblox announcement '
@@ -392,44 +522,31 @@ def main() -> int:
         if unmapped:
             print(f"WARNING: scenes without an image (placeholder kept): {unmapped}")
     # 5c4. Heads: --heads maps element id -> inner HTML (scene titles,
-    # fact heads, conclusion subtitle). The template's hardcoded heads
-    # belong to the previous video built on that template; without this
-    # the on-screen text contradicts the narration.
+    # fact heads, conclusion subtitle, Top 5 visits pills). The
+    # template's hardcoded heads belong to the previous video built on
+    # that template; without this the on-screen text contradicts the
+    # narration. See substitute_heads() above (Phase 4C, extended
+    # Phase 4D to <span> for the pills).
     heads = {}
     if args.heads:
         heads = json.loads(args.heads)
-        for el_id, inner in heads.items():
-            pat = re.compile(
-                r'(<(?:h1|p)[^>]*\bid="' + re.escape(el_id) + r'"[^>]*>)'
-                r'(.*?)'
-                r'(</(?:h1|p)>)', re.DOTALL)
-            html, n_sub = pat.subn(
-                lambda m, inner=inner: m.group(1) + inner + m.group(3),
-                html, count=1)
-            if n_sub:
-                print(f"head {el_id}: set")
-            else:
-                print(f"WARNING: head element not found in template: {el_id}")
-    # 5c4b. Phase 4C placeholder survival check — FAIL the build if any
-    # storyboard-driven head was not supplied. Templates carry the literal
-    # placeholder "HEADLINE — NOT SET" (U+2014 em dash) for every head the
-    # storyboard must provide; a surviving placeholder means a head id is
-    # missing from --heads (or --heads was not passed at all), and the
-    # stale-text failure of Phase 2 (a previous video's heads rendering on
-    # the wrong video) must never happen again. Runs right after the 5c4
-    # substitution and before the composition is written. No-op for
-    # templates without the placeholder (e.g. templates/base-vertical).
-    PLACEHOLDER_HEAD = "HEADLINE — NOT SET"
-    if PLACEHOLDER_HEAD in html:
-        if not args.heads:
-            print(f"REFUSED: template {args.template} uses placeholder heads "
-                  f"({PLACEHOLDER_HEAD!r}) but no --heads argument was passed "
-                  f"— every storyboard head must be supplied via --heads.")
-        else:
-            print(f"REFUSED: placeholder head(s) {PLACEHOLDER_HEAD!r} still "
-                  f"present after --heads substitution — a head the "
-                  f"storyboard was supposed to supply was not provided "
-                  f"(check the --heads ids against the template).")
+        html, set_ids, not_found = substitute_heads(html, heads)
+        for el_id in set_ids:
+            print(f"head {el_id}: set")
+        for el_id in not_found:
+            print(f"WARNING: head element not found in template: {el_id}")
+    # 5c4b. Placeholder survival check — FAIL the build if any
+    # storyboard-driven head or pill was not supplied. A surviving
+    # placeholder means an id is missing from --heads (or --heads was
+    # not passed at all), and the stale-text failure of Phase 2 (a
+    # previous video's heads rendering on the wrong video) must never
+    # happen again. See check_placeholders() above. Runs right after
+    # the 5c4 substitution and before the composition is written.
+    # No-op for templates without the placeholders (e.g.
+    # templates/base-vertical).
+    err = check_placeholders(html, args.template, bool(args.heads))
+    if err:
+        print(f"REFUSED: {err}")
         return 1
     # 5d. Audio source (relative to the composition folder).
     html = re.sub(r'(<audio[^>]*src=")[^"]*(")',
@@ -739,32 +856,7 @@ def main() -> int:
 
     # 7. HyperFrames check on the built composition (check takes the
     # composition's directory as a positional argument).
-    # NOTE: `hyperframes check` exits 1 even on a clean report when the
-    # directory is not a registered project root — so judge by the JSON
-    # report (ok + errorCount), not by the exit code.
-    print("--- hyperframes check ---")
-    r = subprocess.run(["npx", "hyperframes", "check", "--json",
-                        str(out_dir.relative_to(PROJECT_DIR))],
-                       cwd=PROJECT_DIR, text=True, capture_output=True)
-    print(r.stdout[-1500:])
-    # Judge by the SAVED report file (authoritative): the check prints
-    # "report saved to <path>.json" (on stderr). The stdout also embeds
-    # summary JSON fragments whose "ok" fields are sub-objects, not the verdict.
-    combined = r.stdout + "\n" + r.stderr
-    m_rep = re.search(r"report saved to (\S+\.json)", combined)
-    ok_flag, err_count = None, None
-    if m_rep:
-        try:
-            rep = json.load(open(m_rep.group(1)))
-            ok_flag = rep.get("ok")
-            err_count = rep.get("lint", {}).get("errorCount")
-        except Exception as e:
-            print("could not read check report:", e)
-    if ok_flag is True and err_count == 0:
-        print("hyperframes check: ok (0 errors)")
-    else:
-        print(r.stderr[-1000:])
-        print(f"hyperframes check FAILED: ok={ok_flag}, errors={err_count}")
+    if run_hyperframes_check(out_dir) != 0:
         return 1
     print(f"BUILT: {comp_path} ({video_duration:.2f} s) — ready to render:")
     print(f"  bash rendering/render.sh --quality draft --composition "

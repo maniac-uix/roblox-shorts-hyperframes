@@ -10,6 +10,10 @@
   Phase 4C: all storyboard-driven heads are a literal placeholder (see
   PLACEHOLDER_HEAD in build_video.py; title-0, head-1..4, title-5,
   sub-5); --heads must supply every one or the build FAILS.
+  Phase 4D (first-frame rule, factory-wide): scene 0 has NO entrance
+  tweens — the hook image and title are in their natural visible state
+  from t=0, so frame 0 is never empty (same fix as facts/mysteries
+  in Phase 4C; the slide-out below still applies).
 -->
 <html lang="en">
   <head>
@@ -110,9 +114,8 @@
       tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 12, ease: "none" }, 0);
       tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 12, ease: "sine.inOut" }, 0);
       tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 12, ease: "sine.inOut" }, 0);
-      // Scene 0 — hook
-      tl.fromTo("#inner-0", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0);
-      tl.fromTo("#title-0", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 0.15);
+      // Scene 0 — hook (Phase 4D: NO entrance tweens — image and title
+      // are visible from t=0; the slide-out below still applies)
       tl.fromTo("#img-0", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 0);
       tl.to("#inner-0", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 1.65);
       // Scene 1
