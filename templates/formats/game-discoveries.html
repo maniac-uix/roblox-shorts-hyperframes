@@ -5,11 +5,14 @@
   Ken Burns motion, caption band at y1300 (replaced by build_video.py).
   Scene transitions: each .scene-inner slides in from the right and out
   to the left (last scene stays on screen to the end).
-  6 scenes, 12 s base (builder scales + re-times to the narration).
+  7 scenes, 14 s base (builder scales + re-times to the narration).
+  v5 (24 Nov 2026): scene 4 split into scenes 4 and 5 — each sentence
+  gets its own title (head-4 "THE LABS ARE HERE.", head-5 "800,000 AT
+  ONCE."); the old payoff scene is now scene 6.
   Images: data-img-scene="N" — build_video.py --image-map rewrites src.
   Phase 4C: all storyboard-driven heads are a literal placeholder (see
-  PLACEHOLDER_HEAD in build_video.py; title-0, head-1..4, title-5,
-  sub-5); --heads must supply every one or the build FAILS.
+  PLACEHOLDER_HEAD in build_video.py; title-0, head-1..5, title-6,
+  sub-6); --heads must supply every one or the build FAILS.
   Phase 4D (first-frame rule, factory-wide): scene 0 has NO entrance
   tweens — the hook image and title are in their natural visible state
   from t=0, so frame 0 is never empty (same fix as facts/mysteries
@@ -57,17 +60,17 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="game-discoveries" data-start="0" data-duration="12" data-width="1080" data-height="1920">
-      <div class="grid clip" data-start="0" data-duration="12" data-track-index="0"></div>
-      <div id="glow-a" class="glow clip" data-start="0" data-duration="12" data-track-index="0"></div>
-      <div id="glow-b" class="glow clip" data-start="0" data-duration="12" data-track-index="0"></div>
-      <div class="clip" data-start="0" data-duration="12" data-track-index="1" style="left:120px; top:180px;">
+    <div id="root" data-composition-id="game-discoveries" data-start="0" data-duration="14" data-width="1080" data-height="1920">
+      <div class="grid clip" data-start="0" data-duration="14" data-track-index="0"></div>
+      <div id="glow-a" class="glow clip" data-start="0" data-duration="14" data-track-index="0"></div>
+      <div id="glow-b" class="glow clip" data-start="0" data-duration="14" data-track-index="0"></div>
+      <div class="clip" data-start="0" data-duration="14" data-track-index="1" style="left:120px; top:180px;">
         <span class="pill">GAME DISCOVERIES</span>
       </div>
-      <div class="clip" data-start="0" data-duration="12" data-track-index="1" style="left:120px; top:270px;">
+      <div class="clip" data-start="0" data-duration="14" data-track-index="1" style="left:120px; top:270px;">
         <div class="progress-track"><div id="progress-fill"></div></div>
       </div>
-      <div class="clip" data-start="0" data-duration="12" data-track-index="1" style="left:630px; top:150px; width:300px; text-align:right;">
+      <div class="clip" data-start="0" data-duration="14" data-track-index="1" style="left:630px; top:150px; width:300px; text-align:right;">
         <span class="watermark">NoobNoMore</span>
       </div>
       <div class="scene clip" data-start="0" data-duration="2" data-track-index="2">
@@ -106,24 +109,31 @@
       </div>
       <div class="scene clip" data-start="10" data-duration="2" data-track-index="2">
         <div class="scene-inner" id="inner-5">
-          <h1 id="title-5" class="title">HEADLINE — NOT SET</h1>
-          <p id="sub-5" class="subtitle" style="margin-top:36px;">HEADLINE — NOT SET</p>
+          <div id="num-5" class="fact-num">05</div>
+          <p id="head-5" class="fact-head">HEADLINE — NOT SET</p>
           <div class="img-wrap"><img id="img-5" data-img-scene="5" src="assets/images/placeholder.webp" alt="" /></div>
+        </div>
+      </div>
+      <div class="scene clip" data-start="12" data-duration="2" data-track-index="2">
+        <div class="scene-inner" id="inner-6">
+          <h1 id="title-6" class="title">HEADLINE — NOT SET</h1>
+          <p id="sub-6" class="subtitle" style="margin-top:36px;">HEADLINE — NOT SET</p>
+          <div class="img-wrap"><img id="img-6" data-img-scene="6" src="assets/images/placeholder.webp" alt="" /></div>
         </div>
         <div class="cta-zone"><p id="cta" class="cta">FOLLOW NOOBNOMORE</p></div>
         <img id="mascot" class="mascot" src="../../assets/brand/noobnomore-mascot-transparent.png" alt="" style="left:690px; top:1134px;" />
       </div>
-      <div class="clip" data-start="0" data-duration="12" data-track-index="3" style="left:120px; top:1520px;">
+      <div class="clip" data-start="0" data-duration="14" data-track-index="3" style="left:120px; top:1520px;">
         <p class="caption">Your caption goes here.</p>
       </div>
-      <audio id="narration" src="../../voiceover/narration.mp3" data-start="0" data-duration="12"></audio>
+      <audio id="narration" src="../../voiceover/narration.mp3" data-start="0" data-duration="14"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 12, ease: "none" }, 0);
-      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 12, ease: "sine.inOut" }, 0);
-      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 12, ease: "sine.inOut" }, 0);
+      tl.fromTo("#progress-fill", { scaleX: 0 }, { scaleX: 1, duration: 14, ease: "none" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 90, y: 60, duration: 14, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -70, y: -50, duration: 14, ease: "sine.inOut" }, 0);
       // Scene 0 — hook (Phase 4D: NO entrance tweens — image and title
       // are visible from t=0; the slide-out below still applies)
       tl.fromTo("#img-0", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 0);
@@ -152,14 +162,21 @@
       tl.fromTo("#head-4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 8.35);
       tl.fromTo("#img-4", { scale: 1, x: -18 }, { scale: 1.16, x: 18, duration: 2, ease: "none" }, 8);
       tl.to("#inner-4", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 9.65);
-      // Scene 5 — payoff (stays on screen to the end: no slide-out)
+      // Scene 5 (v5 split: the launch-day sentence gets its own scene
+      // and its own title head-5 "800,000 AT ONCE.")
       tl.fromTo("#inner-5", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 10);
-      tl.fromTo("#title-5", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 10.15);
-      tl.fromTo("#sub-5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 10.5);
-      tl.fromTo("#img-5", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 10);
-      tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 10.7);
-      tl.fromTo("#mascot", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 10.7);
-      tl.to("#cta", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 11.2);
+      tl.fromTo("#num-5", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, 10.1);
+      tl.fromTo("#head-5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 10.35);
+      tl.fromTo("#img-5", { scale: 1, x: -18 }, { scale: 1.16, x: 18, duration: 2, ease: "none" }, 10);
+      tl.to("#inner-5", { x: -1080, opacity: 0, duration: 0.35, ease: "power2.in" }, 11.65);
+      // Scene 6 — payoff (stays on screen to the end: no slide-out)
+      tl.fromTo("#inner-6", { x: 1080, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 12);
+      tl.fromTo("#title-6", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 12.15);
+      tl.fromTo("#sub-6", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 12.5);
+      tl.fromTo("#img-6", { scale: 1.22, x: -18 }, { scale: 1.02, x: 18, duration: 2, ease: "none" }, 12);
+      tl.fromTo("#cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 12.7);
+      tl.fromTo("#mascot", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, 12.7);
+      tl.to("#cta", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 13.2);
       window.__timelines["game-discoveries"] = tl;
       tl.seek(0);
     </script>

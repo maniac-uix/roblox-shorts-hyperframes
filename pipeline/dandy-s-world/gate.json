@@ -1,7 +1,7 @@
 {
  "slug": "dandy-s-world",
  "format": "game-discoveries",
- "file": "output/roblox-dandy-s-world-v4.mp4",
+ "file": "output/roblox-dandy-s-world-v5.mp4",
  "overall": "PASS",
  "checks": {
   "format 1080x1920/30fps/h264/yuv420p": {
@@ -46,11 +46,11 @@
   },
   "empty image zone (never > 0.2 s)": {
    "verdict": "PASS",
-   "value": "max empty 0.2 s; 5 span(s)"
+   "value": "max empty 0.2 s; 6 span(s)"
   },
   "first frame (title + image at t=0)": {
    "verdict": "PASS",
-   "value": "image std 51.9; title bright px 10720"
+   "value": "image std 48.94; title bright px 10718"
   },
   "hook (<= 12 words + digit/?/number-word)": {
    "verdict": "PASS",
@@ -122,22 +122,22 @@
   }
  ],
  "image_runs": {
-  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "mp4": "output/roblox-dandy-s-world-v5.mp4",
   "duration_s": 34.3,
   "sample_fps": 2.0,
   "spans": [
    {
     "start_s": 0.0,
-    "end_s": 3.5,
-    "duration_s": 3.5,
-    "n_frames": 7,
+    "end_s": 4.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
     "fragment": false
    },
    {
-    "start_s": 3.5,
+    "start_s": 4.0,
     "end_s": 8.5,
-    "duration_s": 5.0,
-    "n_frames": 10,
+    "duration_s": 4.5,
+    "n_frames": 9,
     "fragment": false
    },
    {
@@ -156,17 +156,31 @@
    },
    {
     "start_s": 12.5,
-    "end_s": 17.0,
-    "duration_s": 4.5,
-    "n_frames": 9,
+    "end_s": 16.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
     "fragment": false
    },
    {
+    "start_s": 16.5,
+    "end_s": 17.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
     "start_s": 17.0,
-    "end_s": 21.5,
-    "duration_s": 4.5,
-    "n_frames": 9,
+    "end_s": 21.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
     "fragment": false
+   },
+   {
+    "start_s": 21.0,
+    "end_s": 21.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
    },
    {
     "start_s": 21.5,
@@ -206,7 +220,7 @@
   "verdict": "PASS"
  },
  "title_sentence": {
-  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "mp4": "output/roblox-dandy-s-world-v5.mp4",
   "metadata": "videos/dandy-s-world/metadata.json",
   "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/dandy-s-world/index.html",
   "n_sentences": 8,
@@ -288,7 +302,7 @@
     "end_s": 21.34,
     "text": "Version 1.0 adds The Labs, a harder mode with 11 floors.",
     "scene": 4,
-    "title": "THE LABS: 800,000 AT ONCE.",
+    "title": "THE LABS ARE HERE.",
     "title_element": "head-4",
     "shared_words": [
      "labs"
@@ -303,17 +317,17 @@
     "start_s": 22.1,
     "end_s": 25.02,
     "text": "Launch day drew almost 800,000 players at once.",
-    "scene": 4,
-    "title": "THE LABS: 800,000 AT ONCE.",
-    "title_element": "head-4",
+    "scene": 5,
+    "title": "800,000 AT ONCE.",
+    "title_element": "head-5",
     "shared_words": [
      "800",
      "000",
      "once"
     ],
     "match": true,
-    "appearance_s": 16.76,
-    "timing_gap_s": -5.34,
+    "appearance_s": 21.34,
+    "timing_gap_s": -0.76,
     "timing_verdict": "PASS"
    },
    {
@@ -321,9 +335,9 @@
     "start_s": 25.63,
     "end_s": 30.0,
     "text": "Two years in alpha, 8 billion visits, now the top trending game.",
-    "scene": 5,
+    "scene": 6,
     "title": "NUMBER ONE TRENDING.",
-    "title_element": "title-5",
+    "title_element": "title-6",
     "shared_words": [
      "trending"
     ],
@@ -337,9 +351,9 @@
     "start_s": 30.48,
     "end_s": 33.5,
     "text": "From noob to pro, try the number one game this week.",
-    "scene": 5,
+    "scene": 6,
     "title": "NUMBER ONE TRENDING.",
-    "title_element": "title-5",
+    "title_element": "title-6",
     "shared_words": [
      "number",
      "1"
@@ -355,16 +369,16 @@
   "verdict": "PASS"
  },
  "empty_zone": {
-  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "mp4": "output/roblox-dandy-s-world-v5.mp4",
   "duration_s": 34.3,
   "fps": 10.0,
   "std_threshold": 12.0,
   "empty_spans": [
    {
-    "start_s": 3.5,
+    "start_s": 3.4,
     "end_s": 3.6,
-    "duration_s": 0.1,
-    "n_frames": 1
+    "duration_s": 0.2,
+    "n_frames": 2
    },
    {
     "start_s": 8.6,
@@ -385,6 +399,12 @@
     "n_frames": 2
    },
    {
+    "start_s": 21.3,
+    "end_s": 21.4,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
     "start_s": 25.0,
     "end_s": 25.1,
     "duration_s": 0.1,
@@ -395,13 +415,13 @@
   "verdict": "PASS"
  },
  "first_frame": {
-  "mp4": "output/roblox-dandy-s-world-v4.mp4",
-  "image_std_t0": 51.9,
-  "title_bright_px_t0": 10720,
+  "mp4": "output/roblox-dandy-s-world-v5.mp4",
+  "image_std_t0": 48.94,
+  "title_bright_px_t0": 10718,
   "image_visible": true,
   "title_visible": true,
-  "image_std_t01": 51.89,
-  "title_bright_px_t01": 10722,
+  "image_std_t01": 48.83,
+  "title_bright_px_t01": 10720,
   "verdict": "PASS"
  },
  "hook": {
@@ -414,17 +434,17 @@
   "source": "videos/dandy-s-world/metadata.json"
  },
  "brand": {
-  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "mp4": "output/roblox-dandy-s-world-v5.mp4",
   "watermark": {
    "declared_font_px": 36.0,
    "present": true,
-   "median_px": 439.0,
+   "median_px": 441.0,
    "median_glyph_height_half_px": 12.0
   },
   "mascot": {
    "declared_width_px": 240.0,
    "present": true,
-   "median_ncc": 0.96
+   "median_ncc": 0.952
   },
   "verdict": "PASS"
  },

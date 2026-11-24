@@ -102,3 +102,21 @@ characters, no game footage. Free to use in this project.
 | `images/throw-food-for-animals/pen-coins.webp` | 3 earnings | Sleeping fox/sheep/bunny/bear in a wooden pen, gold coins popping above, giant voxel sun sliding into a voxel moon |
 | `images/throw-food-for-animals/pull-up-biomes.webp` | 4 training | Voxel hero doing pull-ups on a bar, glowing blue power meter filling, biome strip behind (forest, desert, snow, wasteland) |
 | `images/throw-food-for-animals/hero-payoff.webp` | 5 payoff | Proud armored hero with golden lion, purple dragon and crystal fox, big golden star badge above, confetti |
+
+### dandy-s-world (sky-blue #38BDF8, Game Discoveries, Phase 3)
+
+All images below are **original illustrations generated in this environment** (Muse native image generation, 23 Nov 2026, 1920×1280 WebP). No Roblox logos, no copyrighted characters, no game footage. Free to use in this project. Note: the generator's raw outputs (`media-generation-*.webp` + `.json` sidecars) were left in the folder alongside the clean names.
+
+| File | Scene / Beat | Content |
+|---|---|---|
+| `images/dandy-s-world/gardenview-entrance.webp` | 0 hook (beat 1) | Voxel flower-shop entrance at dusk, big glowing rainbow flower sign (generic, no face), warm windows, small hero with backpack walking in |
+| `images/dandy-s-world/gardenview-entrance-dark.webp` | 0 hook (beat 1) — v5 | Same voxel flower-shop storefront re-toned darker/moodier (deep blue-purple night sky, drifting fog, warm amber windows, muted palette, eerie calm); v5 darker re-tone of `gardenview-entrance.webp`, generated in this environment, original |
+| `images/dandy-s-world/title-calendar.webp` | 1 name/date (beat 2) | Giant blank voxel calendar (no digits, no garbled text) over a flower-shop street, confetti falling, small heroes looking up |
+| `images/dandy-s-world/title-calendar-v2.webp` | 1 name/date (beat 2) — "Dandy's World" title image, v5 replacement for the white-board image | Voxel Gardenview flower-shop storefront at dusk, warm glowing lanterns, colorful voxel balloons and confetti, flower stalls — no text, no digits; generated in this environment, original licence |
+| `images/dandy-s-world/machine-team.webp` | 2 loop (beat 3) | Three voxel heroes in red/green/blue working together on a glowing retro machine with pipes, brass elevator doors behind |
+| `images/dandy-s-world/twisted-hallway.webp` | 3 threat (beat 4) | Dark voxel hallway, shadowy distorted mascot silhouettes with glowing amber eyes in the distance, small hero with flashlight hiding behind a pillar |
+| `images/dandy-s-world/labs-entrance.webp` | 4 Labs (beat 5) | Voxel science laboratory corridor, glowing teal/purple experiment doors, test-tube shelves, tall multi-floor elevator shaft |
+| `images/dandy-s-world/launch-crowd.webp` | 4 launch (beat 6, 2nd shot) | Crowded voxel lobby, dozens of small heroes cheering under a big glowing golden star, confetti |
+| `images/dandy-s-world/trending-trophy.webp` | 5 verdict (beat 7) | Golden voxel trophy on a podium, rising block chart arrow, flower petals, dark navy background |
+| `images/dandy-s-world/hero-payoff.webp` | 5 CTA (beat 8, 2nd shot) | Proud voxel hero holding a rainbow flower flag on a hill, friends cheering, sunrise over a garden town |
+| `images/dandy-s-world/hero-payoff-dark.webp` | 6 CTA (beat 8, 2nd shot) — v5 | Same voxel hero with rainbow flag (all stripes visible) re-toned to blue dusk (dark teal-navy sky, moon, valley fog, lantern glow, somber heroic mood); v5 darker re-tone of `hero-payoff.webp`, generated in this environment, original |
