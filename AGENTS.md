@@ -314,7 +314,10 @@ Phase 4B re-renders Facts and Mysteries with brand and retention rules.
   text in the safe zone (top-right, right edge 1080−150 px, top 150 px,
   **36 px Montserrat 800** (Phase 4C — was 30 px in Phase 4B),
   turquoise #1FD1C1, opacity 0.85) in
-  `templates/formats/facts.html` and `mysteries.html`. Last scene: the
+  `templates/formats/facts.html`, `mysteries.html` and
+  `game-discoveries.html` (game-discoveries added 23 Nov 2026, Dandy's
+  World build — the owner ruled the brand non-negotiable on every video;
+  never ship a format without it and never ask whether to). Last scene: the
   NoobNoMore mascot (240×240 px, bottom-right of the image card area —
   `left:690px; top:1134px` in the template) with CTA
   **"FOLLOW NOOBNOMORE"** (replaces "FOLLOW FOR MORE"). Brand palette:
@@ -529,4 +532,5 @@ Phase 4D fixes the four 4C follow-ups in code and proves by regression that noth
 - **First frame t=0, all four formats:** scene-0 entrance tweens removed in top5.html and game-discoveries.html (facts/mysteries already fixed in 4C); dry-simulated GSAP t=0 state passes on all four templates.
 - **Top 5 pills:** `<span id="pill-1..5">` with `VISITS — NOT SET` placeholder; `--heads` covers `<span>`; values derived from `top5-values.json` by `pipeline/run.py`; the build FAILS if a pill placeholder survives. Dry-simulated (32 checks).
 - **Metadata path:** no change — the Facts v4 citation `assets/images/creator.webp` is correct in video-folder form. The real defect was a validator false positive, fixed in `pipeline/validate-storyboard.py` (dual-base legacy check: project root AND `videos/<slug>/`; strict mode unchanged). Facts v4 legacy dry-run 9 → 8 violations, all others byte-identical; Mysteries v4 unchanged at 9. Sweep: 20 metadata.json files, 115 image refs, 0 genuinely broken live refs.
-- **Non-regression (proof):** the full 14-check gate re-run on the 6 existing videos (21:23:20–21:29:20 UTC) reproduces the 4C verdicts and values exactly — all 6 gate-4d.json reports are **byte-identical** to their 4C counterparts (91 check cells, every sub-object node); 0 drift, 0 fix cycles used. Reports in `audit-package/technical-reports/<slug>-gate-4d.json`; comparison table in `audit-package/PHASE4D-REPORT.md` §2.
+- **Non-regression (proof):** the full 14-check gate re-run on the 6 existing videos (21:23:20–21:29:20 UTC) reproduces the 4C verdicts and values exactly — all 6 gate-4d.json reports are **byte-identical** to their 4C counterparts (91 check cells, every sub-object node); 0 drift, 0 fix cycles used. Reports in `audit-package/technical-reports/<slug>-gate-4d.json`; comparison table in `audit-package/PHASE4D-REPORT.md` §2. Bound: byte-identity proves the *measurement* did not drift, not that the modified builder is correct end-to-end — the builder/template changes are proven only by dry simulation and the cache proof driver until the next real render.
+- **Pre-build conditions (accepted 23 Nov 2026, before the next video build):** (1) run `chmod go-w ~/.cache ~` before any `hyperframes check` — the Chrome-cache permission quirk reappears between sessions and is the #1 risk of a false failure at the next render; (2) the next build is the FIRST real pass of beats.json, placeholders, 0.45 s tweens, first frame t=0, pills (if Top 5), the 14-check gate and publish.md — a FAIL there is diagnosed FIRST as a possible dry-sim gap vs a video defect, before any rework; (3) if the subject is a Top 5, beats.json images use project-root form (strict mode), which avoids the raw-string reuse-detection limit by construction.

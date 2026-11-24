@@ -1,0 +1,438 @@
+{
+ "slug": "dandy-s-world",
+ "format": "game-discoveries",
+ "file": "output/roblox-dandy-s-world-v4.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.60 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 34.300 s vs video 34.300 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.05 LUFS (gate -14 \u00b1 0.5); true_peak: -1.49 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 11.3 dB (bed gain +10.89 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "86/86 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "4 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "4 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.06 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 5.0 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "8 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.2 s; 5 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 51.9; title bright px 10720"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "10 words; digit=True, ?=False, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 5.0 s; 8 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "Alpha.",
+   "start": 3.0,
+   "end": 3.34,
+   "prob": 0.49
+  },
+  {
+   "word": "Two",
+   "start": 25.46,
+   "end": 25.72,
+   "prob": 0.28
+  },
+  {
+   "word": "Alpha,",
+   "start": 26.14,
+   "end": 26.44,
+   "prob": 0.3
+  },
+  {
+   "word": "number",
+   "start": 32.1,
+   "end": 32.36,
+   "prob": 0.58
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "Alpha.",
+   "start": 3.0,
+   "end": 3.34,
+   "prob": 0.49,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Two",
+   "start": 25.46,
+   "end": 25.72,
+   "prob": 0.28,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Alpha,",
+   "start": 26.14,
+   "end": 26.44,
+   "prob": 0.3,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "number",
+   "start": 32.1,
+   "end": 32.36,
+   "prob": 0.58,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "duration_s": 34.3,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 3.5,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 3.5,
+    "end_s": 8.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 8.5,
+    "end_s": 9.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 9.0,
+    "end_s": 12.5,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 12.5,
+    "end_s": 17.0,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 17.0,
+    "end_s": 21.5,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 21.5,
+    "end_s": 25.0,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 30.0,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 30.0,
+    "end_s": 30.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 30.5,
+    "end_s": 34.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 5.0,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "metadata": "videos/dandy-s-world/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/dandy-s-world/index.html",
+  "n_sentences": 8,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.35,
+    "end_s": 3.5,
+    "text": "8 billion visits, and this horror game just left alpha.",
+    "scene": 0,
+    "title": "8 BILLION VISITS.",
+    "title_element": "title-0",
+    "shared_words": [
+     "8",
+     "billion",
+     "visits"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": -0.35,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 4.18,
+    "end_s": 8.64,
+    "text": "Meet Dandy's World: version 1.0 arrived November 20, 2026.",
+    "scene": 1,
+    "title": "DANDY'S WORLD",
+    "title_element": "head-1",
+    "shared_words": [
+     "dandy",
+     "s",
+     "world"
+    ],
+    "match": true,
+    "appearance_s": 3.5,
+    "timing_gap_s": -0.68,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 9.32,
+    "end_s": 12.64,
+    "text": "Team up with friends, finish machines, and go deeper together.",
+    "scene": 2,
+    "title": "FINISH THE MACHINES.",
+    "title_element": "head-2",
+    "shared_words": [
+     "finish",
+     "machines"
+    ],
+    "match": true,
+    "appearance_s": 8.64,
+    "timing_gap_s": -0.68,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 13.1,
+    "end_s": 16.76,
+    "text": "But Twisted mascots hunt you, and one wrong step ends the run.",
+    "scene": 3,
+    "title": "THE TWISTED HUNT YOU.",
+    "title_element": "head-3",
+    "shared_words": [
+     "twisted",
+     "hunt"
+    ],
+    "match": true,
+    "appearance_s": 12.64,
+    "timing_gap_s": -0.46,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 17.5,
+    "end_s": 21.34,
+    "text": "Version 1.0 adds The Labs, a harder mode with 11 floors.",
+    "scene": 4,
+    "title": "THE LABS: 800,000 AT ONCE.",
+    "title_element": "head-4",
+    "shared_words": [
+     "labs"
+    ],
+    "match": true,
+    "appearance_s": 16.76,
+    "timing_gap_s": -0.74,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 22.1,
+    "end_s": 25.02,
+    "text": "Launch day drew almost 800,000 players at once.",
+    "scene": 4,
+    "title": "THE LABS: 800,000 AT ONCE.",
+    "title_element": "head-4",
+    "shared_words": [
+     "800",
+     "000",
+     "once"
+    ],
+    "match": true,
+    "appearance_s": 16.76,
+    "timing_gap_s": -5.34,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 25.63,
+    "end_s": 30.0,
+    "text": "Two years in alpha, 8 billion visits, now the top trending game.",
+    "scene": 5,
+    "title": "NUMBER ONE TRENDING.",
+    "title_element": "title-5",
+    "shared_words": [
+     "trending"
+    ],
+    "match": true,
+    "appearance_s": 25.02,
+    "timing_gap_s": -0.61,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 30.48,
+    "end_s": 33.5,
+    "text": "From noob to pro, try the number one game this week.",
+    "scene": 5,
+    "title": "NUMBER ONE TRENDING.",
+    "title_element": "title-5",
+    "shared_words": [
+     "number",
+     "1"
+    ],
+    "match": true,
+    "appearance_s": 25.02,
+    "timing_gap_s": -5.46,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "duration_s": 34.3,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 3.5,
+    "end_s": 3.6,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 8.6,
+    "end_s": 8.7,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 12.6,
+    "end_s": 12.8,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 16.6,
+    "end_s": 16.8,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 25.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   }
+  ],
+  "max_empty_s": 0.2,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "image_std_t0": 51.9,
+  "title_bright_px_t0": 10720,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 51.89,
+  "title_bright_px_t01": 10722,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "8 billion visits, and this horror game just left alpha.",
+  "n_words": 10,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/dandy-s-world/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-dandy-s-world-v4.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 439.0,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.96
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 5.0,
+  "n_image_spans": 8,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}
