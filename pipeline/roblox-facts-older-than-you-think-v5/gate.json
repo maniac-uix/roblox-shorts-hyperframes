@@ -1,0 +1,515 @@
+{
+ "slug": "roblox-facts-older-than-you-think-v5",
+ "format": "facts",
+ "file": "output/roblox-facts-older-than-you-think-v5.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.60 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 37.700 s vs video 37.700 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.19 LUFS (gate -14 \u00b1 0.5); true_peak: -1.49 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.6 dB (bed gain +10.62 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "99/99 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.12 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 4.5 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "11 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.2 s; 5 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 57.77; title bright px 6296"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "8 words; digit=True, ?=True, number-word=False"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 4.5 s; 11 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "robots",
+   "start": 7.34,
+   "end": 7.84,
+   "prob": 0.29
+  },
+  {
+   "word": "Robux",
+   "start": 26.46,
+   "end": 26.92,
+   "prob": 0.48
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "robots",
+   "start": 7.34,
+   "end": 7.84,
+   "prob": 0.29,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Robux",
+   "start": 26.46,
+   "end": 26.92,
+   "prob": 0.48,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-facts-older-than-you-think-v5.mp4",
+  "duration_s": 37.7,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 2.0,
+    "duration_s": 2.0,
+    "n_frames": 4,
+    "fragment": false
+   },
+   {
+    "start_s": 2.0,
+    "end_s": 2.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 2.5,
+    "end_s": 5.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 5.0,
+    "end_s": 8.5,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 8.5,
+    "end_s": 9.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 9.0,
+    "end_s": 12.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 12.0,
+    "end_s": 12.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 12.5,
+    "end_s": 17.0,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 17.0,
+    "end_s": 17.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 17.5,
+    "end_s": 20.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 20.0,
+    "end_s": 20.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 20.5,
+    "end_s": 24.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 24.5,
+    "end_s": 28.0,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 28.0,
+    "end_s": 31.5,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 31.5,
+    "end_s": 32.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 32.0,
+    "end_s": 33.5,
+    "duration_s": 1.5,
+    "n_frames": 3,
+    "fragment": false
+   },
+   {
+    "start_s": 33.5,
+    "end_s": 37.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 4.5,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-facts-older-than-you-think-v5.mp4",
+  "metadata": "videos/roblox-facts-older-than-you-think-v5/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-facts-older-than-you-think-v5/index.html",
+  "n_sentences": 11,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 2.4,
+    "text": "Did you know Roblox is 22 years old?",
+    "scene": 0,
+    "title": "22 YEARS OLD.",
+    "title_element": "title-0",
+    "shared_words": [
+     "22",
+     "years",
+     "old"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": 0.0,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 2.74,
+    "end_s": 4.88,
+    "text": "It started in 2004, under the name DynaBlocks.",
+    "scene": 1,
+    "title": "STARTED IN 2004 \u2014 ROBOTS + BLOCKS",
+    "title_element": "head-1",
+    "shared_words": [
+     "started",
+     "2004"
+    ],
+    "match": true,
+    "appearance_s": 2.4,
+    "timing_gap_s": -0.34,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 6.34,
+    "end_s": 8.9,
+    "text": "Roblox itself means robots plus blocks.",
+    "scene": 1,
+    "title": "STARTED IN 2004 \u2014 ROBOTS + BLOCKS",
+    "title_element": "head-1",
+    "shared_words": [
+     "robots",
+     "blocks"
+    ],
+    "match": true,
+    "appearance_s": 2.4,
+    "timing_gap_s": -3.94,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 9.62,
+    "end_s": 12.3,
+    "text": "It launched to the public on September 1, 2006.",
+    "scene": 2,
+    "title": "LAUNCHED SEPTEMBER 1, 2006",
+    "title_element": "head-2",
+    "shared_words": [
+     "launched",
+     "september",
+     "1",
+     "2006"
+    ],
+    "match": true,
+    "appearance_s": 8.9,
+    "timing_gap_s": -0.72,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 13.02,
+    "end_s": 17.12,
+    "text": "In February 2025, over 85 million players log in daily.",
+    "scene": 3,
+    "title": "85 MILLION PLAYERS \u2014 ROBLOX SAID IT",
+    "title_element": "head-3",
+    "shared_words": [
+     "85",
+     "million",
+     "players"
+    ],
+    "match": true,
+    "appearance_s": 12.3,
+    "timing_gap_s": -0.72,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 17.8,
+    "end_s": 20.4,
+    "text": "Back in 2020, this is what Roblox said.",
+    "scene": 3,
+    "title": "85 MILLION PLAYERS \u2014 ROBLOX SAID IT",
+    "title_element": "head-3",
+    "shared_words": [
+     "roblox",
+     "said"
+    ],
+    "match": true,
+    "appearance_s": 12.3,
+    "timing_gap_s": -5.5,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 21.04,
+    "end_s": 23.8,
+    "text": "Over half of American kids under sixteen played it.",
+    "scene": 4,
+    "title": "KIDS PLAY \u2014 CREATORS EARN REAL MONEY",
+    "title_element": "head-4",
+    "shared_words": [
+     "kids",
+     "play"
+    ],
+    "match": true,
+    "appearance_s": 20.4,
+    "timing_gap_s": -0.64,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 24.22,
+    "end_s": 28.02,
+    "text": "And since 2013, creators can turn their Robux into real money.",
+    "scene": 4,
+    "title": "KIDS PLAY \u2014 CREATORS EARN REAL MONEY",
+    "title_element": "head-4",
+    "shared_words": [
+     "creators",
+     "real",
+     "money"
+    ],
+    "match": true,
+    "appearance_s": 20.4,
+    "timing_gap_s": -3.82,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 9,
+    "start_s": 28.48,
+    "end_s": 31.32,
+    "text": "So the players build the games, and they get paid for it.",
+    "scene": 5,
+    "title": "PLAYERS BUILD THE GAME.",
+    "title_element": "title-5",
+    "shared_words": [
+     "players",
+     "build",
+     "game"
+    ],
+    "match": true,
+    "appearance_s": 28.02,
+    "timing_gap_s": -0.46,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 10,
+    "start_s": 31.6,
+    "end_s": 33.26,
+    "text": "So Roblox is not just a game.",
+    "scene": 5,
+    "title": "PLAYERS BUILD THE GAME.",
+    "title_element": "title-5",
+    "shared_words": [
+     "game"
+    ],
+    "match": true,
+    "appearance_s": 28.02,
+    "timing_gap_s": -3.58,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 11,
+    "start_s": 33.8,
+    "end_s": 36.72,
+    "text": "22 years later, it is still built by its own players.",
+    "scene": 5,
+    "title": "PLAYERS BUILD THE GAME.",
+    "title_element": "title-5",
+    "shared_words": [
+     "players"
+    ],
+    "match": true,
+    "appearance_s": 28.02,
+    "timing_gap_s": -5.78,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-facts-older-than-you-think-v5.mp4",
+  "duration_s": 37.7,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 2.4,
+    "end_s": 2.5,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 8.8,
+    "end_s": 9.0,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 12.2,
+    "end_s": 12.4,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 20.4,
+    "end_s": 20.5,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 28.0,
+    "end_s": 28.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   }
+  ],
+  "max_empty_s": 0.2,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-facts-older-than-you-think-v5.mp4",
+  "image_std_t0": 57.77,
+  "title_bright_px_t0": 6296,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 57.63,
+  "title_bright_px_t01": 6292,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "Did you know Roblox is 22 years old?",
+  "n_words": 8,
+  "has_digit": true,
+  "has_question": true,
+  "has_number_word": false,
+  "verdict": "PASS",
+  "source": "videos/roblox-facts-older-than-you-think-v5/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-facts-older-than-you-think-v5.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 453.5,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.959
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 4.5,
+  "n_image_spans": 11,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

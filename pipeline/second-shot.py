@@ -13,7 +13,11 @@ after any rebuild):
   1. copy --image into the video assets dir
   2. in scene N's .img-wrap, add <img id="img-Nb" ...> after #img-N
      (inline position:relative on that wrap so the absolute img anchors
-     to it)
+     to it). A scene that already has a second shot gets a third shot
+     <img id="img-Nc"> (Facts v5 scene 5: three images in one scene —
+     the scene window is 9.2 s, two images cannot both stay under the
+     5.0 s gate limit once the scene starts at the previous sentence's
+     end and the crossfade blend is counted)
   3. CSS rule for #img-Nb (absolute, full-size, opacity 0)
   4. GSAP: at --at fade #img-N out (0.4 s) and #img-Nb in (0.4 s),
      then Ken Burns on #img-Nb for --at to --end
@@ -62,29 +66,41 @@ def main() -> int:
     assert args.end > args.at, "--end must be after --at"
 
     html = html_path.read_text()
-    nb = f"img-{args.scene}b"
-    assert f'id="{nb}"' not in html, "second shot already applied"
+    # First free suffix: "b" for a second shot, "c" for a third shot in
+    # the same scene (a scene whose window exceeds ~8.6 s needs three
+    # images to keep every span under the 5.0 s gate limit).
+    nb = None
+    suffix_used = None
+    for suffix in ("b", "c"):
+        cand = f"img-{args.scene}{suffix}"
+        if f'id="{cand}"' not in html:
+            nb = cand
+            suffix_used = suffix
+            break
+    assert nb is not None, f"scene {args.scene} already has shots b and c"
 
     # 1. image
     dst_img = video / "assets" / "images" / src_img.name
     shutil.copyfile(src_img, dst_img)
     print(f"copied {src_img.name} -> {dst_img.relative_to(PROJECT)}")
 
-    # 2. second img element
+    # 2. extra img element: insert before the closing </div> of the
+    # img-wrap that holds #img-N (the wrap may already contain a
+    # second-shot img).
     wrap_pat = re.compile(
-        r'(<div class="img-wrap"><img id="img-' + str(args.scene) + r'" '
-        r'data-img-scene="' + str(args.scene) + r'" src="[^"]*" alt="" /></div>)')
+        r'(<div class="img-wrap"[^>]*><img id="img-' + str(args.scene) +
+        r'"[^>]*/>.*?</div>)', re.DOTALL)
     m = wrap_pat.search(html)
     assert m, f"scene {args.scene} img-wrap not found exactly once"
-    # Keep the original img tag verbatim, inject the second img before
+    # Keep the original wrap verbatim, inject the new img before
     # </div> (the wrap gets position:relative so the absolute img
     # anchors to the card, not to the composition root).
     orig = m.group(1)
-    inner = orig[:-len("</div>")]
-    new_wrap = inner + (f'<img id="{nb}" src="assets/images/{src_img.name}" '
+    new_wrap = orig[:-len("</div>")] + (f'<img id="{nb}" src="assets/images/{src_img.name}" '
                         f'alt="" /></div>')
-    new_wrap = new_wrap.replace('<div class="img-wrap">',
-                                '<div class="img-wrap" style="position:relative;">', 1)
+    if 'style="position:relative;"' not in new_wrap:
+        new_wrap = new_wrap.replace('<div class="img-wrap"',
+                                    '<div class="img-wrap" style="position:relative;"', 1)
     html = html.replace(orig, new_wrap, 1)
     print(f"img-wrap scene {args.scene}: added #{nb} ({src_img.name})")
 
@@ -107,13 +123,30 @@ def main() -> int:
     assert "      window.__timelines[" in html
     html = html.replace("      window.__timelines[",
                         tweens + "      window.__timelines[", 1)
+
+    # If a shot added earlier in this scene fades in AFTER this shot's
+    # --at, it must also fade this new image out: the new img is last
+    # in DOM order (topmost), so without the fade-out it would stay
+    # visible over the later shot.
+    fade_in_pat = re.compile(
+        r'tl\.fromTo\("#img-' + str(args.scene) + r'[bc]", '
+        r'\{ opacity: 0 \}, \{ opacity: 1, duration: 0\.4, '
+        r'ease: "none" \}, (\d+\.\d+)\);')
+    for m2 in fade_in_pat.finditer(html):
+        at2 = float(m2.group(1))
+        if at2 > at:
+            fade_out = (f'      tl.fromTo("#{nb}", {{ opacity: 1 }}, '
+                        f'{{ opacity: 0, duration: 0.4, ease: "none" }}, {at2:.2f});\n')
+            html = html.replace(m2.group(0), fade_out + m2.group(0), 1)
+            print(f"index.html: #{nb} also fades out at {at2:.2f} s "
+                  f"(later shot in scene {args.scene})")
     html_path.write_text(html)
     print(f"index.html patched: #{nb} crossfade at {at:.2f} s, "
           f"Ken Burns {dur:.2f} s to {end:.2f} s")
 
     # 5. metadata
     meta = json.loads(meta_path.read_text())
-    meta.setdefault("images", {})[f"{args.scene}b"] = f"assets/images/{src_img.name}"
+    meta.setdefault("images", {})[f"{args.scene}{suffix_used}"] = f"assets/images/{src_img.name}"
     meta.setdefault("secondShots", []).append({
         "scene": args.scene,
         "atSeconds": at,

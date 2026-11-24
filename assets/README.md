@@ -51,11 +51,17 @@ characters, no game footage. Free to use in this project.
 | File | Scene | Content |
 |---|---|---|
 | `images/facts/hero.webp` | 0 hook | Blocky voxel city at sunrise |
-| `images/facts/origin.webp` | 1 fact 01 | Blocky robot stacking toy blocks |
-| `images/facts/scale.webp` | 2 fact 02 | Huge crowd of blocky characters |
-| `images/facts/kids.webp` | 3 fact 03 (v3) | Four diverse voxel kids on a couch with tablets/phones, cozy living room (v3: new scene for the dated 2020 kids claim) |
-| `images/facts/creator.webp` | 4 fact 04 (v3: was scene 3) | Blocky creator at a glowing computer |
-| `images/facts/platform.webp` | 5 payoff (v2, v3: was scene 4) | Three diverse voxel builders on a glowing platform (v2: replaces hero reuse in the payoff) |
+| `images/facts/origin.webp` | 1 origin (v5: S2 only) | Blocky robot stacking toy blocks |
+| `images/facts/robots-blocks.webp` | 1 second shot (v5: S3) | Friendly voxel robot stacking colorful toy blocks on a workbench (v5: second shot — replaces the origin reuse across S2+S3) |
+| `images/facts/launch-2006.webp` | 2 launch (v5: S4) | White voxel rocket blasting off at night, orange flame, starry sky (v5: S4 — replaces the origin reuse) |
+| `images/facts/launch-2006-crowd-unused.webp` | — unused in v5 | Voxel crowd with a giant golden 2006 sign and fireworks (v5: generated for S4, set aside — probe histogram 0.188 vs scale.webp, below the 0.20 join threshold) |
+| `images/facts/scale.webp` | 3 scale (v5: S5) | Huge crowd of blocky characters |
+| `images/facts/quote-2020.webp` | 3 second shot (v5: S6) | Voxel classroom, teacher pointing at a 2020 timeline chart (v5: second shot) |
+| `images/facts/kids.webp` | 4 kids (v5: S7; v3: new scene for the dated 2020 kids claim) | Four diverse voxel kids on a couch with tablets/phones, cozy living room |
+| `images/facts/creator.webp` | 4 second shot (v5: S8; v3: was scene 3) | Blocky creator at a glowing computer |
+| `images/facts/platform.webp` | 5 payoff (v5: S9; v2, v3: was scene 4) | Three diverse voxel builders on a glowing platform (v2: replaces hero reuse in the payoff) |
+| `images/facts/more-than-a-game.webp` | 5 third shot (v5: S10) | Voxel characters stepping out of a giant glowing game screen into a sunlit city street (v5: third shot — scene 5's window is 9.21 s, two images cannot both stay under 5.0 s) |
+| `images/facts/payoff-22.webp` | 5 second shot (v5: S11) | Three builders raising a giant golden 22 monument at dusk (v5: second shot) |
 
 ### roblox-top5-most-visited (amber)
 
@@ -72,12 +78,18 @@ characters, no game footage. Free to use in this project.
 
 | File | Scene | Content |
 |---|---|---|
-| `images/mysteries/shadow.webp` | 0 hook | Dark blocky silhouette in fog |
-| `images/mysteries/book.webp` | 1 setup | Spooky spellbook, green skull emblem |
-| `images/mysteries/glitch.webp` | 2 evidence | Blocky world glitching apart |
-| `images/mysteries/admin.webp` | 3 truth (v3) | Plain grey blank voxel avatar from behind at a dark admin console, glowing code screens, server room (v3: replaces the cute reveal plush, which did not fit the subject) |
+| `images/mysteries/shadow.webp` | 0 hook (v5: S1) | Dark blocky silhouette in fog |
+| `images/mysteries/name-reveal.webp` | 0 second shot (v5: S2) | Glowing green name tag 1x1x1x1 on a dark voxel wall, purple fog (v5: second shot) |
+| `images/mysteries/book.webp` | 1 setup (v5: S3 first half) | Spooky spellbook, green skull emblem |
+| `images/mysteries/hat-necro.webp` | 1 second shot (v5: S3 second half) | Dusty wizard hat glowing green on a library shelf, cobwebs (v5: second shot, mid-sentence — S3 alone exceeds 5.0 s) |
+| `images/mysteries/glitch.webp` | 2 evidence (v5: S4 first half) | Blocky world glitching apart |
+| `images/mysteries/chaos-sign.webp` | 2 second shot (v5: S4 second half) | Cracked voxel wall with a glowing green graffiti tag, glitching pixels (v5: second shot, mid-sentence — S4 alone exceeds 5.0 s) |
+| `images/mysteries/admin.webp` | 3 truth (v5: S5; v3) | Plain grey blank voxel avatar from behind at a dark admin console, glowing code screens, server room (v3: replaces the cute reveal plush, which did not fit the subject) |
+| `images/mysteries/test-account.webp` | 3 second shot (v5: S6) | Plain grey blank voxel avatar in a bright white test room, no text (v5: second shot; first render had a garbled "TE$T" label, regenerated without text) |
+| `images/mysteries/never-hacker.webp` | 4 verdict (v5: S7+S8) | Grey voxel avatar dissolving into purple pixels (v5: new verdict scene) |
+| `images/mysteries/answer-no.webp` | 5 conclusion (v5: S9) | Giant glowing red X over a shadowy silhouette, purple fog (v5: S9) |
 | `images/mysteries/reveal.webp` | — retired in v3 | Blocky character lifting a mask (v1–v2 truth scene; unused from v3) |
-| `images/mysteries/legend.webp` | 4 conclusion (v2) | Foggy ruined arena, lone killer silhouette with green eyes (v2: replaces reveal reuse in the conclusion) |
+| `images/mysteries/legend.webp` | 5 second shot (v5: S10; v2: was scene 4) | Foggy ruined arena, lone killer silhouette with green eyes (v2: replaces reveal reuse in the conclusion) |
 
 ### roblox-age-check-explained (teal, Phase 3 test video)
 
