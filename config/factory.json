@@ -39,7 +39,8 @@
   "hidden-secrets",
   "game-discoveries",
   "updates",
-  "stories"
+  "stories",
+  "news"
  ],
  "language": {
   "note": "All videos are in English (voice, on-screen text, metadata). Conversation with the owner stays French or English.",
@@ -100,6 +101,7 @@
    "game-discoveries": "#38BDF8",
    "hidden-secrets": "#34D399",
    "mysteries": "#8B5CF6",
+   "news": "#EF4444",
    "stories": "#FB7185",
    "top5": "#F59E0B",
    "updates": "#F472B6"

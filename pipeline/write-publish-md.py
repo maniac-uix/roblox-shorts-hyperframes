@@ -57,12 +57,14 @@ HASHTAGS = {
     "top5": ["#Roblox", "#RobloxFacts", "#Shorts", "#Gaming", "#NoobNoMore"],
     "game-discoveries": ["#Roblox", "#RobloxFacts", "#Shorts", "#Gaming",
                          "#NoobNoMore"],
+    "news": ["#Roblox", "#RobloxNews", "#Shorts", "#Gaming", "#NoobNoMore"],
 }
 TIKTOK_TAGS = {
     "facts": "#Roblox #RobloxFacts #NoobNoMore",
     "mysteries": "#Roblox #RobloxMystery #NoobNoMore",
     "top5": "#Roblox #RobloxFacts #NoobNoMore",
     "game-discoveries": "#Roblox #RobloxFacts #NoobNoMore",
+    "news": "#Roblox #RobloxNews #NoobNoMore",
 }
 DISPLAY_FORMAT = {
     "facts": "Facts", "mysteries": "Mysteries", "top5": "Top 5",

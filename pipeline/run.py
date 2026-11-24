@@ -353,7 +353,7 @@ def main():
     ap.add_argument("--url")
     ap.add_argument("--format", choices=["mysteries", "facts", "top5",
                                          "hidden-secrets", "game-discoveries",
-                                         "updates", "stories"])
+                                         "updates", "stories", "news"])
     ap.add_argument("--slug", required=True)
     ap.add_argument("--stage", choices=STAGES, default="deliver")
     ap.add_argument("--end-margin", type=float, default=0.85)
@@ -404,7 +404,7 @@ def main():
         build_cmd = ["python3", "rendering/build_video.py", "--slug", args.slug,
              "--script", script, "--template",
              f"templates/formats/{fmt}.html" if fmt in ("facts", "top5", "mysteries",
-                                                      "game-discoveries")
+                                                      "game-discoveries", "news")
              else "templates/base-vertical/index.html",
              "--scene-breaks", ",".join(map(str, cuts)),
              "--end-margin", str(args.end_margin),

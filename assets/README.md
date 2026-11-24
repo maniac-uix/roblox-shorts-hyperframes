@@ -132,3 +132,19 @@ All images below are **original illustrations generated in this environment** (M
 | `images/dandy-s-world/trending-trophy.webp` | 5 verdict (beat 7) | Golden voxel trophy on a podium, rising block chart arrow, flower petals, dark navy background |
 | `images/dandy-s-world/hero-payoff.webp` | 5 CTA (beat 8, 2nd shot) | Proud voxel hero holding a rainbow flower flag on a hill, friends cheering, sunrise over a garden town |
 | `images/dandy-s-world/hero-payoff-dark.webp` | 6 CTA (beat 8, 2nd shot) — v5 | Same voxel hero with rainbow flag (all stripes visible) re-toned to blue dusk (dark teal-navy sky, moon, valley fog, lantern glow, somber heroic mood); v5 darker re-tone of `hero-payoff.webp`, generated in this environment, original |
+
+### roblox-game-pass-trials (red #EF4444, News, Phase 5)
+
+All images below are **original illustrations generated in this environment** (Muse native image generation, 24 Nov 2026, 1920×1280 WebP). No Roblox logos, no copyrighted characters, no game footage, no text in the images. Free to use in this project. Note: the generator's raw outputs (`media-generation-*.webp` + `.json` sidecars) were left in the folder alongside the clean names.
+
+| File | Scene / Beat | Content |
+|---|---|---|
+| `images/news/shop-try-button.webp` | 0 hook (beat 1) | Voxel Shop storefront at dusk, big glowing red TRY button on a game-pass stand next to a smaller plain button, warm windows, small voxel hero in a turquoise cape walking in, confetti |
+| `images/news/pass-card-try.webp` | 1 button (beat 2) | Close-up voxel game-pass card floating in a game shop, one large glowing red button beside a plain buy button, gold coins and sparkles around |
+| `images/news/unlock-pass.webp` | 2 unlock (beat 3) | Voxel avatar tapping a glowing golden game pass, bright unlock burst with golden sparkles and light rays |
+| `images/news/one-hour-clock.webp` | 3 hour (beat 4) | Big voxel clock and hourglass glowing red on a dark pedestal, small voxel avatar playing with blocks below |
+| `images/news/one-ticket.webp` | 4 limit (beat 5) | Single golden voxel ticket floating above a dark pedestal, glowing gold shimmer, spotlight from above |
+| `images/news/creator-switch.webp` | 5 creator (beat 6) | Voxel game creator at a control panel with large red toggle switches, one switch ON and glowing bright red, the others OFF and dark |
+| `images/news/owned-pass.webp` | 6 owned (beat 7) | Voxel game-pass card with a big red stamp mark over it, the try button greyed out and dim, muted grey tones |
+| `images/news/buy-to-keep.webp` | 7 buy (beat 8) | Voxel avatar pressing a big glowing red buy button, golden coins bursting out in all directions |
+| `images/news/payoff-hero.webp` | 8 payoff (beat 9) | Proud voxel hero with a turquoise cape standing on a podium, red confetti falling, cheering voxel friends around |

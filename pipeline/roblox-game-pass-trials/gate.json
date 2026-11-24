@@ -1,0 +1,497 @@
+{
+ "slug": "roblox-game-pass-trials",
+ "format": "news",
+ "file": "output/roblox-game-pass-trials.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.63 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 30.567 s vs video 30.567 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.24 LUFS (gate -14 \u00b1 0.5); true_peak: -1.49 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 10.4 dB (bed gain +10.7 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "97/97 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "3 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.03 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 5.0 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "9 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.2 s; 8 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 50.62; title bright px 7394"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "9 words; digit=True, ?=False, number-word=False"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 5.0 s; 9 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "try",
+   "start": 1.48,
+   "end": 1.8,
+   "prob": 0.15
+  },
+  {
+   "word": "of",
+   "start": 12.2,
+   "end": 12.4,
+   "prob": 0.56
+  },
+  {
+   "word": "But",
+   "start": 16.16,
+   "end": 16.92,
+   "prob": 0.57
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "try",
+   "start": 1.48,
+   "end": 1.8,
+   "prob": 0.15,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "of",
+   "start": 12.2,
+   "end": 12.4,
+   "prob": 0.56,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "But",
+   "start": 16.16,
+   "end": 16.92,
+   "prob": 0.57,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-game-pass-trials.mp4",
+  "duration_s": 30.567,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 3.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 3.0,
+    "end_s": 3.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 3.5,
+    "end_s": 6.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 6.0,
+    "end_s": 6.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 6.5,
+    "end_s": 9.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 9.5,
+    "end_s": 10.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 13.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 13.0,
+    "end_s": 16.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 16.0,
+    "end_s": 16.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 16.5,
+    "end_s": 19.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 19.0,
+    "end_s": 22.5,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 22.5,
+    "end_s": 23.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 23.0,
+    "end_s": 25.0,
+    "duration_s": 2.0,
+    "n_frames": 4,
+    "fragment": false
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 25.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 25.5,
+    "end_s": 30.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 5.0,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-game-pass-trials.mp4",
+  "metadata": "videos/roblox-game-pass-trials/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-game-pass-trials/index.html",
+  "n_sentences": 9,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 3.22,
+    "text": "Starting December 2, try a game pass for free.",
+    "scene": 0,
+    "title": "TRY IT FREE.",
+    "title_element": "title-0",
+    "shared_words": [
+     "try",
+     "free"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": 0.0,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 3.8,
+    "end_s": 6.34,
+    "text": "Roblox adds a Try button to the Shop, right next to Buy.",
+    "scene": 1,
+    "title": "THE TRY BUTTON.",
+    "title_element": "head-1",
+    "shared_words": [
+     "try",
+     "button"
+    ],
+    "match": true,
+    "appearance_s": 3.22,
+    "timing_gap_s": -0.58,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 6.78,
+    "end_s": 9.94,
+    "text": "Tap it, and you unlock the whole pass, for one full session.",
+    "scene": 2,
+    "title": "ONE FULL SESSION.",
+    "title_element": "head-2",
+    "shared_words": [
+     "1",
+     "full",
+     "session"
+    ],
+    "match": true,
+    "appearance_s": 6.34,
+    "timing_gap_s": -0.44,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 10.64,
+    "end_s": 13.1,
+    "text": "One session means at least one hour of free play.",
+    "scene": 3,
+    "title": "ONE HOUR FREE.",
+    "title_element": "head-3",
+    "shared_words": [
+     "1",
+     "hour",
+     "free"
+    ],
+    "match": true,
+    "appearance_s": 9.94,
+    "timing_gap_s": -0.7,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 13.64,
+    "end_s": 16.38,
+    "text": "One free trial per pass, and only one at a time.",
+    "scene": 4,
+    "title": "ONE PER PASS.",
+    "title_element": "head-4",
+    "shared_words": [
+     "1",
+     "per",
+     "pass"
+    ],
+    "match": true,
+    "appearance_s": 13.1,
+    "timing_gap_s": -0.54,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 16.9,
+    "end_s": 18.94,
+    "text": "But the creator has to turn trials on first.",
+    "scene": 5,
+    "title": "THE CREATOR DECIDES.",
+    "title_element": "head-5",
+    "shared_words": [
+     "creator"
+    ],
+    "match": true,
+    "appearance_s": 16.38,
+    "timing_gap_s": -0.52,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 19.54,
+    "end_s": 22.58,
+    "text": "A pass you already own shows no Try button at all.",
+    "scene": 6,
+    "title": "NO TRY BUTTON.",
+    "title_element": "head-6",
+    "shared_words": [
+     "try",
+     "button"
+    ],
+    "match": true,
+    "appearance_s": 18.94,
+    "timing_gap_s": -0.6,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 22.9,
+    "end_s": 25.42,
+    "text": "Buy it before the session ends, and you keep it for good.",
+    "scene": 7,
+    "title": "BUY TO KEEP IT.",
+    "title_element": "head-7",
+    "shared_words": [
+     "buy",
+     "keep"
+    ],
+    "match": true,
+    "appearance_s": 22.58,
+    "timing_gap_s": -0.32,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 9,
+    "start_s": 25.95,
+    "end_s": 29.3,
+    "text": "From noob to pro, try before you buy, starting December 2.",
+    "scene": 8,
+    "title": "TRY BEFORE YOU BUY.",
+    "title_element": "title-8",
+    "shared_words": [
+     "try",
+     "before",
+     "buy"
+    ],
+    "match": true,
+    "appearance_s": 25.42,
+    "timing_gap_s": -0.53,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-game-pass-trials.mp4",
+  "duration_s": 30.567,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 3.2,
+    "end_s": 3.3,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 6.3,
+    "end_s": 6.4,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 9.9,
+    "end_s": 10.0,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 13.0,
+    "end_s": 13.2,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 16.3,
+    "end_s": 16.5,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 18.9,
+    "end_s": 19.0,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 22.5,
+    "end_s": 22.7,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 25.4,
+    "end_s": 25.5,
+    "duration_s": 0.1,
+    "n_frames": 1
+   }
+  ],
+  "max_empty_s": 0.2,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-game-pass-trials.mp4",
+  "image_std_t0": 50.62,
+  "title_bright_px_t0": 7394,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 50.57,
+  "title_bright_px_t01": 7411,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "Starting December 2, try a game pass for free.",
+  "n_words": 9,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": false,
+  "verdict": "PASS",
+  "source": "videos/roblox-game-pass-trials/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-game-pass-trials.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 465.0,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.957
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 5.0,
+  "n_image_spans": 9,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}
