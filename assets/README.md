@@ -148,3 +148,23 @@ All images below are **original illustrations generated in this environment** (M
 | `images/news/owned-pass.webp` | 6 owned (beat 7) | Voxel game-pass card with a big red stamp mark over it, the try button greyed out and dim, muted grey tones |
 | `images/news/buy-to-keep.webp` | 7 buy (beat 8) | Voxel avatar pressing a big glowing red buy button, golden coins bursting out in all directions |
 | `images/news/payoff-hero.webp` | 8 payoff (beat 9) | Proud voxel hero with a turquoise cape standing on a podium, red confetti falling, cheering voxel friends around |
+
+### roblox-top5-thanksgiving (amber #F59E0B, Top 5)
+
+All images below are **original illustrations generated in this environment** (Muse native image generation, 25 Nov 2026, 1920×1280 WebP). No Roblox logos, no copyrighted characters, no game footage, no text in the images. Free to use in this project. Note: the generator's raw outputs (`media-generation-*.webp` + `.json` sidecars) were left in the folder alongside the clean names.
+
+| File | Scene / Beat | Content |
+|---|---|---|
+| `images/top5-thanksgiving/hook-feast.webp` | 0 hook (beat 1) | Voxel Thanksgiving feast table at dusk, roast turkey centerpiece, five glowing portals (amber, teal, purple, orange, blue) behind the table, autumn leaves falling |
+| `images/top5-thanksgiving/nfl-turkey-rush.webp` | 1 #5 NFL (beat 2) | Voxel American football stadium in an autumn park, blocky players chasing a turkey across the field, orange leaves, floodlights |
+| `images/top5-thanksgiving/ps99-turkey-hunt.webp` | 2 #4 PS99 (beat 3) | Voxel island with a giant turkey landing in the center, blocky pets with nets running toward it, maple trees |
+| `images/top5-thanksgiving/fisch-fischgiving.webp` | 3 #3 Fisch (beat 4) | Voxel fishing boat on a calm autumn sea at sunset, blocky angler reeling in a turkey-shaped catch, leaves on the water |
+| `images/top5-thanksgiving/nights-thanksgiving.webp` | 4 #2 99 Nights (beat 5) | Voxel forest camp at night, campfire glow, long dinner table with crock pot and roast turkey, blocky guests with lanterns arriving |
+| `images/top5-thanksgiving/garden-turkey-hunt.webp` | 5 #1 Grow a Garden (beat 6) | Voxel garden in autumn harvest, giant turkey pet among pumpkin and corn rows, blocky gardener with a basket |
+| `images/top5-thanksgiving/payoff-feast.webp` | 6 payoff (beat 7) | Proud voxel hero with turquoise cape at a Thanksgiving feast table, golden confetti falling |
+| `images/top5-thanksgiving/share-friends.webp` | 6 second shot (beat 8) | Two happy voxel friends sharing one glowing phone showing a colorful game, cozy autumn living room with pumpkins and maple leaves |
+| `images/top5-thanksgiving/nfl-detail.webp` | 1 second shot (mid-sentence) | Close-up of a blocky American football on autumn grass next to a funny blocky turkey, orange maple leaves, floodlights glowing behind |
+| `images/top5-thanksgiving/ps99-detail.webp` | 2 second shot (mid-sentence) | Close-up of cute blocky voxel pets holding colorful nets, catching a small blocky turkey, maple trees behind |
+| `images/top5-thanksgiving/fisch-detail.webp` | 3 second shot (mid-sentence) | Close-up of a giant blocky turkey rising from a calm autumn sea surrounded by golden leaves, small voxel fishing boat nearby, sunset |
+| `images/top5-thanksgiving/nights-detail.webp` | 4 second shot (mid-sentence) | Close-up of a voxel crock pot steaming on a long wooden dinner table set with roast turkey dishes, bread and pumpkins, campfire glow |
+| `images/top5-thanksgiving/garden-detail.webp` | 5 second shot (mid-sentence) | Close-up of a proud giant blocky turkey pet with colorful feathers among huge pumpkins and corn stalks in a voxel garden, golden light |

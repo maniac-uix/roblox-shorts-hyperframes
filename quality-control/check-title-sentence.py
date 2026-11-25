@@ -9,10 +9,13 @@ sentence starts (appearing before the sentence is fine).
 Method:
   - Scene windows: <div class="scene clip" data-start data-duration>
     in document order (videos/<slug>/index.html).
-  - Scene k's title: title-k if present, else head-k (num-k, label-k,
-    q-k are numbers/labels/decoration, never titles; sub-k is a
-    subtitle, never the title). A scene with neither reports title None
-    and its sentences FAIL the match ("no title in scene").
+  - Scene k's title: title-k if present, else head-k, else game-k
+    (the top5 rank title; 25 Nov 2026 — without the game-k fallback
+    every top5 rank sentence failed as "no title in scene", a dry-sim
+    gap: no top5 video had ever run this check on a real render).
+    num-k, label-k, q-k are numbers/labels/decoration, never titles;
+    sub-k is a subtitle, never the title. A scene with none reports
+    title None and its sentences FAIL the match ("no title in scene").
   - Sentences come from metadata.json["captions"]; a sentence belongs
     to the scene whose window contains its start (a start exactly on a
     boundary belongs to the scene starting there).
@@ -129,10 +132,10 @@ def parse_scenes(html: str) -> list:
 
 
 def parse_heads(html: str) -> dict:
-    """id -> text for elements with id title-N, head-N or sub-N."""
+    """id -> text for elements with id title-N, head-N, game-N or sub-N."""
     heads = {}
     pat = re.compile(
-        r'<(h1|h2|p|div)[^>]*\bid="(title|head|sub)-(\d+)"[^>]*>(.*?)</\1>',
+        r'<(h1|h2|p|div)[^>]*\bid="(title|head|game|sub)-(\d+)"[^>]*>(.*?)</\1>',
         re.DOTALL)
     for m in pat.finditer(html):
         kind, num, inner = m.group(2), m.group(3), m.group(4)
@@ -178,6 +181,8 @@ def check(mp4: str, metadata_path: Path, composition_path: Path) -> dict:
             title_id, title = f"title-{scene}", heads[f"title-{scene}"]
         elif f"head-{scene}" in heads:
             title_id, title = f"head-{scene}", heads[f"head-{scene}"]
+        elif f"game-{scene}" in heads:
+            title_id, title = f"game-{scene}", heads[f"game-{scene}"]
         rec = {"index": i, "start_s": round(start, 2), "end_s": round(end, 2),
                "text": text, "scene": scene, "title": title,
                "title_element": title_id}

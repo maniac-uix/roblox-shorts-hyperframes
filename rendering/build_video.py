@@ -594,10 +594,15 @@ def main() -> int:
     #   new end - 0.45). The incoming card therefore covers the zone as the
     #   outgoing card leaves it.
     # - Head/title entrance pops (#title-*, #head-*, #num-*, #label-*,
-    #   #q-*, #sub-*) start exactly at the scene's new start with a fixed
+    #   #q-*, #sub-*, #game-*) start exactly at the scene's new start with a fixed
     #   0.45 s duration, so the title is on screen no later than 0.3 s
     #   after its first sentence starts (the Phase 4B defect was a pop
-    #   stretched to 1.7 s by the scene factor).
+    #   stretched to 1.7 s by the scene factor). #game-* is the top5
+    #   rank title (25 Nov 2026, thanksgiving build): without it the
+    #   rank titles kept their scaled positions (scene start + 0.9-1.1 s)
+    #   and two of five appeared more than 0.3 s after their sentence
+    #   started — a dry-sim gap, since no top5 video had ever run the
+    #   4C title check on a real render before.
     # - Untouched: img-* zoom segments (they fill the scene by design),
     #   progress/glow tweens (full-duration, no scene), CTA/mascot tweens
     #   (payoff elements, no timing rule in this phase), source-note
@@ -714,7 +719,7 @@ def main() -> int:
             # sentence starts; a pop stretched to 1.7 s by the scene factor
             # is the Phase 4B defect (Mysteries v4 title-0 at 1.25 s vs
             # sentence start 0.00; Facts v4 head-1 at 3.52 vs sentence 2.82).
-            if re.fullmatch(r"(title|head|num|label|q|sub)-\d+", base):
+            if re.fullmatch(r"(title|head|num|label|q|sub|game)-\d+", base):
                 if kind == "fromTo":
                     v1 = set_duration(m.group(3))
                     v2 = set_duration(m.group(4))

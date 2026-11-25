@@ -1,0 +1,522 @@
+{
+ "slug": "roblox-top5-thanksgiving",
+ "format": "top5",
+ "file": "output/roblox-top5-thanksgiving.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.63 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 43.067 s vs video 43.067 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.28 LUFS (gate -14 \u00b1 0.5); true_peak: -1.43 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 11.8 dB (bed gain +10.42 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "87/87 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "6 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "6 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.14 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 5.0 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "8 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.2 s; 6 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 54.85; title bright px 11353"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "9 words; digit=True, ?=False, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 5.0 s; 13 image spans (zooms do not count)"
+  },
+  "top5 sum": {
+   "verdict": "PASS",
+   "value": "  count: PASS \u2014 5 displayed, 5 spoken (need 5 each)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "Five",
+   "start": 0.0,
+   "end": 0.32,
+   "prob": 0.24
+  },
+  {
+   "word": "five,",
+   "start": 4.66,
+   "end": 5.02,
+   "prob": 0.53
+  },
+  {
+   "word": "giving",
+   "start": 20.84,
+   "end": 21.06,
+   "prob": 0.54
+  },
+  {
+   "word": "Thanksgiving",
+   "start": 27.32,
+   "end": 28.06,
+   "prob": 0.27
+  },
+  {
+   "word": "challenge",
+   "start": 28.06,
+   "end": 28.66,
+   "prob": 0.29
+  },
+  {
+   "word": "Grow",
+   "start": 31.18,
+   "end": 31.46,
+   "prob": 0.56
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "Five",
+   "start": 0.0,
+   "end": 0.32,
+   "prob": 0.24,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "five,",
+   "start": 4.66,
+   "end": 5.02,
+   "prob": 0.53,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "giving",
+   "start": 20.84,
+   "end": 21.06,
+   "prob": 0.54,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Thanksgiving",
+   "start": 27.32,
+   "end": 28.06,
+   "prob": 0.27,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "challenge",
+   "start": 28.06,
+   "end": 28.66,
+   "prob": 0.29,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "Grow",
+   "start": 31.18,
+   "end": 31.46,
+   "prob": 0.56,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-top5-thanksgiving.mp4",
+  "duration_s": 43.067,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 4.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 4.0,
+    "end_s": 4.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 4.5,
+    "end_s": 8.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 8.5,
+    "end_s": 10.0,
+    "duration_s": 1.5,
+    "n_frames": 3,
+    "fragment": false
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 13.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 13.0,
+    "end_s": 13.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 13.5,
+    "end_s": 16.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 16.5,
+    "end_s": 20.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 20.5,
+    "end_s": 22.5,
+    "duration_s": 2.0,
+    "n_frames": 4,
+    "fragment": false
+   },
+   {
+    "start_s": 22.5,
+    "end_s": 25.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 25.5,
+    "end_s": 29.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 29.5,
+    "end_s": 30.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 30.0,
+    "end_s": 34.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 34.0,
+    "end_s": 35.0,
+    "duration_s": 1.0,
+    "n_frames": 2,
+    "fragment": false
+   },
+   {
+    "start_s": 35.0,
+    "end_s": 35.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 35.5,
+    "end_s": 40.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 40.5,
+    "end_s": 43.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 5.0,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-top5-thanksgiving.mp4",
+  "metadata": "videos/roblox-top5-thanksgiving/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-top5-thanksgiving/index.html",
+  "n_sentences": 8,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 4.3,
+    "text": "Five Thanksgiving games, over 75 billion visits between them.",
+    "scene": 0,
+    "title": "75 BILLION VISITS.",
+    "title_element": "title-0",
+    "shared_words": [
+     "75",
+     "billion",
+     "visits"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": 0.0,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 4.74,
+    "end_s": 10.02,
+    "text": "Number five, NFL Universe Football, one billion visits, turkey rush for Thanksgiving.",
+    "scene": 1,
+    "title": "NFL UNIVERSE FOOTBALL",
+    "title_element": "game-1",
+    "shared_words": [
+     "nfl",
+     "universe",
+     "football"
+    ],
+    "match": true,
+    "appearance_s": 4.3,
+    "timing_gap_s": -0.44,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 10.88,
+    "end_s": 16.48,
+    "text": "Number four, Pet Simulator 99, almost three billion visits, giant turkey hunt.",
+    "scene": 2,
+    "title": "PET SIMULATOR 99",
+    "title_element": "game-2",
+    "shared_words": [
+     "pet",
+     "simulator",
+     "99"
+    ],
+    "match": true,
+    "appearance_s": 10.02,
+    "timing_gap_s": -0.86,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 17.2,
+    "end_s": 22.68,
+    "text": "Number three, Fisch, over five billion visits, Fischgiving starts with fourteen turkeys.",
+    "scene": 3,
+    "title": "FISCH",
+    "title_element": "game-3",
+    "shared_words": [
+     "fisch"
+    ],
+    "match": true,
+    "appearance_s": 16.48,
+    "timing_gap_s": -0.72,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 23.58,
+    "end_s": 29.64,
+    "text": "Number two, 99 Nights, almost 31 billion visits, Thanksgiving challenge now live.",
+    "scene": 4,
+    "title": "99 NIGHTS IN THE FOREST",
+    "title_element": "game-4",
+    "shared_words": [
+     "99",
+     "nights"
+    ],
+    "match": true,
+    "appearance_s": 22.68,
+    "timing_gap_s": -0.9,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 30.18,
+    "end_s": 35.34,
+    "text": "And number one, Grow a Garden, 36 billion visits, turkey hunt live.",
+    "scene": 5,
+    "title": "GROW A GARDEN",
+    "title_element": "game-5",
+    "shared_words": [
+     "grow",
+     "garden"
+    ],
+    "match": true,
+    "appearance_s": 29.64,
+    "timing_gap_s": -0.54,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 35.94,
+    "end_s": 39.68,
+    "text": "Five Thanksgiving games, over 75 billion visits in total.",
+    "scene": 6,
+    "title": "SEND THESE GAMES.",
+    "title_element": "title-6",
+    "shared_words": [
+     "games"
+    ],
+    "match": true,
+    "appearance_s": 35.34,
+    "timing_gap_s": -0.6,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 40.28,
+    "end_s": 42.22,
+    "text": "Send this to a friend who plays Roblox today.",
+    "scene": 6,
+    "title": "SEND THESE GAMES.",
+    "title_element": "title-6",
+    "shared_words": [
+     "send"
+    ],
+    "match": true,
+    "appearance_s": 35.34,
+    "timing_gap_s": -4.94,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-top5-thanksgiving.mp4",
+  "duration_s": 43.067,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 4.2,
+    "end_s": 4.4,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 10.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 16.4,
+    "end_s": 16.6,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 22.6,
+    "end_s": 22.8,
+    "duration_s": 0.2,
+    "n_frames": 2
+   },
+   {
+    "start_s": 29.6,
+    "end_s": 29.7,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 35.3,
+    "end_s": 35.4,
+    "duration_s": 0.1,
+    "n_frames": 1
+   }
+  ],
+  "max_empty_s": 0.2,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-top5-thanksgiving.mp4",
+  "image_std_t0": 54.85,
+  "title_bright_px_t0": 11353,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 54.86,
+  "title_bright_px_t01": 11358,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "Five Thanksgiving games, over 75 billion visits between them.",
+  "n_words": 9,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/roblox-top5-thanksgiving/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-top5-thanksgiving.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 446.0,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.955
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 5.0,
+  "n_image_spans": 13,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

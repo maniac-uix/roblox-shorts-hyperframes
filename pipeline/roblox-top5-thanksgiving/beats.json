@@ -1,0 +1,61 @@
+{
+ "beats": [
+  {
+   "duree": 3.5,
+   "image": "assets/images/top5-thanksgiving/hook-feast.webp",
+   "phrase": "Five Thanksgiving games, over 75 billion visits between them.",
+   "scene": 0,
+   "titre": "75 BILLION VISITS."
+  },
+  {
+   "duree": 4.6,
+   "image": "assets/images/top5-thanksgiving/nfl-turkey-rush.webp",
+   "phrase": "Number five, NFL Universe Football, one billion visits, turkey rush for Thanksgiving.",
+   "scene": 1,
+   "titre": "NFL UNIVERSE FOOTBALL"
+  },
+  {
+   "duree": 4.6,
+   "image": "assets/images/top5-thanksgiving/ps99-turkey-hunt.webp",
+   "phrase": "Number four, Pet Simulator 99, almost three billion visits, giant turkey hunt.",
+   "scene": 2,
+   "titre": "PET SIMULATOR 99"
+  },
+  {
+   "duree": 4.6,
+   "image": "assets/images/top5-thanksgiving/fisch-fischgiving.webp",
+   "phrase": "Number three, Fisch, over five billion visits, Fischgiving starts with fourteen turkeys.",
+   "scene": 3,
+   "titre": "FISCH"
+  },
+  {
+   "duree": 4.6,
+   "image": "assets/images/top5-thanksgiving/nights-thanksgiving.webp",
+   "phrase": "Number two, 99 Nights, almost 31 billion visits, Thanksgiving challenge now live.",
+   "scene": 4,
+   "titre": "99 NIGHTS IN THE FOREST"
+  },
+  {
+   "duree": 4.6,
+   "image": "assets/images/top5-thanksgiving/garden-turkey-hunt.webp",
+   "phrase": "And number one, Grow a Garden, 36 billion visits, turkey hunt live.",
+   "scene": 5,
+   "titre": "GROW A GARDEN"
+  },
+  {
+   "duree": 3.5,
+   "image": "assets/images/top5-thanksgiving/payoff-feast.webp",
+   "phrase": "Five Thanksgiving games, over 75 billion visits in total.",
+   "scene": 6,
+   "titre": "SEND THESE GAMES."
+  },
+  {
+   "duree": 3.5,
+   "image": "assets/images/top5-thanksgiving/share-friends.webp",
+   "phrase": "Send this to a friend who plays Roblox today.",
+   "scene": 6,
+   "titre": "SEND THESE GAMES."
+  }
+ ],
+ "format": "top5"
+}
