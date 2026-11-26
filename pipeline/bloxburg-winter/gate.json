@@ -1,0 +1,450 @@
+{
+ "slug": "bloxburg-winter",
+ "format": "game-discoveries",
+ "file": "output/roblox-bloxburg-winter.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.58 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 31.600 s vs video 31.600 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.22 LUFS (gate -14 \u00b1 0.5); true_peak: -1.5 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 12.1 dB (bed gain +10.28 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "83/83 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "2 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.04 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 4.5 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "8 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.1 s; 6 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 61.77; title bright px 11207"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "10 words; digit=True, ?=False, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 4.5 s; 8 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "builder",
+   "start": 6.48,
+   "end": 6.7,
+   "prob": 0.47
+  },
+  {
+   "word": "winter",
+   "start": 8.82,
+   "end": 9.02,
+   "prob": 0.59
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "builder",
+   "start": 6.48,
+   "end": 6.7,
+   "prob": 0.47,
+   "reason": "low-confidence"
+  },
+  {
+   "word": "winter",
+   "start": 8.82,
+   "end": 9.02,
+   "prob": 0.59,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-bloxburg-winter.mp4",
+  "duration_s": 31.6,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 3.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 3.0,
+    "end_s": 3.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 3.5,
+    "end_s": 8.0,
+    "duration_s": 4.5,
+    "n_frames": 9,
+    "fragment": false
+   },
+   {
+    "start_s": 8.0,
+    "end_s": 8.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 8.5,
+    "end_s": 12.0,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 12.0,
+    "end_s": 12.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 12.5,
+    "end_s": 15.5,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 15.5,
+    "end_s": 16.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 16.0,
+    "end_s": 20.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 20.0,
+    "end_s": 20.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 20.5,
+    "end_s": 24.0,
+    "duration_s": 3.5,
+    "n_frames": 7,
+    "fragment": false
+   },
+   {
+    "start_s": 24.0,
+    "end_s": 24.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 24.5,
+    "end_s": 28.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 28.5,
+    "end_s": 29.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 29.0,
+    "end_s": 31.5,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 4.5,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-bloxburg-winter.mp4",
+  "metadata": "videos/bloxburg-winter/metadata.json",
+  "composition": "videos/bloxburg-winter/index.html",
+  "n_sentences": 8,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.0,
+    "end_s": 3.44,
+    "text": "Players jumped 52 percent in one day \u2014 winter hit Bloxburg.",
+    "scene": 0,
+    "title": "+52% IN 24 HOURS.",
+    "title_element": "title-0",
+    "shared_words": [
+     "52"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": 0.0,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 4.7,
+    "end_s": 8.24,
+    "text": "Meet Welcome to Bloxburg, the town builder with 10 billion visits.",
+    "scene": 1,
+    "title": "WELCOME TO BLOXBURG",
+    "title_element": "head-1",
+    "shared_words": [
+     "welcome",
+     "bloxburg"
+    ],
+    "match": true,
+    "appearance_s": 3.44,
+    "timing_gap_s": -1.26,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 8.84,
+    "end_s": 12.34,
+    "text": "The Winter event started November 26, and runs to January 11.",
+    "scene": 2,
+    "title": "WINTER IS HERE.",
+    "title_element": "head-2",
+    "shared_words": [
+     "winter"
+    ],
+    "match": true,
+    "appearance_s": 8.24,
+    "timing_gap_s": -0.6,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 13.04,
+    "end_s": 15.9,
+    "text": "A new Skating Spotlight minigame leads the winter fun.",
+    "scene": 3,
+    "title": "SKATING SPOTLIGHT.",
+    "title_element": "head-3",
+    "shared_words": [
+     "skating",
+     "spotlight"
+    ],
+    "match": true,
+    "appearance_s": 12.34,
+    "timing_gap_s": -0.7,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 16.58,
+    "end_s": 20.22,
+    "text": "Snowstorms roll in, and plowing snow pays extra while they last.",
+    "scene": 4,
+    "title": "SNOWSTORMS PAY EXTRA.",
+    "title_element": "head-4",
+    "shared_words": [
+     "snowstorms",
+     "pay",
+     "extra"
+    ],
+    "match": true,
+    "appearance_s": 15.9,
+    "timing_gap_s": -0.68,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 20.8,
+    "end_s": 24.1,
+    "text": "The winter market is back, with new items and a glowing carriage.",
+    "scene": 5,
+    "title": "THE WINTER MARKET.",
+    "title_element": "head-5",
+    "shared_words": [
+     "winter",
+     "market"
+    ],
+    "match": true,
+    "appearance_s": 20.22,
+    "timing_gap_s": -0.58,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 24.8,
+    "end_s": 28.08,
+    "text": "Winter is here, and Bloxburg is still the coziest town.",
+    "scene": 6,
+    "title": "SEND WINTER TO A FRIEND.",
+    "title_element": "title-6",
+    "shared_words": [
+     "winter"
+    ],
+    "match": true,
+    "appearance_s": 24.1,
+    "timing_gap_s": -0.7,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 28.6,
+    "end_s": 30.8,
+    "text": "Send this to a friend who plays Bloxburg today.",
+    "scene": 6,
+    "title": "SEND WINTER TO A FRIEND.",
+    "title_element": "title-6",
+    "shared_words": [
+     "send",
+     "friend"
+    ],
+    "match": true,
+    "appearance_s": 24.1,
+    "timing_gap_s": -4.5,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-bloxburg-winter.mp4",
+  "duration_s": 31.6,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 3.4,
+    "end_s": 3.5,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 8.2,
+    "end_s": 8.3,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 12.3,
+    "end_s": 12.4,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 15.9,
+    "end_s": 16.0,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 20.2,
+    "end_s": 20.3,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 24.1,
+    "end_s": 24.2,
+    "duration_s": 0.1,
+    "n_frames": 1
+   }
+  ],
+  "max_empty_s": 0.1,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-bloxburg-winter.mp4",
+  "image_std_t0": 61.77,
+  "title_bright_px_t0": 11207,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 61.72,
+  "title_bright_px_t01": 11214,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "Players jumped 52 percent in one day \u2014 winter hit Bloxburg.",
+  "n_words": 10,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/bloxburg-winter/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-bloxburg-winter.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 445.5,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.954
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 4.5,
+  "n_image_spans": 8,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}

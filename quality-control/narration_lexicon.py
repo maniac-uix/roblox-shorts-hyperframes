@@ -60,7 +60,12 @@ def words(text: str) -> list:
     """Lower-cased word tokens; asterisks (emphasis marks) stripped.
     Known contractions are expanded to their two words ("you're" ->
     ["you", "are"]) so a Whisper contraction matches the script's
-    two-word form."""
+    two-word form. Whisper writes the spoken word "percent" as the
+    symbol "%" ("52 percent" -> "52%"); the [a-z0-9'] tokenizer would
+    drop the symbol, so expand it to the word first (26 Nov 2026,
+    bloxburg-winter — the symbol only ever matches a script "percent",
+    it cannot manufacture a match from silence)."""
+    text = text.replace("%", " percent ")
     out = []
     for tok in re.findall(r"[a-z0-9']+", text.lower().replace("*", " ")):
         out.extend(CONTRACTIONS.get(tok, [tok]))

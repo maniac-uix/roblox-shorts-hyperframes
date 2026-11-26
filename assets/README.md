@@ -168,3 +168,18 @@ All images below are **original illustrations generated in this environment** (M
 | `images/top5-thanksgiving/fisch-detail.webp` | 3 second shot (mid-sentence) | Close-up of a giant blocky turkey rising from a calm autumn sea surrounded by golden leaves, small voxel fishing boat nearby, sunset |
 | `images/top5-thanksgiving/nights-detail.webp` | 4 second shot (mid-sentence) | Close-up of a voxel crock pot steaming on a long wooden dinner table set with roast turkey dishes, bread and pumpkins, campfire glow |
 | `images/top5-thanksgiving/garden-detail.webp` | 5 second shot (mid-sentence) | Close-up of a proud giant blocky turkey pet with colorful feathers among huge pumpkins and corn stalks in a voxel garden, golden light |
+
+### bloxburg-winter (sky-blue #38BDF8, Game Discoveries)
+
+All images below are **original illustrations generated in this environment** (Muse native image generation, 26 Nov 2026, 1920×1280 WebP). No Roblox logos, no copyrighted characters, no game footage, no text in the images. Free to use in this project. Note: the generator's raw outputs (`media-generation-*.webp` + `.json` sidecars) were left in the folder alongside the clean names. `winter-tree-square.webp` was generated then deleted: too close to the hook tree image for the duplicate-image gate, replaced by `winter-townhall.webp`.
+
+| File | Scene / Beat | Content |
+|---|---|---|
+| `images/bloxburg-winter/hook-snow-town.webp` | 0 hook (beat 1) | Snowy voxel town square at dusk, big decorated Christmas tree with star, blocky characters in winter clothes, fairy lights, falling snow |
+| `images/bloxburg-winter/bloxburg-street.webp` | 1 game (beat 2) | Cozy voxel suburban street in winter, snow-covered roofs, smoking chimneys, snowman on a lawn, blocky character building a snowman |
+| `images/bloxburg-winter/winter-townhall.webp` | 2 dates (beat 3) | Snowy voxel town hall with clock tower, winter garlands and wreaths, frozen fountain in the plaza, lamp posts, falling snow |
+| `images/bloxburg-winter/skating-spotlight.webp` | 3 skating (beat 4) | Glowing outdoor ice skating rink at night, blocky skaters under bright spotlights, figure-skating show on a lit platform, snow-covered trees with fairy lights |
+| `images/bloxburg-winter/snowstorm-plow.webp` | 4 snowstorm (beat 5) | Chunky orange voxel snowplow clearing a snowy street in a heavy snowstorm, cozy houses with lit windows, waving driver |
+| `images/bloxburg-winter/winter-market.webp` | 5 market (beat 6) | Festive winter market at night, wooden stalls with striped awnings, glowing light-blue horse-drawn carriage with snowflake emblem, shoppers with hot drinks |
+| `images/bloxburg-winter/payoff-cozy.webp` | 6 payoff (beat 7) | Cozy voxel living room at night, fireplace with stockings, decorated Christmas tree, snow falling outside a big window, character sipping hot cocoa |
+| `images/bloxburg-winter/share-friends.webp` | 6 second shot (beat 8) | Cheerful blocky friends in winter clothes playing in the snow together, building a snowman, snowy town square with Christmas lights behind them |
