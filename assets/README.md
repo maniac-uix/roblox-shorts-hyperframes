@@ -63,6 +63,20 @@ characters, no game footage. Free to use in this project.
 | `images/facts/more-than-a-game.webp` | 5 third shot (v5: S10) | Voxel characters stepping out of a giant glowing game screen into a sunlit city street (v5: third shot — scene 5's window is 9.21 s, two images cannot both stay under 5.0 s) |
 | `images/facts/payoff-22.webp` | 5 second shot (v5: S11) | Three builders raising a giant golden 22 monument at dusk (v5: second shot) |
 
+### roblox-facts-brookhaven (teal, hook-test #3)
+
+| File | Scene | Content |
+|---|---|---|
+| `images/facts/hero-brookhaven.webp` | 0 hook | Voxel town avenue at golden sunset |
+| `images/facts/town-overview.webp` | 1 most visited | Aerial view of the whole voxel town |
+| `images/facts/calendar-2020.webp` | 2 since 2020 | Quiet voxel street in soft morning light |
+| `images/facts/crowd-town.webp` | 3 town (S4) | Crowded voxel town square with fountain |
+| `images/facts/house-car-role.webp` | 3 second shot (S5) | Voxel house with a red sports car in the driveway |
+| `images/facts/roles.webp` | 4 roles (S6) | Student, police officer and parent avatars |
+| `images/facts/favorites.webp` | 4 second shot (S7) | Golden star over the town at dusk, characters cheering |
+| `images/facts/club-brooks.webp` | 5 growing (S8) | Purple voxel nightclub with DJ and dancers |
+| `images/facts/payoff-town.webp` | 5 second shot (S9) | Night town from above with fireworks |
+
 ### roblox-top5-most-visited (amber)
 
 | File | Scene | Content |

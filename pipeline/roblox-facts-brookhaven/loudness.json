@@ -1,0 +1,20 @@
+{
+ "before": {
+  "input_i": -14.65,
+  "input_tp": -1.37,
+  "input_lra": 2.8,
+  "input_thresh": -25.16,
+  "target_offset": 0.13,
+  "linear": false,
+  "normalization_type": "dynamic"
+ },
+ "after": {
+  "input_i": -14.3,
+  "input_tp": -1.23,
+  "input_lra": 2.7,
+  "input_thresh": -24.79,
+  "target_offset": 0.04,
+  "linear": false,
+  "normalization_type": "dynamic"
+ }
+}

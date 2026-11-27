@@ -1,0 +1,435 @@
+{
+ "slug": "roblox-facts-brookhaven",
+ "format": "facts",
+ "file": "output/roblox-facts-brookhaven.mp4",
+ "overall": "PASS",
+ "checks": {
+  "format 1080x1920/30fps/h264/yuv420p": {
+   "verdict": "PASS",
+   "value": "1080x1920 h264 yuv420p @ 30/1"
+  },
+  "qc.sh (9 checks)": {
+   "verdict": "PASS",
+   "value": "exit 0; final silence 0.61 s"
+  },
+  "audio 48kHz / A-V gap / loudness": {
+   "verdict": "PASS",
+   "value": "sample_rate: 48000 Hz (required 48000); av_gap: audio 34.000 s vs video 34.000 s, gap 0.000 s (gate <= 0.02 s); loudness_integrated: -14.3 LUFS (gate -14 \u00b1 0.5); true_peak: -1.23 dBTP (gate <= -1)"
+  },
+  "voice above music (>= 6 dB)": {
+   "verdict": "PASS",
+   "value": "worst window 11.2 dB (bed gain +10.62 dB)"
+  },
+  "narration fuzzy (Whisper small)": {
+   "verdict": "PASS",
+   "value": "85/85 words, missing 0; final sentence COMPLETE"
+  },
+  "low-confidence words (< 0.6)": {
+   "verdict": "recorded",
+   "value": "1 words \u2014 see report for timestamps"
+  },
+  "words to listen": {
+   "verdict": "recorded",
+   "value": "1 words \u2014 see report for timestamps"
+  },
+  "caption sync (Whisper tiny)": {
+   "verdict": "PASS",
+   "value": "max |start gap| 0.08 s (gate <= 0.3 s)"
+  },
+  "duplicate images (max span <= 5.0 s, no reuse)": {
+   "verdict": "PASS",
+   "value": "max span 5.0 s; 0 span(s) over 5.0 s; reuse: none"
+  },
+  "title / sentence (match + appear <= 0.3 s)": {
+   "verdict": "PASS",
+   "value": "9 sentences; mismatches []; late titles []"
+  },
+  "empty image zone (never > 0.2 s)": {
+   "verdict": "PASS",
+   "value": "max empty 0.2 s; 5 span(s)"
+  },
+  "first frame (title + image at t=0)": {
+   "verdict": "PASS",
+   "value": "image std 47.86; title bright px 8839"
+  },
+  "hook (<= 12 words + digit/?/number-word)": {
+   "verdict": "PASS",
+   "value": "4 words; digit=True, ?=False, number-word=True"
+  },
+  "brand (watermark >= 36 px, mascot >= 220 px)": {
+   "verdict": "PASS",
+   "value": "watermark 36.0 px, present=True; mascot 240.0 px, present=True"
+  },
+  "visual change, image-only (<= 5.0 s without a new image)": {
+   "verdict": "PASS",
+   "value": "longest stretch 5.0 s; 9 image spans (zooms do not count)"
+  }
+ },
+ "low_confidence_words": [
+  {
+   "word": "the",
+   "start": 25.68,
+   "end": 25.76,
+   "prob": 0.21
+  }
+ ],
+ "listen_words": [
+  {
+   "word": "the",
+   "start": 25.68,
+   "end": 25.76,
+   "prob": 0.21,
+   "reason": "low-confidence"
+  }
+ ],
+ "image_runs": {
+  "mp4": "output/roblox-facts-brookhaven.mp4",
+  "duration_s": 34.0,
+  "sample_fps": 2.0,
+  "spans": [
+   {
+    "start_s": 0.0,
+    "end_s": 2.0,
+    "duration_s": 2.0,
+    "n_frames": 4,
+    "fragment": false
+   },
+   {
+    "start_s": 2.0,
+    "end_s": 2.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 2.5,
+    "end_s": 6.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 6.5,
+    "end_s": 7.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 7.0,
+    "end_s": 10.0,
+    "duration_s": 3.0,
+    "n_frames": 6,
+    "fragment": false
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 10.5,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 10.5,
+    "end_s": 14.5,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   },
+   {
+    "start_s": 14.5,
+    "end_s": 15.0,
+    "duration_s": 0.5,
+    "n_frames": 1,
+    "fragment": true
+   },
+   {
+    "start_s": 15.0,
+    "end_s": 17.5,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 17.5,
+    "end_s": 22.5,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 22.5,
+    "end_s": 25.0,
+    "duration_s": 2.5,
+    "n_frames": 5,
+    "fragment": false
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 30.0,
+    "duration_s": 5.0,
+    "n_frames": 10,
+    "fragment": false
+   },
+   {
+    "start_s": 30.0,
+    "end_s": 34.0,
+    "duration_s": 4.0,
+    "n_frames": 8,
+    "fragment": false
+   }
+  ],
+  "max_span_s": 5.0,
+  "duration_verdict": "PASS",
+  "reuse": [],
+  "reuse_verdict": "PASS",
+  "reuse_method": "images_map",
+  "outro_exception_applied": false,
+  "verdict": "PASS"
+ },
+ "title_sentence": {
+  "mp4": "output/roblox-facts-brookhaven.mp4",
+  "metadata": "videos/roblox-facts-brookhaven/metadata.json",
+  "composition": "/home/hatch/workspace/hyperframes-roblox-shorts/videos/roblox-facts-brookhaven/index.html",
+  "n_sentences": 9,
+  "sentences": [
+   {
+    "index": 1,
+    "start_s": 0.44,
+    "end_s": 2.42,
+    "text": "89.9 billion visits.",
+    "scene": 0,
+    "title": "89.9 BILLION VISITS.",
+    "title_element": "title-0",
+    "shared_words": [
+     "89",
+     "9",
+     "billion",
+     "visits"
+    ],
+    "match": true,
+    "appearance_method": "no entrance tween \u2014 visible from t=0",
+    "appearance_s": 0.0,
+    "timing_gap_s": -0.44,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 2,
+    "start_s": 2.88,
+    "end_s": 6.56,
+    "text": "That is Brookhaven RP, the most visited game in Roblox history.",
+    "scene": 1,
+    "title": "MOST VISITED EVER.",
+    "title_element": "head-1",
+    "shared_words": [
+     "most",
+     "visited"
+    ],
+    "match": true,
+    "appearance_s": 2.42,
+    "timing_gap_s": -0.46,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 3,
+    "start_s": 7.12,
+    "end_s": 10.08,
+    "text": "It launched in April 2020, and players never left.",
+    "scene": 2,
+    "title": "SINCE APRIL 2020.",
+    "title_element": "head-2",
+    "shared_words": [
+     "april",
+     "2020"
+    ],
+    "match": true,
+    "appearance_s": 6.56,
+    "timing_gap_s": -0.56,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 4,
+    "start_s": 10.58,
+    "end_s": 14.0,
+    "text": "Right now, over 500,000 players are exploring its town.",
+    "scene": 3,
+    "title": "A TOWN OF YOUR OWN.",
+    "title_element": "head-3",
+    "shared_words": [
+     "town"
+    ],
+    "match": true,
+    "appearance_s": 10.08,
+    "timing_gap_s": -0.5,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 5,
+    "start_s": 14.58,
+    "end_s": 17.52,
+    "text": "In this town, you pick a house, a car, and a role.",
+    "scene": 3,
+    "title": "A TOWN OF YOUR OWN.",
+    "title_element": "head-3",
+    "shared_words": [
+     "town"
+    ],
+    "match": true,
+    "appearance_s": 10.08,
+    "timing_gap_s": -4.5,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 6,
+    "start_s": 18.54,
+    "end_s": 22.3,
+    "text": "Student, police officer, parent \u2014 pick any role you want.",
+    "scene": 4,
+    "title": "PICK YOUR ROLE.",
+    "title_element": "head-4",
+    "shared_words": [
+     "pick",
+     "role"
+    ],
+    "match": true,
+    "appearance_s": 17.52,
+    "timing_gap_s": -1.02,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 7,
+    "start_s": 22.96,
+    "end_s": 25.08,
+    "text": "31 million players picked it as their favorite.",
+    "scene": 4,
+    "title": "PICK YOUR ROLE.",
+    "title_element": "head-4",
+    "shared_words": [
+     "pick"
+    ],
+    "match": true,
+    "appearance_s": 17.52,
+    "timing_gap_s": -5.44,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 8,
+    "start_s": 25.68,
+    "end_s": 29.0,
+    "text": "And the town keeps growing \u2014 Club Brooks just opened its doors.",
+    "scene": 5,
+    "title": "THE TOWN KEEPS GROWING.",
+    "title_element": "title-5",
+    "shared_words": [
+     "town",
+     "keeps",
+     "growing"
+    ],
+    "match": true,
+    "appearance_s": 25.08,
+    "timing_gap_s": -0.6,
+    "timing_verdict": "PASS"
+   },
+   {
+    "index": 9,
+    "start_s": 29.7,
+    "end_s": 33.26,
+    "text": "89.9 billion visits \u2014 and the town is still filling up.",
+    "scene": 5,
+    "title": "THE TOWN KEEPS GROWING.",
+    "title_element": "title-5",
+    "shared_words": [
+     "town"
+    ],
+    "match": true,
+    "appearance_s": 25.08,
+    "timing_gap_s": -4.62,
+    "timing_verdict": "PASS"
+   }
+  ],
+  "mismatches": [],
+  "late_titles": [],
+  "verdict": "PASS"
+ },
+ "empty_zone": {
+  "mp4": "output/roblox-facts-brookhaven.mp4",
+  "duration_s": 34.0,
+  "fps": 10.0,
+  "std_threshold": 12.0,
+  "empty_spans": [
+   {
+    "start_s": 2.4,
+    "end_s": 2.5,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 6.5,
+    "end_s": 6.6,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 10.0,
+    "end_s": 10.1,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 17.5,
+    "end_s": 17.6,
+    "duration_s": 0.1,
+    "n_frames": 1
+   },
+   {
+    "start_s": 25.0,
+    "end_s": 25.2,
+    "duration_s": 0.2,
+    "n_frames": 2
+   }
+  ],
+  "max_empty_s": 0.2,
+  "verdict": "PASS"
+ },
+ "first_frame": {
+  "mp4": "output/roblox-facts-brookhaven.mp4",
+  "image_std_t0": 47.86,
+  "title_bright_px_t0": 8839,
+  "image_visible": true,
+  "title_visible": true,
+  "image_std_t01": 47.96,
+  "title_bright_px_t01": 8846,
+  "verdict": "PASS"
+ },
+ "hook": {
+  "first_sentence": "89.9 billion visits.",
+  "n_words": 4,
+  "has_digit": true,
+  "has_question": false,
+  "has_number_word": true,
+  "verdict": "PASS",
+  "source": "videos/roblox-facts-brookhaven/metadata.json"
+ },
+ "brand": {
+  "mp4": "output/roblox-facts-brookhaven.mp4",
+  "watermark": {
+   "declared_font_px": 36.0,
+   "present": true,
+   "median_px": 454.5,
+   "median_glyph_height_half_px": 12.0
+  },
+  "mascot": {
+   "declared_width_px": 240.0,
+   "present": true,
+   "median_ncc": 0.957
+  },
+  "verdict": "PASS"
+ },
+ "visual_change": {
+  "verdict": "PASS",
+  "max_span_s": 5.0,
+  "n_image_spans": 9,
+  "method": "image-runs (Phase 4C)",
+  "note": "supersedes Phase 4B fps=2 frame-diff warning (check-visual-change.py): that instrument counted zooms and measured 2.0 s max gaps on the v4 videos while the same image was held 5.5-9.9 s"
+ }
+}
